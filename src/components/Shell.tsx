@@ -20,6 +20,7 @@ import {
   Dna,
   Gamepad2,
   Heart,
+  Gem,
   Home,
   Leaf,
   Map,
@@ -43,6 +44,7 @@ const navigation = [
     items: [
       ["/", "Visão geral", Home],
       ["/pokedex", "Pokédex", ScanLine],
+      ["/mega-dex", "Mega Dex", Gem],
       ["/catalog/type", "Tipos", Dna],
       ["/catalog/move", "Golpes", Swords],
       ["/catalog/ability", "Habilidades", Sparkles],

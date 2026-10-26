@@ -7,6 +7,7 @@ import type {
 
 export const pretty = (value: string) =>
   value.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
+export const isMegaPokemon = (name: string) => /-mega(?:-|$)/i.test(name);
 export const normalize = (value: string) =>
   value
     .trim()

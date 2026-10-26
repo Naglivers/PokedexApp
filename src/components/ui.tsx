@@ -142,7 +142,7 @@ export function Art({
   name,
   style,
 }: {
-  uri?: string | null;
+  uri?: string | number | null;
   name: string;
   style?: StyleProp<ImageStyle>;
 }) {
@@ -151,7 +151,7 @@ export function Art({
   return uri && !failed ? (
     <Image
       accessibilityLabel={name}
-      source={{ uri }}
+      source={typeof uri === "number" ? uri : { uri }}
       resizeMode="contain"
       style={style}
       onError={() => setFailed(true)}

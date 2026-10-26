@@ -36,6 +36,7 @@ Module._load = function (request, ...args) {
 const api = require("../src/services/api.ts");
 const {
   matchesName,
+  isMegaPokemon,
   defensiveMultiplier,
   flattenEvolution,
   evolutionCondition,
@@ -45,6 +46,11 @@ const {
 const { useFavorites } = require("../src/store/favorites.ts");
 const { useCollection } = require("../src/store/collection.ts");
 const { QueryClient } = require("@tanstack/react-query");
+test("dex separation includes Mega X, Y and Z without excluding Meganium or Yanmega", () => {
+  const names = ["venusaur-mega", "charizard-mega-x", "charizard-mega-y", "absol-mega-z", "meganium", "yanmega", "pikachu"];
+  assert.deepEqual(names.filter(isMegaPokemon), names.slice(0, 4));
+  assert.deepEqual(names.filter((name) => !isMegaPokemon(name)), ["meganium", "yanmega", "pikachu"]);
+});
 const resource = (name) => ({
   name,
   url: `https://pokeapi.co/api/v2/type/${name}/`,

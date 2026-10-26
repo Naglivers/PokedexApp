@@ -31,12 +31,15 @@ import { types } from "../src/constants/pokemon";
 import { pretty } from "../src/utils/pokemon";
 import { overviewOptions } from "../src/features/community/CommunityProvider";
 import { getRadarPokemon } from "../src/features/community/radar";
+import { getMostVisitedPages } from "../src/features/community/trackedPages";
+import { VisitedPages } from "../src/features/community/VisitedPages";
 
 export default function Home() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const mobile = width < 700;
   const community = useQuery(overviewOptions);
+  const mostViewed = getMostVisitedPages(community.data?.pages);
   const { pokemonId: featuredId, mostLiked } = getRadarPokemon(community.data);
   const featured = useQuery(pokemonOptions(featuredId));
   const list = useQuery({
@@ -265,6 +268,33 @@ export default function Home() {
             </Pressable>
           );
         })}
+      </View>
+      <View>
+        <View style={[ui.between, { marginBottom: 13 }]}>
+          <View style={ui.row}>
+            <Zap size={18} color="#8C7DA6" />
+            <Text style={ui.sectionTitle}>Páginas mais visitadas</Text>
+          </View>
+          <Pressable
+            accessibilityRole="link"
+            onPress={() => router.push("/community")}
+            style={ui.row}
+          >
+            <Text style={s.viewAll}>Ver comunidade</Text>
+            <ArrowRight size={14} color={c.accent} />
+          </Pressable>
+        </View>
+        {mostViewed.length ? (
+          <VisitedPages pages={mostViewed} />
+        ) : (
+          <View style={[ui.panel, { backgroundColor: "#F5F1FA" }]}>
+            <Text style={ui.subtitle}>
+              {community.isLoading
+                ? "Consultando as páginas mais acessadas…"
+                : "Ainda não há dados suficientes de visualizações."}
+            </Text>
+          </View>
+        )}
       </View>
       <View>
         <View style={[ui.between, { marginBottom: 13 }]}>

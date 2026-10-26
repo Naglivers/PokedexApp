@@ -35,10 +35,10 @@ import {
 import { indexOptions } from "../src/services/queries";
 import { useDebounce } from "../src/hooks/useDebounce";
 import { useFavorites } from "../src/store/favorites";
-import { matchesName } from "../src/utils/pokemon";
+import { matchesName, isMegaPokemon } from "../src/utils/pokemon";
 import { types } from "../src/constants/pokemon";
 
-export default function Pokedex() {
+export default function Pokedex({ megaOnly = false }: { megaOnly?: boolean }) {
   const params = useLocalSearchParams<{ q?: string; type?: string }>();
   const { width } = useWindowDimensions();
   const [search, setSearch] = useState(params.q ?? "");
@@ -55,13 +55,7 @@ export default function Pokedex() {
   const pageQuery = useQuery({
     queryKey: ["pokemon-page", page, 24],
     queryFn: ({ signal }) => getResourceList("pokemon", 24, page * 24, signal),
-    enabled:
-      !query &&
-      !type &&
-      !second &&
-      !generation &&
-      !favoritesOnly &&
-      sort === "id",
+    enabled: false,
   });
   const typeQuery = useQuery({
     queryKey: ["type", type],
@@ -87,15 +81,12 @@ export default function Pokedex() {
     callback();
     setPage(0);
   };
-  const active =
-    !!query ||
-    !!type ||
-    !!second ||
-    !!generation ||
-    favoritesOnly ||
-    sort !== "id";
+  // A lista filtrada garante que formas Mega nunca apareçam na Pokédex normal.
+  const active = true;
   const records = useMemo(() => {
-    let list = [...(index.data?.results ?? [])];
+    let list = [...(index.data?.results ?? [])].filter((item) =>
+      isMegaPokemon(item.name) === megaOnly,
+    );
     if (query)
       list = list.filter((item) =>
         matchesName(item.name, idFromUrl(item.url), query),
@@ -142,6 +133,7 @@ export default function Pokedex() {
     favoritesOnly,
     ids,
     sort,
+    megaOnly,
   ]);
   const total = active
     ? records.length
@@ -183,9 +175,11 @@ export default function Pokedex() {
           <Text style={[ui.label, { color: c.accent, marginBottom: 7 }]}>
             EXPLORE. CONHEÇA. COLECIONE.
           </Text>
-          <Text style={ui.title}>Pokédex nacional</Text>
+          <Text style={ui.title}>{megaOnly ? "Mega Dex" : "Pokédex nacional"}</Text>
           <Text style={[ui.subtitle, { marginTop: 5 }]}>
-            De Bulbasaur às novas descobertas. Todos têm seu lugar aqui.
+            {megaOnly
+              ? "Formas Mega Evoluídas, reunidas em um só lugar."
+              : "De Bulbasaur às novas descobertas. Todos têm seu lugar aqui."}
           </Text>
         </View>
         <ScanLine size={35} strokeWidth={1} color="#BCC5D1" />
@@ -196,7 +190,11 @@ export default function Pokedex() {
             <SearchInput
               value={search}
               onChange={(text) => change(() => setSearch(text))}
-              placeholder="Nome ou número, ex.: pikachu ou 25"
+            placeholder={
+              megaOnly
+                ? "Pesquisar Mega Pokémon…"
+                : "Nome ou número, ex.: pikachu ou 25"
+            }
             />
           </View>
           <Button

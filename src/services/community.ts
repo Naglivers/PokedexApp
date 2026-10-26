@@ -1,5 +1,6 @@
 import type { Session } from "@supabase/supabase-js";
 import { supabase } from "./supabase";
+import { isTrackedPage } from "../features/community/trackedPages";
 
 export type CommunityOverview = {
   likes: { pokemon_id: number; total: number }[];
@@ -103,7 +104,7 @@ export async function setPokemonLike(
   return data as LikeResult;
 }
 export async function trackPage(path: string): Promise<void> {
-  if (!/^\/[a-zA-Z0-9/_-]*$/.test(path) || path.length > 180) return;
+  if (!isTrackedPage(path)) return;
   await ensureCommunitySession();
   const { error } = await client().rpc("pokeatlas_track_page", {
     p_path: path,

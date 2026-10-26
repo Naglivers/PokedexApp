@@ -98,6 +98,26 @@ test("tracking rejects queries and full URLs; only route paths are transmitted",
     params: { p_path: "/pokemon/25" },
   });
 });
+
+test("tracking only accepts Pokemon, moves, abilities and items", async () => {
+  response = { data: null, error: null };
+  const before = calls.length;
+  await community.trackPage("/");
+  await community.trackPage("/catalog/region");
+  await community.trackPage("/community");
+  await community.trackPage("/catalog/move");
+  await community.trackPage("/catalog/item/");
+  await community.trackPage("/catalog/ability");
+  await community.trackPage("/catalog/move/1/extra");
+  await community.trackPage("/pokemon/25");
+  await community.trackPage("/catalog/move/10");
+  await community.trackPage("/catalog/ability/65");
+  await community.trackPage("/catalog/item/1");
+  assert.deepEqual(
+    calls.slice(before).map(({ params }) => params.p_path),
+    ["/pokemon/25", "/catalog/move/10", "/catalog/ability/65", "/catalog/item/1"],
+  );
+});
 test("missing schema is a setup state and does not fabricate rankings", async () => {
   response = {
     data: null,
