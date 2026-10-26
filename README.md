@@ -36,7 +36,13 @@ Se outra instância estiver usando a porta, encerre-a ou use `npm start -- --por
 
 Os campos sem valores são mostrados como indisponíveis. Os textos da interface são em português; descrições oficiais usam inglês como fallback. Catálogos auxiliares usam visualização estruturada para disponibilizar todos os campos, sem inventar conteúdo. Filtros avançados de atributos, lendários e faixas de peso/altura não estão implementados.
 
-## Arquitetura
+## Supabase e comunidade
+
+Curtidas e rankings globais usam Supabase, com configuração em `.env.local`, protegido do Git. A comunidade fica em `/community`; há acesso pelo menu e pela página inicial. Para ativar as tabelas, as funções SQL e a autenticação anônima, siga [supabase/README.md](supabase/README.md). A chave pública sozinha não executa a migração. Favoritos e equipes continuam locais, independentes das curtidas.
+
+Execute `npm run supabase:check` para verificar se os serviços necessários já estão disponíveis.
+
+## Organização do código
 
 Os ícones ficam em `assets/brand/`: a fonte vetorial `icon.svg`, o ícone 1024 px sem transparência para iOS/Android, o foreground transparente do ícone adaptativo Android e os favicons. Para regenerar os PNGs após alterar o desenho: `npm run icons`. Os ícones web são publicados também em `public/`; a configuração nativa fica em `app.json`.
 

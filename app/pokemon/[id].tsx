@@ -39,6 +39,10 @@ import {
 import { indexOptions, pokemonOptions } from "../../src/services/queries";
 import { localText, pretty } from "../../src/utils/pokemon";
 import { useFavorites } from "../../src/store/favorites";
+import {
+  LikeCounts,
+  LikeButton,
+} from "../../src/features/community/LikeButton";
 import { useCollection } from "../../src/store/collection";
 import { EvolutionTree } from "../../src/features/pokemon/EvolutionTree";
 import {
@@ -193,6 +197,9 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
                   ? "Equipe completa"
                   : "Equipe"}
             </Button>
+            <LikeCounts ids={[p.id]}>
+              <LikeButton pokemonId={p.id} />
+            </LikeCounts>
           </View>
         </View>
         <View style={s.artArea}>

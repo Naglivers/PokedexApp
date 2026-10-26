@@ -3,3 +3,6 @@ node_modules/
 dist/
 web-build/
 native-build-check/
+.env
+.env.*
+!.env.example

@@ -275,6 +275,25 @@ export default function Home() {
           <PokemonSkeletons />
         )}
       </View>
+      <View style={[ui.panel, { backgroundColor: "#EEF1F9" }]}>
+        <View style={ui.row}>
+          <Sparkles size={19} color="#8C7DA6" />
+          <Text style={ui.sectionTitle}>As descobertas da comunidade</Text>
+        </View>
+        <Text style={ui.subtitle}>
+          Veja quais Pokémon conquistaram mais curtidas e quais páginas estão
+          sendo exploradas.
+        </Text>
+        <View style={{ alignSelf: "flex-start" }}>
+          <Button
+            variant="outline"
+            onPress={() => router.push("/community")}
+            icon={<ArrowUpRight size={14} color={c.muted} />}
+          >
+            Explorar rankings
+          </Button>
+        </View>
+      </View>
       <View style={[s.bottomRow, mobile && { flexDirection: "column" }]}>
         <View style={[ui.panel, { flex: 1.4 }]}>
           <View style={ui.between}>

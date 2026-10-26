@@ -16,6 +16,7 @@ import { pokemonOptions } from "../services/queries";
 import { PokemonDetail, idFromUrl, spriteUrl } from "../services/api";
 import { pretty } from "../utils/pokemon";
 import { useFavorites } from "../store/favorites";
+import { LikeButton, LikeCounts } from "../features/community/LikeButton";
 
 export function PokemonCard({
   pokemon,
@@ -87,6 +88,16 @@ export function PokemonCard({
           </View>
         </View>
       </Pressable>
+      <View
+        style={{
+          marginHorizontal: 15,
+          paddingVertical: 7,
+          borderTopWidth: 1,
+          borderTopColor: c.line,
+        }}
+      >
+        <LikeButton pokemonId={id} />
+      </View>
       <Pressable
         accessibilityRole="button"
         accessibilityLabel={`${favorite ? "Remover" : "Adicionar"} ${pretty(pokemon?.name ?? name ?? "")} ${favorite ? "dos" : "aos"} favoritos`}
@@ -125,21 +136,23 @@ export function PokemonGrid({
     queries: records.map((record) => pokemonOptions(idFromUrl(record.url))),
   });
   return (
-    <View style={s.grid}>
-      {records.map((record, index) => (
-        <View
-          key={record.url}
-          style={{ width: `${100 / columns}%`, padding: 7 }}
-        >
-          <PokemonCard
-            id={Number(idFromUrl(record.url))}
-            name={record.name}
-            pokemon={queries[index].data}
-            loading={queries[index].isPending}
-          />
-        </View>
-      ))}
-    </View>
+    <LikeCounts ids={records.map((record) => Number(idFromUrl(record.url)))}>
+      <View style={s.grid}>
+        {records.map((record, index) => (
+          <View
+            key={record.url}
+            style={{ width: `${100 / columns}%`, padding: 7 }}
+          >
+            <PokemonCard
+              id={Number(idFromUrl(record.url))}
+              name={record.name}
+              pokemon={queries[index].data}
+              loading={queries[index].isPending}
+            />
+          </View>
+        ))}
+      </View>
+    </LikeCounts>
   );
 }
 export function PokemonSkeletons({ count = 8 }: { count?: number }) {

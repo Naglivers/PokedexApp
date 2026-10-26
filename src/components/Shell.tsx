@@ -12,6 +12,7 @@ import {
 import { usePathname, useRouter } from "expo-router";
 import {
   ArrowUpRight,
+  BarChart3,
   BookOpen,
   ChevronRight,
   Code2,
@@ -61,6 +62,7 @@ const navigation = [
     group: "SEU ESPAÇO",
     items: [
       ["/favorites", "Favoritos", Heart],
+      ["/community", "Comunidade", BarChart3],
       ["/compare", "Comparador", Shuffle],
       ["/team-builder", "Minha equipe", Users],
     ],
