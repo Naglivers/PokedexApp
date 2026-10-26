@@ -29,6 +29,7 @@ import {
   baseTotal,
   defensiveMultiplier,
   localText,
+  localDescription,
   pretty,
 } from "../../utils/pokemon";
 
@@ -172,8 +173,7 @@ export function Abilities({ pokemon }: { pokemon: PokemonDetail }) {
           <Text style={[ui.body, { fontSize: 11 }]}>
             {results[i].isPending
               ? "Carregando efeito…"
-              : localText(results[i].data?.effect_entries, "short_effect") ||
-                localText(results[i].data?.flavor_text_entries) ||
+              : localDescription(results[i].data) ||
                 "Abra para consultar os dados completos."}
           </Text>
         </Pressable>
@@ -181,7 +181,8 @@ export function Abilities({ pokemon }: { pokemon: PokemonDetail }) {
     </View>
   );
 }
-export function Moves({ pokemon }: { pokemon: PokemonDetail }) {
+export { Moves } from "./MovesTable";
+function LegacyMoves({ pokemon }: { pokemon: PokemonDetail }) {
   const [query, setQuery] = useState("");
   const [method, setMethod] = useState("");
   const [version, setVersion] = useState("");

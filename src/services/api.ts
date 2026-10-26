@@ -1,4 +1,5 @@
 import axios from "axios";
+import { registerNames } from "../i18n/translateLocal";
 
 export const BASE = "https://pokeapi.co/api/v2/";
 export const api = axios.create({ baseURL: BASE, timeout: 20000 });
@@ -152,18 +153,22 @@ export async function getResource<T = GenericResource>(
   const name = String(id).trim().toLowerCase().replace(/^#/, "");
   if (!/^[a-z-]+$/.test(resource) || !/^[a-z0-9-]+$/.test(name))
     throw new Error("Informe um nome ou número válido.");
-  return limited(
-    async () =>
-      (await api.get<T>(`${resource}/${encodeURIComponent(name)}/`, { signal }))
-        .data,
-  );
+  return limited(async () => {
+    const { data } = await api.get<T>(`${resource}/${encodeURIComponent(name)}/`, { signal });
+    registerNames(data);
+    return data;
+  });
 }
 export async function getByUrl<T = GenericResource>(
   url: string,
   signal?: AbortSignal,
 ): Promise<T> {
   if (!url.startsWith(BASE)) throw new Error("Link da PokéAPI inválido.");
-  return limited(async () => (await api.get<T>(url, { signal })).data);
+  return limited(async () => {
+    const { data } = await api.get<T>(url, { signal });
+    registerNames(data);
+    return data;
+  });
 }
 export async function getResourceCatalog(
   signal?: AbortSignal,

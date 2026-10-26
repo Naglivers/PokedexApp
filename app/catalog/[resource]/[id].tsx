@@ -6,11 +6,12 @@ import { ArrowLeft, Database } from "lucide-react-native";
 import { colors as c, ui } from "../../../src/theme";
 import { getResource } from "../../../src/services/api";
 import { resourceLabels } from "../../../src/constants/pokemon";
-import { localText, pretty } from "../../../src/utils/pokemon";
+import { localText, pretty, localDescription } from "../../../src/utils/pokemon";
 import { Button, ErrorState, Loading } from "../../../src/components/ui";
 import { ResourceData } from "../../../src/components/ResourceData";
 import { EvolutionTree } from "../../../src/features/pokemon/EvolutionTree";
-import type { EvolutionChain } from "../../../src/services/api";
+import type { EvolutionChain, TypeDetail } from "../../../src/services/api";
+import { TypePokemon } from "../../../src/features/catalog/TypePokemon";
 export default function ResourceDetail() {
   const { resource, id } = useLocalSearchParams<{
     resource: string;
@@ -22,10 +23,7 @@ export default function ResourceDetail() {
     queryKey: ["resource", resource, id],
     queryFn: ({ signal }) => getResource(resource, id, signal),
   });
-  const description =
-    localText(query.data?.effect_entries, "effect") ||
-    localText(query.data?.flavor_text_entries) ||
-    localText(query.data?.descriptions, "description");
+  const description = localDescription(query.data, "effect");
   return (
     <View style={[ui.page, width < 650 && { padding: 18 }]}>
       <View style={{ alignSelf: "flex-start" }}>
@@ -69,6 +67,9 @@ export default function ResourceDetail() {
             relacionados.
           </Text>
           <ResourceData data={query.data} />
+          {resource === "type" && Array.isArray(query.data.pokemon) && (
+            <TypePokemon name={String(query.data.name ?? id)} pokemon={(query.data as unknown as TypeDetail).pokemon} />
+          )}
         </>
       )}
     </View>

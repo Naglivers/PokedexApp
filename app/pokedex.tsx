@@ -35,10 +35,11 @@ import {
 import { indexOptions } from "../src/services/queries";
 import { useDebounce } from "../src/hooks/useDebounce";
 import { useFavorites } from "../src/store/favorites";
-import { matchesName, isMegaPokemon } from "../src/utils/pokemon";
+import { matchesName, matchesDex } from "../src/utils/pokemon";
 import { types } from "../src/constants/pokemon";
 
-export default function Pokedex({ megaOnly = false }: { megaOnly?: boolean }) {
+export default function Pokedex({ megaOnly = false, gmaxOnly = false }: { megaOnly?: boolean; gmaxOnly?: boolean }) {
+  const dex = megaOnly ? "mega" : gmaxOnly ? "gmax" : "normal";
   const params = useLocalSearchParams<{ q?: string; type?: string }>();
   const { width } = useWindowDimensions();
   const [search, setSearch] = useState(params.q ?? "");
@@ -81,11 +82,11 @@ export default function Pokedex({ megaOnly = false }: { megaOnly?: boolean }) {
     callback();
     setPage(0);
   };
-  // A lista filtrada garante que formas Mega nunca apareçam na Pokédex normal.
+  // Apply the dex filter before searching, sorting and pagination.
   const active = true;
   const records = useMemo(() => {
     let list = [...(index.data?.results ?? [])].filter((item) =>
-      isMegaPokemon(item.name) === megaOnly,
+      matchesDex(item.name, dex),
     );
     if (query)
       list = list.filter((item) =>
@@ -133,7 +134,7 @@ export default function Pokedex({ megaOnly = false }: { megaOnly?: boolean }) {
     favoritesOnly,
     ids,
     sort,
-    megaOnly,
+    dex,
   ]);
   const total = active
     ? records.length
@@ -175,10 +176,11 @@ export default function Pokedex({ megaOnly = false }: { megaOnly?: boolean }) {
           <Text style={[ui.label, { color: c.accent, marginBottom: 7 }]}>
             EXPLORE. CONHEÇA. COLECIONE.
           </Text>
-          <Text style={ui.title}>{megaOnly ? "Mega Dex" : "Pokédex nacional"}</Text>
+          <Text style={ui.title}>{megaOnly ? "Mega Dex" : gmaxOnly ? "Gmax Dex" : "Pokédex nacional"}</Text>
           <Text style={[ui.subtitle, { marginTop: 5 }]}>
             {megaOnly
               ? "Formas Mega Evoluídas, reunidas em um só lugar."
+              : gmaxOnly ? "Formas Gigantamax, reunidas em um só lugar."
               : "De Bulbasaur às novas descobertas. Todos têm seu lugar aqui."}
           </Text>
         </View>
@@ -193,6 +195,7 @@ export default function Pokedex({ megaOnly = false }: { megaOnly?: boolean }) {
             placeholder={
               megaOnly
                 ? "Pesquisar Mega Pokémon…"
+                : gmaxOnly ? "Pesquisar Pokémon Gigantamax…"
                 : "Nome ou número, ex.: pikachu ou 25"
             }
             />

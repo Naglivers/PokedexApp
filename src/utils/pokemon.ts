@@ -4,10 +4,17 @@ import type {
   NamedResource,
   PokemonDetail,
 } from "../services/api";
+import { apiLanguages, currentLanguage, languageForLocale } from "../i18n/locale";
+import { translateLocal } from "../i18n/translateLocal";
 
 export const pretty = (value: string) =>
   value.replace(/-/g, " ").replace(/\b\w/g, (char) => char.toUpperCase());
 export const isMegaPokemon = (name: string) => /-mega(?:-|$)/i.test(name);
+export const isGmaxPokemon = (name: string) => /-gmax(?:-|$)/i.test(name);
+export function matchesDex(name: string, dex: "normal" | "mega" | "gmax") {
+  return dex === "mega" ? isMegaPokemon(name) : dex === "gmax" ? isGmaxPokemon(name)
+    : !isMegaPokemon(name) && !isGmaxPokemon(name);
+}
 export const normalize = (value: string) =>
   value
     .trim()
@@ -95,12 +102,12 @@ export function flattenEvolution(node: EvolutionNode): string[] {
 export function localText(
   entries: unknown,
   key = "flavor_text",
-  language = "pt-BR",
+  language = currentLanguage(),
 ): string {
   if (!Array.isArray(entries)) return "";
   const records = entries as Record<string, unknown>[];
   const chosen =
-    [language, "pt", "en"]
+    apiLanguages(language)
       .map((lang) =>
         records.find(
           (record) =>
@@ -108,5 +115,21 @@ export function localText(
         ),
       )
       .find(Boolean) ?? records[0];
-  return String(chosen?.[key] ?? "").replace(/[\f\n\r]+/g, " ");
+  const text = String(chosen?.[key] ?? "").replace(/[\f\n\r]+/g, " ");
+  return translateLocal(text, languageForLocale(language));
+}
+
+export function localDescription(data?: Record<string, unknown>, effect = "short_effect"): string {
+  if (!data) return "";
+  const fields = [["effect_entries", effect], ["flavor_text_entries", "flavor_text"], ["descriptions", "description"]];
+  for (const language of apiLanguages().filter((lang) => lang !== "en")) {
+    for (const [field, key] of fields) {
+      const entries = data[field];
+      if (!Array.isArray(entries)) continue;
+      const matching = entries.filter((entry) => entry.language?.name === language && entry[key]);
+      if (matching.length) return localText(matching, key);
+    }
+  }
+  for (const [field, key] of fields) { const text = localText(data[field], key); if (text) return text; }
+  return "";
 }

@@ -280,11 +280,6 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
                           ...Array.from(
                             new Set(
                               sp.flavor_text_entries
-                                .filter(
-                                  (e) =>
-                                    e.language.name === "en" ||
-                                    e.language.name.startsWith("pt"),
-                                )
                                 .map((e) => e.version.name),
                             ),
                           ).map((name) => ({

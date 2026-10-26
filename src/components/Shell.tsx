@@ -37,6 +37,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { colors as c, font, ui } from "../theme";
 import { IconButton, SearchInput } from "./ui";
 import { useFavorites } from "../store/favorites";
+import { LanguageSelector } from "../i18n/LanguageSelector";
 
 const navigation = [
   {
@@ -45,7 +46,9 @@ const navigation = [
       ["/", "Visão geral", Home],
       ["/pokedex", "Pokédex", ScanLine],
       ["/mega-dex", "Mega Dex", Gem],
+      ["/gmax-dex", "Gmax Dex", Sparkles],
       ["/catalog/type", "Tipos", Dna],
+      ["/type-battle", "Briga de tipos", Swords],
       ["/catalog/move", "Golpes", Swords],
       ["/catalog/ability", "Habilidades", Sparkles],
       ["/catalog/item", "Itens", Shield],
@@ -211,6 +214,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
               >
                 <Heart size={18} color={c.muted} />
               </IconButton>
+              <LanguageSelector />
               {!mobile && (
                 <>
                   <View style={s.headerDivider} />

@@ -33,7 +33,7 @@ import {
 } from "../../services/api";
 import { indexOptions } from "../../services/queries";
 import { resourceLabels, types } from "../../constants/pokemon";
-import { matchesName, pretty, localText } from "../../utils/pokemon";
+import { matchesName, pretty, localText, localDescription } from "../../utils/pokemon";
 import { useDebounce } from "../../hooks/useDebounce";
 import { Art } from "../../components/ui";
 import { resourcePath } from "../../components/ResourceData";
@@ -227,10 +227,7 @@ export function ResourceCard({
   const type = data?.type as { name: string } | undefined;
   const typeMeta =
     resource === "type" ? types[name] : type ? types[type.name] : undefined;
-  const description =
-    localText(data?.effect_entries, "short_effect") ||
-    localText(data?.flavor_text_entries) ||
-    localText(data?.descriptions, "description");
+  const description = localDescription(data);
   const sprites = data?.sprites as { default?: string } | undefined;
   const regionImage = resource === "region" ? regionImages[name] : undefined;
   const consoleInfo = resource === "generation" ? generationConsoles[id] : undefined;

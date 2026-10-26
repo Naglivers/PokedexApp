@@ -3,6 +3,7 @@ node_modules/
 dist/
 web-build/
 native-build-check/
+supabase/.temp/
 .env
 .env.*
 !.env.example

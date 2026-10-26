@@ -7,10 +7,12 @@ import { SafeAreaProvider } from "react-native-safe-area-context";
 import { queryClient } from "../src/services/queries";
 import { Shell } from "../src/components/Shell";
 import { CommunityProvider } from "../src/features/community/CommunityProvider";
+import { LocaleProvider } from "../src/i18n/Provider";
 export { ErrorBoundary } from "expo-router";
 export default function RootLayout() {
   return (
     <SafeAreaProvider>
+      <LocaleProvider>
       <QueryClientProvider client={queryClient}>
         <CommunityProvider>
           <Head>
@@ -38,6 +40,7 @@ export default function RootLayout() {
           </Shell>
         </CommunityProvider>
       </QueryClientProvider>
+      </LocaleProvider>
     </SafeAreaProvider>
   );
 }

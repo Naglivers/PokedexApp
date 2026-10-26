@@ -1,12 +1,47 @@
 import React from "react";
-import { Pressable, StyleSheet, Text, View } from "react-native";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
-import { ArrowDown } from "lucide-react-native";
-import { EvolutionNode, idFromUrl, spriteUrl } from "../../services/api";
-import { colors as c, font, ui } from "../../theme";
+import { ArrowRight, ArrowLeftRight } from "lucide-react-native";
+import { EvolutionNode, NamedResource, idFromUrl, spriteUrl } from "../../services/api";
+import { colors as c, font } from "../../theme";
 import { evolutionCondition, pretty } from "../../utils/pokemon";
 import { Art } from "../../components/ui";
 export function EvolutionTree({ node }: { node: EvolutionNode }) {
+  return (
+    <ScrollView horizontal contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 8 }}>
+      <EvolutionBranch node={node} />
+    </ScrollView>
+  );
+}
+function EvolutionStep({ details }: { details: Record<string, unknown> }) {
+  const router = useRouter();
+  const trigger = details.trigger as NamedResource | undefined;
+  const item = (details.item ?? details.held_item) as NamedResource | undefined;
+  const trade = trigger?.name === "trade";
+  const extra = { ...details };
+  delete extra.min_level;
+  delete extra.item;
+  delete extra.held_item;
+  delete extra.trigger;
+  const additional = evolutionCondition(extra);
+  return (
+    <View style={s.condition}>
+      {trade && <View style={{ alignItems: "center", gap: 3 }}>
+        <ArrowLeftRight size={20} color={c.accent} />
+        <Text style={s.conditionText}>Precisa de troca</Text>
+      </View>}
+      {item && <Pressable accessibilityRole="link" accessibilityLabel={`Ver item ${pretty(item.name)}`} onPress={() => router.push(`/catalog/item/${item.name}`)} style={{ alignItems: "center" }}>
+        <Art uri={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.name}.png`} name={pretty(item.name)} style={{ width: 36, height: 36 }} />
+        <Text style={s.conditionText}>{details.held_item ? "Segurando " : ""}{pretty(item.name)}</Text>
+      </Pressable>}
+      {details.min_level != null && <Text style={s.conditionText}>Nível {String(details.min_level)}</Text>}
+      <ArrowRight size={24} color="#A6AFBD" />
+      {additional !== "Evolução" && <Text style={s.conditionText}>{additional}</Text>}
+      {!trade && !item && details.min_level == null && additional === "Evolução" && <Text style={s.conditionText}>{evolutionCondition(details)}</Text>}
+    </View>
+  );
+}
+function EvolutionBranch({ node }: { node: EvolutionNode }) {
   const router = useRouter();
   return (
     <View style={s.tree}>
@@ -29,15 +64,16 @@ export function EvolutionTree({ node }: { node: EvolutionNode }) {
         <View style={s.branches}>
           {node.evolves_to.map((child) => (
             <View key={child.species.name} style={s.branch}>
-              <ArrowDown size={20} color="#A6AFBD" />
-              <View style={s.condition}>
+              <View style={{ gap: 8, alignItems: "center" }}>
                 {child.evolution_details.map((details, i) => (
-                  <Text key={i} style={s.conditionText}>
-                    {evolutionCondition(details)}
-                  </Text>
+                  <View key={i} style={{ alignItems: "center", gap: 6 }}>
+                    {i > 0 && <Text style={s.conditionText}>ou</Text>}
+                    <EvolutionStep details={details} />
+                  </View>
                 ))}
+                {!child.evolution_details.length && <ArrowRight size={24} color="#A6AFBD" />}
               </View>
-              <EvolutionTree node={child} />
+              <EvolutionBranch node={child} />
             </View>
           ))}
         </View>
@@ -46,7 +82,7 @@ export function EvolutionTree({ node }: { node: EvolutionNode }) {
   );
 }
 const s = StyleSheet.create({
-  tree: { alignItems: "center", gap: 12, paddingVertical: 8, maxWidth: "100%" },
+  tree: { flexDirection: "row", alignItems: "center", gap: 12, paddingVertical: 8 },
   pokemon: {
     borderRadius: 15,
     backgroundColor: "#FFF",
@@ -66,14 +102,12 @@ const s = StyleSheet.create({
     marginTop: 6,
   },
   branches: {
-    flexDirection: "row",
-    flexWrap: "wrap",
+    flexDirection: "column",
     justifyContent: "center",
     gap: 20,
-    maxWidth: "100%",
   },
-  branch: { alignItems: "center", gap: 6, maxWidth: 260 },
-  condition: { maxWidth: 250, gap: 5, padding: 5 },
+  branch: { flexDirection: "row", alignItems: "center", gap: 6 },
+  condition: { width: 110, alignItems: "center", gap: 5, padding: 5 },
   conditionText: {
     ...font,
     fontSize: 10,

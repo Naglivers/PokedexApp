@@ -37,6 +37,7 @@ const api = require("../src/services/api.ts");
 const {
   matchesName,
   isMegaPokemon,
+  matchesDex,
   defensiveMultiplier,
   flattenEvolution,
   evolutionCondition,
@@ -46,6 +47,12 @@ const {
 const { useFavorites } = require("../src/store/favorites.ts");
 const { useCollection } = require("../src/store/collection.ts");
 const { QueryClient } = require("@tanstack/react-query");
+test("normal, Mega and Gmax dexes remain separate before search and pagination", () => {
+  const names = ["charizard", "meganium", "yanmega", "charizard-mega-x", "absol-mega-z", "charizard-gmax", "urshifu-single-strike-gmax"];
+  assert.deepEqual(names.filter((name) => matchesDex(name, "normal")), names.slice(0, 3));
+  assert.deepEqual(names.filter((name) => matchesDex(name, "mega")), names.slice(3, 5));
+  assert.deepEqual(names.filter((name) => matchesDex(name, "gmax")), names.slice(5));
+});
 test("dex separation includes Mega X, Y and Z without excluding Meganium or Yanmega", () => {
   const names = ["venusaur-mega", "charizard-mega-x", "charizard-mega-y", "absol-mega-z", "meganium", "yanmega", "pikachu"];
   assert.deepEqual(names.filter(isMegaPokemon), names.slice(0, 4));
