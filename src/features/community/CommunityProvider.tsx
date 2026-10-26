@@ -1,6 +1,6 @@
 import React, { createContext, useContext, useEffect } from "react";
 import { AppState, Platform } from "react-native";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { queryOptions, useQuery, useQueryClient } from "@tanstack/react-query";
 import { usePathname } from "expo-router";
 import {
   ensureCommunitySession,
@@ -13,23 +13,30 @@ import { supabase, supabaseConfigured } from "../../services/supabase";
 type State = {
   ready: boolean;
   authenticated: boolean;
+  connecting: boolean;
   likedIds: number[];
   error: Error | null;
+  retry: () => void;
 };
 const Context = createContext<State>({
   ready: false,
   authenticated: false,
+  connecting: false,
   likedIds: [],
   error: null,
+  retry: () => {},
 });
-export const overviewOptions = {
+export const overviewOptions = queryOptions({
   queryKey: ["community", "overview"],
   queryFn: getCommunityOverview,
   enabled: supabaseConfigured,
   staleTime: 60000,
   retry: false,
   retryOnMount: false,
-};
+  refetchOnWindowFocus: true,
+  refetchInterval: (query) =>
+    query.state.status === "success" ? 30000 : false,
+});
 const tracked = new Set<string>();
 export function CommunityProvider({ children }: { children: React.ReactNode }) {
   const path = usePathname();
@@ -91,8 +98,16 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
       value={{
         ready: overview.isSuccess,
         authenticated: session.isSuccess && likes.isSuccess,
+        connecting: overview.isLoading || session.isLoading || likes.isLoading,
         likedIds: likes.data ?? [],
         error: overview.error ?? session.error ?? likes.error,
+        retry: () => {
+          void client.resetQueries({ queryKey: ["community", "session"] });
+          void client.resetQueries({ queryKey: ["community", "my-likes"] });
+          void client.invalidateQueries({
+            queryKey: ["community", "overview"],
+          });
+        },
       }}
     >
       {children}

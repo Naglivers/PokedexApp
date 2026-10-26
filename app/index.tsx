@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Pressable,
   StyleSheet,
@@ -17,7 +17,7 @@ import {
   Gamepad2,
   Leaf,
   Map,
-  Shuffle,
+  ThumbsUp,
   Sparkles,
   Swords,
   Zap,
@@ -29,12 +29,15 @@ import { getResourceList, spriteUrl } from "../src/services/api";
 import { pokemonOptions } from "../src/services/queries";
 import { types } from "../src/constants/pokemon";
 import { pretty } from "../src/utils/pokemon";
+import { overviewOptions } from "../src/features/community/CommunityProvider";
+import { getRadarPokemon } from "../src/features/community/radar";
 
 export default function Home() {
   const router = useRouter();
   const { width } = useWindowDimensions();
   const mobile = width < 700;
-  const [featuredId, setFeaturedId] = useState(25);
+  const community = useQuery(overviewOptions);
+  const { pokemonId: featuredId, mostLiked } = getRadarPokemon(community.data);
   const featured = useQuery(pokemonOptions(featuredId));
   const list = useQuery({
     queryKey: ["pokemon-page", 0, 10],
@@ -134,14 +137,12 @@ export default function Home() {
           <View style={ui.between}>
             <Text style={s.spotLabel}>NO RADAR</Text>
             <Pressable
-              accessibilityRole="button"
-              accessibilityLabel="Sortear outro Pokémon"
-              onPress={() =>
-                setFeaturedId(Math.floor(Math.random() * 1025) + 1)
-              }
-              style={s.shuffle}
+              accessibilityRole="link"
+              accessibilityLabel="Ver ranking dos Pokémon mais curtidos"
+              onPress={() => router.push("/community")}
+              style={s.rankingButton}
             >
-              <Shuffle size={13} color="#899476" />
+              <ThumbsUp size={13} color="#899476" />
             </Pressable>
           </View>
           <View style={s.spotCircle} />
@@ -167,6 +168,21 @@ export default function Home() {
               <Text style={s.spotName}>
                 {featured.data ? pretty(featured.data.name) : "Descobrindo…"}
               </Text>
+              {mostLiked ? (
+                <Text style={s.spotLikes}>
+                  Mais curtido ·{" "}
+                  {Number(mostLiked.total).toLocaleString("pt-BR")}{" "}
+                  {Number(mostLiked.total) === 1 ? "curtida" : "curtidas"}
+                </Text>
+              ) : (
+                <Text style={s.spotLikes}>
+                  {community.isLoading
+                    ? "Consultando curtidas…"
+                    : community.isError
+                      ? "Ranking indisponível"
+                      : "Sem curtidas na comunidade"}
+                </Text>
+              )}
               <View style={[ui.row, { marginTop: 7, gap: 5 }]}>
                 {featured.data?.types.map((type) => (
                   <Badge key={type.type.name} name={type.type.name} />
@@ -493,7 +509,8 @@ const s = StyleSheet.create({
     letterSpacing: 2,
     color: "#899578",
   },
-  shuffle: { backgroundColor: "#FFFFFF70", padding: 7, borderRadius: 7 },
+  rankingButton: { backgroundColor: "#FFFFFF70", padding: 7, borderRadius: 7 },
+  spotLikes: { ...font, fontSize: 9, color: "#788965", marginTop: 6 },
   spotCircle: {
     width: 140,
     height: 140,

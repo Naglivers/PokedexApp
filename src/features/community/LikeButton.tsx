@@ -30,7 +30,7 @@ export function LikeCounts({
   );
 }
 export function LikeButton({ pokemonId }: { pokemonId: number }) {
-  const { authenticated, likedIds } = useCommunity();
+  const { authenticated, connecting, likedIds, error, retry } = useCommunity();
   const counts = useContext(CountContext);
   const client = useQueryClient();
   const liked = likedIds.includes(pokemonId);
@@ -81,12 +81,37 @@ export function LikeButton({ pokemonId }: { pokemonId: number }) {
           fill={liked ? c.accentSoft : "transparent"}
         />
         <Text style={{ fontSize: 10, color: liked ? c.accent : c.muted }}>
-          {mutation.isPending ? "Salvando…" : liked ? "Curtido" : "Curtir"}
+          {mutation.isPending
+            ? "Salvando…"
+            : connecting
+              ? "Conectando…"
+              : !authenticated
+                ? "Curtir indisponível"
+                : liked
+                  ? "Curtido"
+                  : "Curtir"}
         </Text>
         <Text style={{ fontSize: 10, color: c.muted }}>
           {counts ? (counts[pokemonId] ?? 0).toLocaleString("pt-BR") : "—"}
         </Text>
       </Pressable>
+      {!authenticated && !!error && !connecting && (
+        <View style={{ gap: 4 }}>
+          <Text style={{ color: c.muted, fontSize: 9, lineHeight: 14 }}>
+            A conexão com a comunidade falhou. Nenhuma curtida foi enviada.
+          </Text>
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel="Reconectar à comunidade"
+            onPress={retry}
+            style={{ alignSelf: "flex-start", paddingVertical: 6 }}
+          >
+            <Text style={{ color: c.accent, fontSize: 10, fontWeight: "600" }}>
+              Reconectar
+            </Text>
+          </Pressable>
+        </View>
+      )}
       {mutation.isError && (
         <Text
           accessibilityRole="alert"

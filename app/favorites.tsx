@@ -27,6 +27,10 @@ export default function Favorites() {
       <Text style={ui.subtitle}>
         {ids.length} Pokémon salvos neste dispositivo
       </Text>
+      <Text style={ui.subtitle}>
+        Favoritar no coração é uma ação pessoal. Para participar do ranking da
+        comunidade, use o botão Curtir.
+      </Text>
       {!ids.length ? (
         <Empty
           title="Sua coleção começa com um coração"

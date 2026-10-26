@@ -102,6 +102,7 @@ export function PokemonCard({
         accessibilityRole="button"
         accessibilityLabel={`${favorite ? "Remover" : "Adicionar"} ${pretty(pokemon?.name ?? name ?? "")} ${favorite ? "dos" : "aos"} favoritos`}
         accessibilityState={{ selected: favorite }}
+        accessibilityHint="Salva um favorito neste dispositivo. Para votar no ranking da comunidade, use o botão Curtir."
         onPress={() => toggle(id)}
         hitSlop={7}
         style={s.favorite}

@@ -17,6 +17,7 @@ require.extensions[".ts"] = (module, filename) =>
   );
 let signedIn = null;
 let anonymousRequests = 0;
+let anonymousError = null;
 let response = {
   data: { likes: [], pages: [], total_likes: 0, total_visits: 0 },
   error: null,
@@ -27,6 +28,8 @@ const fake = {
     getSession: async () => ({ data: { session: signedIn }, error: null }),
     signInAnonymously: async () => {
       anonymousRequests++;
+      if (anonymousError)
+        return { data: { session: null }, error: anonymousError };
       await new Promise((resolve) => setTimeout(resolve, 5));
       signedIn = { user: { id: "test-user" } };
       return { data: { session: signedIn }, error: null };
@@ -52,6 +55,7 @@ Module._load = function (request, parent, ...args) {
   return originalLoad.call(this, request, parent, ...args);
 };
 const community = require("../src/services/community.ts");
+const { getRadarPokemon } = require("../src/features/community/radar.ts");
 
 test("parallel consumers create only one anonymous session and reuse it", async () => {
   const result = await Promise.all(
@@ -106,4 +110,59 @@ test("missing schema is a setup state and does not fabricate rankings", async ()
   );
   response = { data: { invalid: true }, error: null };
   await assert.rejects(community.getCommunityOverview(), /inválida/);
+});
+
+test("disabled anonymous auth cannot create a like; retry recovers after configuration is fixed", async () => {
+  signedIn = null;
+  anonymousError = {
+    code: "anonymous_provider_disabled",
+    message: "Anonymous sign-ins are disabled",
+  };
+  const before = calls.length;
+  await assert.rejects(
+    community.setPokemonLike(992, true),
+    (error) =>
+      error.code === "auth" &&
+      error.backendCode === "anonymous_provider_disabled",
+  );
+  assert.equal(
+    calls.length,
+    before,
+    "No like RPC may run after failed authentication",
+  );
+  anonymousError = null;
+  response = { data: { liked: true, total: 1 }, error: null };
+  assert.deepEqual(await community.setPokemonLike(992, true), {
+    liked: true,
+    total: 1,
+  });
+  assert.deepEqual(calls.at(-1), {
+    name: "pokeatlas_set_like",
+    params: { p_pokemon_id: 992, p_liked: true },
+  });
+});
+
+test("No radar displays Iron Hands with one saved like and Pikachu without votes", () => {
+  const empty = { likes: [], pages: [], total_likes: 0, total_visits: 0 };
+  assert.equal(getRadarPokemon(undefined).pokemonId, 25);
+  assert.equal(getRadarPokemon(empty).pokemonId, 25);
+  assert.equal(
+    getRadarPokemon({ ...empty, likes: [{ pokemon_id: 992, total: 1 }] })
+      .pokemonId,
+    992,
+  );
+  const ranked = getRadarPokemon({
+    ...empty,
+    likes: [
+      { pokemon_id: 25, total: 1 },
+      { pokemon_id: 992, total: 2 },
+    ],
+  });
+  assert.equal(ranked.pokemonId, 992);
+  assert.equal(ranked.mostLiked.total, 2);
+  assert.equal(
+    getRadarPokemon({ ...empty, likes: [{ pokemon_id: 992, total: 0 }] })
+      .pokemonId,
+    25,
+  );
 });

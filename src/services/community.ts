@@ -12,6 +12,7 @@ export class CommunityError extends Error {
   constructor(
     public code: "configuration" | "schema" | "auth" | "network",
     message: string,
+    public backendCode?: string,
   ) {
     super(message);
     this.name = "CommunityError";
@@ -30,12 +31,14 @@ function fail(error: { message?: string; code?: string }, auth = false): never {
     throw new CommunityError(
       "schema",
       "A comunidade ainda está em preparação.",
+      error.code,
     );
   throw new CommunityError(
     auth ? "auth" : "network",
     auth
       ? "Não foi possível iniciar sua sessão na comunidade."
       : "A comunidade está indisponível. Tente novamente mais tarde.",
+    error.code,
   );
 }
 export async function getCommunityOverview(): Promise<CommunityOverview> {
