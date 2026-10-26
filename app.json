@@ -1,0 +1,20 @@
+{
+  "expo": {
+    "name": "Pokédex Atlas",
+    "slug": "pokedex-atlas",
+    "version": "1.0.0",
+    "icon": "./assets/brand/icon.png",
+    "orientation": "portrait",
+    "userInterfaceStyle": "light",
+    "web": { "bundler": "metro", "favicon": "./assets/brand/favicon.png" },
+    "scheme": "pokedexatlas",
+    "plugins": ["expo-router"],
+    "android": {
+      "package": "com.pokedex.atlas",
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/brand/adaptive-icon.png",
+        "backgroundColor": "#E95B54"
+      }
+    }
+  }
+}
