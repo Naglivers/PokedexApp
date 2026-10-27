@@ -3,7 +3,7 @@ import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { ArrowUpRight, BarChart3, ThumbsUp } from "lucide-react-native";
-import { colors as c, ui } from "../src/theme";
+import { useTheme } from "../src/theme";
 import { Button, Empty, Loading } from "../src/components/ui";
 import { PokemonGrid } from "../src/components/PokemonCard";
 import {
@@ -12,13 +12,19 @@ import {
 } from "../src/features/community/CommunityProvider";
 import { supabaseConfigured } from "../src/services/supabase";
 import { resourceLabels } from "../src/constants/pokemon";
+import { useAuth } from "../src/features/auth/AuthProvider";
 
 export default function Community() {
+  const { colors: c, ui } = useTheme();
   const { width } = useWindowDimensions();
   const query = useQuery(overviewOptions);
   const community = useCommunity();
+  const auth = useAuth();
   const client = useQueryClient();
   const router = useRouter();
+  if (!auth.loading && !auth.session) {
+    return <View style={[ui.page, { justifyContent: "center", alignItems: "center" }]}><View style={ui.panel}><Text style={ui.title}>Entre na comunidade</Text><Text style={[ui.subtitle, { marginVertical: 12 }]}>Crie um nickname para curtir Pokémon e participar dos rankings.</Text><Button onPress={() => router.push("/login")}>Entrar ou cadastrar</Button></View></View>;
+  }
   const refresh = () => {
     void query.refetch();
     void client.resetQueries({ queryKey: ["community", "session"] });

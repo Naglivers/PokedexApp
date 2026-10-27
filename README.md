@@ -25,6 +25,7 @@ Se outra instância estiver usando a porta, encerre-a ou use `npm start -- --por
 
 ## O que está implementado
 
+- Aparência clara, escura ou automática pelo tema do dispositivo. Use o ícone de aparência no cabeçalho; a escolha fica salva neste navegador ou aparelho.
 - Layout responsivo com navegação lateral no desktop e menu acessível no mobile.
 - Home com Pokémon em destaque, sorteio, gerações, tipos e cards com dados reais.
 - Pokédex com pesquisa global no índice de nomes/IDs (incluindo formas), paginação, combinação de filtros por tipo, tipo secundário, geração e favoritos; ordenação por número ou nome.

@@ -59,8 +59,7 @@ export function ensureCommunitySession(): Promise<Session> {
     if (existing.data.session) return existing.data.session;
     const result = await service.auth.signInAnonymously();
     if (result.error) fail(result.error, true);
-    if (!result.data.session)
-      throw new CommunityError("auth", "Sua sessão não pôde ser iniciada.");
+    if (!result.data.session) throw new CommunityError("auth", "Sua sessão não pôde ser iniciada.");
     return result.data.session;
   })().finally(() => {
     sessionRequest = null;

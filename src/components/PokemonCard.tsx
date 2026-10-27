@@ -9,8 +9,7 @@ import {
 import { useQueries } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { ArrowUpRight, Heart } from "lucide-react-native";
-import { colors as c, font, ui } from "../theme";
-import { types } from "../constants/pokemon";
+import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 import { Art, Badge, Skeleton } from "./ui";
 import { pokemonOptions } from "../services/queries";
 import { PokemonDetail, idFromUrl, spriteUrl } from "../services/api";
@@ -29,6 +28,8 @@ export function PokemonCard({
   name?: string;
   loading?: boolean;
 }) {
+  const { colors: c, ui, types } = useTheme();
+  const s = useThemedStyles(createStyles);
   const router = useRouter();
   const favorite = useFavorites((state) => state.ids.includes(id));
   const toggle = useFavorites((state) => state.toggle);
@@ -49,11 +50,11 @@ export function PokemonCard({
           s.cardMain,
           {
             opacity: pressed ? 0.8 : 1,
-            backgroundColor: hovered ? "#FCFCFF" : "#FFF",
+            backgroundColor: hovered ? c.surfaceHover : c.surface,
           },
         ]}
       >
-        <View style={[s.artBox, { backgroundColor: type?.bg ?? "#F0F2F6" }]}>
+        <View style={[s.artBox, { backgroundColor: type?.bg ?? c.surfaceAlt }]}>
           <View style={s.artCircle} />
           <Text style={s.number}>#{String(id).padStart(4, "0")}</Text>
           <Art
@@ -70,7 +71,7 @@ export function PokemonCard({
             <Text numberOfLines={1} style={s.name}>
               {pretty(pokemon?.name ?? name ?? `Pokémon ${id}`)}
             </Text>
-            <ArrowUpRight size={13} color="#ADB5C1" />
+            <ArrowUpRight size={13} color={c.muted} />
           </View>
           <View style={[ui.row, { gap: 5, marginTop: 10, flexWrap: "wrap" }]}>
             {pokemon ? (
@@ -110,7 +111,7 @@ export function PokemonCard({
         <Heart
           size={15}
           strokeWidth={1.6}
-          color={favorite ? c.accent : "#8F98A5"}
+          color={favorite ? c.accent : c.muted}
           fill={favorite ? c.accent : "transparent"}
         />
       </Pressable>
@@ -122,6 +123,7 @@ export function PokemonGrid({
 }: {
   records: { name: string; url: string }[];
 }) {
+  const s = useThemedStyles(createStyles);
   const { width } = useWindowDimensions();
   const columns =
     width >= 1450
@@ -157,6 +159,7 @@ export function PokemonGrid({
   );
 }
 export function PokemonSkeletons({ count = 8 }: { count?: number }) {
+  const s = useThemedStyles(createStyles);
   return (
     <View style={s.grid}>
       {Array.from({ length: count }, (_, i) => (
@@ -173,60 +176,61 @@ export function PokemonSkeletons({ count = 8 }: { count?: number }) {
     </View>
   );
 }
-const s = StyleSheet.create({
-  grid: { flexDirection: "row", flexWrap: "wrap", marginHorizontal: -7 },
-  card: {
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: c.line,
-    backgroundColor: "#FFF",
-    overflow: "hidden",
-  },
-  cardMain: { flex: 1 },
-  artBox: {
-    height: 165,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-    overflow: "hidden",
-  },
-  artCircle: {
-    width: 120,
-    height: 120,
-    backgroundColor: "#FFFFFF75",
-    borderRadius: 70,
-    position: "absolute",
-    bottom: 13,
-  },
-  art: { width: "86%", height: 140, marginTop: 15 },
-  number: {
-    ...font,
-    position: "absolute",
-    top: 15,
-    left: 14,
-    fontSize: 10,
-    fontWeight: "600",
-    color: "#929DA9",
-    fontVariant: ["tabular-nums"],
-  },
-  copy: { padding: 15, paddingTop: 14 },
-  name: {
-    ...font,
-    fontSize: 14,
-    fontWeight: "700",
-    letterSpacing: -0.3,
-    color: c.ink,
-    flexShrink: 1,
-  },
-  favorite: {
-    position: "absolute",
-    right: 10,
-    top: 8,
-    backgroundColor: "#FFFFFFB0",
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    grid: { flexDirection: "row", flexWrap: "wrap", marginHorizontal: -7 },
+    card: {
+      borderRadius: 14,
+      borderWidth: 1,
+      borderColor: c.line,
+      backgroundColor: c.surface,
+      overflow: "hidden",
+    },
+    cardMain: { flex: 1 },
+    artBox: {
+      height: 165,
+      alignItems: "center",
+      justifyContent: "center",
+      position: "relative",
+      overflow: "hidden",
+    },
+    artCircle: {
+      width: 120,
+      height: 120,
+      backgroundColor: c.glass,
+      borderRadius: 70,
+      position: "absolute",
+      bottom: 13,
+    },
+    art: { width: "86%", height: 140, marginTop: 15 },
+    number: {
+      ...font,
+      position: "absolute",
+      top: 15,
+      left: 14,
+      fontSize: 10,
+      fontWeight: "600",
+      color: c.muted,
+      fontVariant: ["tabular-nums"],
+    },
+    copy: { padding: 15, paddingTop: 14 },
+    name: {
+      ...font,
+      fontSize: 14,
+      fontWeight: "700",
+      letterSpacing: -0.3,
+      color: c.ink,
+      flexShrink: 1,
+    },
+    favorite: {
+      position: "absolute",
+      right: 10,
+      top: 8,
+      backgroundColor: c.glassStrong,
+      width: 30,
+      height: 30,
+      borderRadius: 10,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+  });

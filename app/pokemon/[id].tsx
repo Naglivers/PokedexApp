@@ -19,7 +19,12 @@ import {
   Shuffle,
   Sparkles,
 } from "lucide-react-native";
-import { colors as c, font, ui } from "../../src/theme";
+import {
+  font,
+  useTheme,
+  useThemedStyles,
+  type ThemeColors,
+} from "../../src/theme";
 import {
   Art,
   Badge,
@@ -67,6 +72,8 @@ export default function PokemonRoute() {
   );
 }
 function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const router = useRouter();
   const { width } = useWindowDimensions();
   const mobile = width < 700;
@@ -136,8 +143,8 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
       >
         <View style={s.heroInfo}>
           <Text style={s.number}>
-            POKÉDEX NACIONAL <Text style={{ color: "#849892" }}> / </Text> #
-            {String(p.id).padStart(4, "0")}
+            POKÉDEX NACIONAL <Text style={{ color: c.pokemonMuted }}> / </Text>{" "}
+            #{String(p.id).padStart(4, "0")}
           </Text>
           <Text style={s.name}>{pretty(p.name)}</Text>
           <Text style={s.genus}>
@@ -161,8 +168,8 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
               icon={
                 <Heart
                   size={15}
-                  color={favorite ? "#FFF" : c.accent}
-                  fill={favorite ? "#FFF" : "transparent"}
+                  color={favorite ? c.onAccent : c.accent}
+                  fill={favorite ? c.onAccent : "transparent"}
                 />
               }
               onPress={() => toggle(p.id)}
@@ -219,7 +226,7 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
               onPress={() => setShiny(!shiny)}
               style={s.shiny}
             >
-              <Sparkles size={12} color={shiny ? c.accent : "#80968E"} />
+              <Sparkles size={12} color={shiny ? c.accent : c.pokemonMuted} />
               <Text style={s.shinyText}>{shiny ? "Shiny" : "Ver shiny"}</Text>
             </Pressable>
           )}
@@ -279,8 +286,7 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
                           { value: "", label: "Descrição da Pokédex" },
                           ...Array.from(
                             new Set(
-                              sp.flavor_text_entries
-                                .map((e) => e.version.name),
+                              sp.flavor_text_entries.map((e) => e.version.name),
                             ),
                           ).map((name) => ({
                             value: name,
@@ -400,90 +406,91 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
     </View>
   );
 }
-const s = StyleSheet.create({
-  hero: {
-    backgroundColor: "#E7EFEA",
-    borderRadius: 19,
-    padding: 32,
-    flexDirection: "row",
-    gap: 12,
-    overflow: "hidden",
-    minHeight: 280,
-  },
-  heroInfo: { flex: 1.6, justifyContent: "center" },
-  number: {
-    ...font,
-    color: "#6F8D80",
-    fontSize: 9,
-    letterSpacing: 1.3,
-    fontWeight: "600",
-  },
-  name: {
-    ...font,
-    fontSize: 44,
-    color: "#2D463C",
-    fontWeight: "800",
-    letterSpacing: -1.6,
-    marginTop: 13,
-  },
-  genus: { ...font, color: "#81988D", fontSize: 13, marginTop: 4 },
-  special: {
-    ...font,
-    fontSize: 8,
-    color: "#A38747",
-    backgroundColor: "#FCF1D5",
-    padding: 7,
-    borderRadius: 6,
-    fontWeight: "700",
-  },
-  artArea: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    minWidth: 200,
-  },
-  artHalo: {
-    width: 220,
-    height: 220,
-    borderRadius: 150,
-    backgroundColor: "#DCE8DF",
-    position: "absolute",
-  },
-  art: { height: 240, width: "100%", maxWidth: 300 },
-  shiny: {
-    backgroundColor: "#FFFFFFB0",
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderRadius: 20,
-    flexDirection: "row",
-    gap: 6,
-    alignItems: "center",
-  },
-  shinyText: { ...font, color: "#80968E", fontSize: 10 },
-  tabsScroll: {
-    flexGrow: 0,
-    borderBottomWidth: 1,
-    borderBottomColor: "#DEE3E9",
-  },
-  tabs: { gap: 22 },
-  tab: {
-    paddingVertical: 15,
-    paddingHorizontal: 2,
-    borderBottomWidth: 2,
-    borderBottomColor: "transparent",
-  },
-  tabActive: { borderBottomColor: c.accent },
-  tabText: { ...font, color: c.muted, fontSize: 12, fontWeight: "600" },
-  columns: { flexDirection: "row", gap: 20 },
-  infoGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    rowGap: 20,
-    borderTopWidth: 1,
-    borderTopColor: c.line,
-    paddingTop: 20,
-  },
-  infoItem: { width: "50%", gap: 6 },
-  infoLabel: { ...font, fontSize: 10, color: "#8D97A5" },
-  infoValue: { ...font, fontSize: 13, color: c.ink, fontWeight: "600" },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    hero: {
+      backgroundColor: c.pokemonHero,
+      borderRadius: 19,
+      padding: 32,
+      flexDirection: "row",
+      gap: 12,
+      overflow: "hidden",
+      minHeight: 280,
+    },
+    heroInfo: { flex: 1.6, justifyContent: "center" },
+    number: {
+      ...font,
+      color: c.pokemonMuted,
+      fontSize: 9,
+      letterSpacing: 1.3,
+      fontWeight: "600",
+    },
+    name: {
+      ...font,
+      fontSize: 44,
+      color: c.pokemonInk,
+      fontWeight: "800",
+      letterSpacing: -1.6,
+      marginTop: 13,
+    },
+    genus: { ...font, color: c.pokemonMuted, fontSize: 13, marginTop: 4 },
+    special: {
+      ...font,
+      fontSize: 8,
+      color: c.gold,
+      backgroundColor: c.goldSoft,
+      padding: 7,
+      borderRadius: 6,
+      fontWeight: "700",
+    },
+    artArea: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      minWidth: 200,
+    },
+    artHalo: {
+      width: 220,
+      height: 220,
+      borderRadius: 150,
+      backgroundColor: c.pokemonHalo,
+      position: "absolute",
+    },
+    art: { height: 240, width: "100%", maxWidth: 300 },
+    shiny: {
+      backgroundColor: c.glassStrong,
+      paddingHorizontal: 12,
+      paddingVertical: 7,
+      borderRadius: 20,
+      flexDirection: "row",
+      gap: 6,
+      alignItems: "center",
+    },
+    shinyText: { ...font, color: c.pokemonMuted, fontSize: 10 },
+    tabsScroll: {
+      flexGrow: 0,
+      borderBottomWidth: 1,
+      borderBottomColor: c.line,
+    },
+    tabs: { gap: 22 },
+    tab: {
+      paddingVertical: 15,
+      paddingHorizontal: 2,
+      borderBottomWidth: 2,
+      borderBottomColor: "transparent",
+    },
+    tabActive: { borderBottomColor: c.accent },
+    tabText: { ...font, color: c.muted, fontSize: 12, fontWeight: "600" },
+    columns: { flexDirection: "row", gap: 20 },
+    infoGrid: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      rowGap: 20,
+      borderTopWidth: 1,
+      borderTopColor: c.line,
+      paddingTop: 20,
+    },
+    infoItem: { width: "50%", gap: 6 },
+    infoLabel: { ...font, fontSize: 10, color: c.muted },
+    infoValue: { ...font, fontSize: 13, color: c.ink, fontWeight: "600" },
+  });

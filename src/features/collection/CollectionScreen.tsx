@@ -10,7 +10,7 @@ import {
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { Plus, Shuffle, Trash2, Users, X } from "lucide-react-native";
-import { colors as c, ui } from "../../theme";
+import { useTheme } from "../../theme";
 import {
   Art,
   Badge,
@@ -34,7 +34,7 @@ import {
   matchesName,
   pretty,
 } from "../../utils/pokemon";
-import { types, statNames } from "../../constants/pokemon";
+import { statNames } from "../../constants/pokemon";
 import { useDebounce } from "../../hooks/useDebounce";
 import { Stats } from "../pokemon/Panels";
 
@@ -43,6 +43,7 @@ export default function CollectionScreen({
 }: {
   mode: "compare" | "team";
 }) {
+  const { colors: c, ui, types } = useTheme();
   const store = useCollection();
   const team = mode === "team";
   const ids = team ? store.team : store.compare;
@@ -73,9 +74,9 @@ export default function CollectionScreen({
         </View>
         {width > 600 &&
           (team ? (
-            <Users size={32} color="#B2BFC7" />
+            <Users size={32} color={c.placeholder} />
           ) : (
-            <Shuffle size={32} color="#B2BFC7" />
+            <Shuffle size={32} color={c.placeholder} />
           ))}
       </View>
       <View style={ui.between}>
@@ -84,7 +85,7 @@ export default function CollectionScreen({
         </Text>
         <Button
           disabled={ids.length >= maximum}
-          icon={<Plus size={15} color="#FFF" />}
+          icon={<Plus size={15} color={c.onAccent} />}
           onPress={() => setPicker(true)}
         >
           Adicionar Pokémon
@@ -170,7 +171,7 @@ export default function CollectionScreen({
               minHeight: 210,
               borderWidth: 1,
               borderStyle: "dashed",
-              borderColor: "#C9D0DA",
+              borderColor: c.borderStrong,
               borderRadius: 17,
               alignItems: "center",
               justifyContent: "center",
@@ -179,7 +180,7 @@ export default function CollectionScreen({
               width: ids.length ? (width < 650 ? "100%" : "23.7%") : undefined,
             }}
           >
-            <Plus size={26} color="#A9B2C0" />
+            <Plus size={26} color={c.placeholder} />
             <Text style={{ fontSize: 12, color: c.muted }}>
               Quem vem com você?
             </Text>
@@ -210,6 +211,7 @@ function PokemonPicker({
   choose: (id: number) => void;
   excluded: number[];
 }) {
+  const { colors: c, ui } = useTheme();
   const [search, setSearch] = useState("");
   const debounced = useDebounce(search);
   const index = useQuery({ ...indexOptions("pokemon"), enabled: open });
@@ -233,14 +235,14 @@ function PokemonPicker({
           flex: 1,
           alignItems: "center",
           justifyContent: "center",
-          backgroundColor: "#17233399",
+          backgroundColor: c.overlay,
           padding: 20,
         }}
       >
         <Pressable
           onPress={(event) => event.stopPropagation()}
           style={{
-            backgroundColor: "#FFF",
+            backgroundColor: c.surface,
             borderRadius: 20,
             padding: 22,
             width: "100%",
@@ -276,7 +278,7 @@ function PokemonPicker({
                   alignItems: "center",
                   gap: 16,
                   padding: 8,
-                  backgroundColor: "#F7F8FA",
+                  backgroundColor: c.surfaceAlt,
                   borderRadius: 9,
                 }}
               >
@@ -311,6 +313,7 @@ function Analysis({
   pokemon: PokemonDetail[];
   team: boolean;
 }) {
+  const { colors: c, ui, types } = useTheme();
   const names = Array.from(
     new Set(pokemon.flatMap((p) => p.types.map((t) => t.type.name))),
   );

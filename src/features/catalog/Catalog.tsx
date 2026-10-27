@@ -8,14 +8,9 @@ import {
 } from "react-native";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import {
-  ArrowUpRight,
-  ArrowLeft,
-  Database,
-  Layers,
-} from "lucide-react-native";
+import { ArrowUpRight, ArrowLeft, Database, Layers } from "lucide-react-native";
 import Svg, { Rect } from "react-native-svg";
-import { colors as c, font, ui } from "../../theme";
+import { font, useTheme, useThemedStyles, type ThemeColors } from "../../theme";
 import {
   Badge,
   Empty,
@@ -32,8 +27,13 @@ import {
   GenericResource,
 } from "../../services/api";
 import { indexOptions } from "../../services/queries";
-import { resourceLabels, types } from "../../constants/pokemon";
-import { matchesName, pretty, localText, localDescription } from "../../utils/pokemon";
+import { resourceLabels } from "../../constants/pokemon";
+import {
+  matchesName,
+  pretty,
+  localText,
+  localDescription,
+} from "../../utils/pokemon";
 import { useDebounce } from "../../hooks/useDebounce";
 import { Art } from "../../components/ui";
 import { resourcePath } from "../../components/ResourceData";
@@ -66,7 +66,13 @@ function PixelConsole({ generation }: { generation: string }) {
   const isSwitch = kind === "SW";
   const is3ds = kind === "3DS";
   const isDs = kind === "DS";
-  const body = isSwitch ? "#D96D69" : is3ds ? "#6F80B8" : isDs ? "#8B83A8" : "#82A98F";
+  const body = isSwitch
+    ? "#D96D69"
+    : is3ds
+      ? "#6F80B8"
+      : isDs
+        ? "#8B83A8"
+        : "#82A98F";
   const dark = isSwitch ? "#9B454F" : "#3E465B";
   return (
     <Svg width={58} height={58} viewBox="0 0 58 58">
@@ -115,6 +121,7 @@ function PixelConsole({ generation }: { generation: string }) {
 }
 
 export default function Catalog({ resource }: { resource: string }) {
+  const { colors: c, ui } = useTheme();
   const { width } = useWindowDimensions();
   const [page, setPage] = useState(0);
   const [search, setSearch] = useState("");
@@ -223,6 +230,8 @@ export function ResourceCard({
   id: string;
   pending: boolean;
 }) {
+  const { colors: c, ui, types } = useTheme();
+  const s = useThemedStyles(createStyles);
   const router = useRouter();
   const type = data?.type as { name: string } | undefined;
   const typeMeta =
@@ -230,7 +239,8 @@ export function ResourceCard({
   const description = localDescription(data);
   const sprites = data?.sprites as { default?: string } | undefined;
   const regionImage = resource === "region" ? regionImages[name] : undefined;
-  const consoleInfo = resource === "generation" ? generationConsoles[id] : undefined;
+  const consoleInfo =
+    resource === "generation" ? generationConsoles[id] : undefined;
   const facts = [
     "power",
     "accuracy",
@@ -248,11 +258,11 @@ export function ResourceCard({
       onPress={() => router.push(resourcePath(resource, id))}
       style={({ hovered }: { hovered?: boolean; pressed?: boolean }) => [
         s.card,
-        { borderColor: hovered ? "#CBD1DE" : c.line },
+        { borderColor: hovered ? c.borderStrong : c.line },
       ]}
     >
       <View style={ui.between}>
-        <View style={[s.icon, { backgroundColor: typeMeta?.bg ?? "#F0EFF8" }]}>
+        <View style={[s.icon, { backgroundColor: typeMeta?.bg ?? c.lavender }]}>
           {consoleInfo ? (
             <PixelConsole generation={id} />
           ) : regionImage || sprites?.default ? (
@@ -277,7 +287,7 @@ export function ResourceCard({
             ? (types[name]?.name ?? pretty(name))
             : pretty(data?.name ?? name)}
         </Text>
-        <ArrowUpRight size={15} color="#9DA6B4" />
+        <ArrowUpRight size={15} color={c.muted} />
       </View>
       {type && (
         <View style={{ alignSelf: "flex-start" }}>
@@ -322,45 +332,46 @@ export function ResourceCard({
     </Pressable>
   );
 }
-const s = StyleSheet.create({
-  card: {
-    borderWidth: 1,
-    borderRadius: 14,
-    backgroundColor: "#FFF",
-    padding: 20,
-    gap: 13,
-    minHeight: 206,
-    flex: 1,
-  },
-  icon: {
-    width: 42,
-    height: 42,
-    borderRadius: 13,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  consoleLabel: {
-    ...font,
-    color: c.muted,
-    fontSize: 10,
-    marginTop: -4,
-  },
-  id: { ...font, color: "#A5ADBA", fontSize: 10 },
-  name: {
-    ...font,
-    fontSize: 17,
-    fontWeight: "700",
-    color: c.ink,
-    flexShrink: 1,
-  },
-  description: { ...font, fontSize: 11, lineHeight: 19, color: c.muted },
-  facts: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 12,
-    borderTopWidth: 1,
-    borderTopColor: c.line,
-    paddingTop: 12,
-  },
-  fact: { ...font, fontSize: 10, color: c.muted },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    card: {
+      borderWidth: 1,
+      borderRadius: 14,
+      backgroundColor: c.surface,
+      padding: 20,
+      gap: 13,
+      minHeight: 206,
+      flex: 1,
+    },
+    icon: {
+      width: 42,
+      height: 42,
+      borderRadius: 13,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    consoleLabel: {
+      ...font,
+      color: c.muted,
+      fontSize: 10,
+      marginTop: -4,
+    },
+    id: { ...font, color: c.muted, fontSize: 10 },
+    name: {
+      ...font,
+      fontSize: 17,
+      fontWeight: "700",
+      color: c.ink,
+      flexShrink: 1,
+    },
+    description: { ...font, fontSize: 11, lineHeight: 19, color: c.muted },
+    facts: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 12,
+      borderTopWidth: 1,
+      borderTopColor: c.line,
+      paddingTop: 12,
+    },
+    fact: { ...font, fontSize: 10, color: c.muted },
+  });

@@ -3,7 +3,7 @@ import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { useQueries } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowUpRight } from "lucide-react-native";
-import { colors as c, ui } from "../src/theme";
+import { useTheme } from "../src/theme";
 import {
   Button,
   Empty,
@@ -29,6 +29,7 @@ const categories = [
   "region",
 ];
 export default function Search() {
+  const { colors: c, ui } = useTheme();
   const { q } = useLocalSearchParams<{ q?: string }>();
   const [search, setSearch] = useState(q ?? "");
   const [limit, setLimit] = useState(10);

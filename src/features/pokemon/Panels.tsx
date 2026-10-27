@@ -3,8 +3,8 @@ import { Text, View, Pressable } from "react-native";
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import { ArrowUpRight } from "lucide-react-native";
-import { colors as c, ui } from "../../theme";
-import { types, statNames } from "../../constants/pokemon";
+import { useTheme } from "../../theme";
+import { statNames } from "../../constants/pokemon";
 import {
   getByUrl,
   getResource,
@@ -34,6 +34,7 @@ import {
 } from "../../utils/pokemon";
 
 export function Stats({ pokemon }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui } = useTheme();
   return (
     <View style={{ gap: 14 }}>
       {pokemon.stats.map((stat, index) => (
@@ -51,7 +52,7 @@ export function Stats({ pokemon }: { pokemon: PokemonDetail }) {
               flex: 1,
               height: 7,
               borderRadius: 5,
-              backgroundColor: "#F0F2F6",
+              backgroundColor: c.surfaceAlt,
             }}
           >
             <View
@@ -89,6 +90,7 @@ export function Stats({ pokemon }: { pokemon: PokemonDetail }) {
   );
 }
 export function Defense({ pokemon }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui, types } = useTheme();
   const queries = useQueries({
     queries: pokemon.types.map((type) => ({
       queryKey: ["type", type.type.name],
@@ -132,6 +134,7 @@ export function Defense({ pokemon }: { pokemon: PokemonDetail }) {
   );
 }
 export function Abilities({ pokemon }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui } = useTheme();
   const router = useRouter();
   const results = useQueries({
     queries: pokemon.abilities.map((a) => ({
@@ -183,6 +186,7 @@ export function Abilities({ pokemon }: { pokemon: PokemonDetail }) {
 }
 export { Moves } from "./MovesTable";
 function LegacyMoves({ pokemon }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui } = useTheme();
   const [query, setQuery] = useState("");
   const [method, setMethod] = useState("");
   const [version, setVersion] = useState("");
@@ -337,6 +341,7 @@ type Encounter = {
   }[];
 };
 export function Encounters({ pokemon }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui } = useTheme();
   const query = useQuery({
     queryKey: ["encounters", pokemon.id],
     queryFn: ({ signal }) =>
@@ -387,6 +392,7 @@ export function Encounters({ pokemon }: { pokemon: PokemonDetail }) {
   );
 }
 export function Sprites({ pokemon }: { pokemon: PokemonDetail }) {
+  const { colors: c, ui } = useTheme();
   const [showAll, setShowAll] = useState(false);
   const artwork = pokemon.sprites.other?.["official-artwork"];
   const basic = [

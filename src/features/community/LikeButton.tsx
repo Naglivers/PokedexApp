@@ -2,7 +2,7 @@ import React, { createContext, useContext } from "react";
 import { Pressable, Text, View } from "react-native";
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { ThumbsUp } from "lucide-react-native";
-import { colors as c } from "../../theme";
+import { useTheme } from "../../theme";
 import { getLikeCounts, setPokemonLike } from "../../services/community";
 import { useCommunity } from "./CommunityProvider";
 
@@ -30,6 +30,7 @@ export function LikeCounts({
   );
 }
 export function LikeButton({ pokemonId }: { pokemonId: number }) {
+  const { colors: c } = useTheme();
   const { authenticated, connecting, likedIds, error, retry } = useCommunity();
   const counts = useContext(CountContext);
   const client = useQueryClient();

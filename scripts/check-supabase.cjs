@@ -50,6 +50,24 @@ async function main() {
     );
     process.exitCode = 1;
   }
+  const profiles = await fetch(url + "/rest/v1/rpc/pokeatlas_account_profile", {
+    method: "POST",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ p_token: "" }),
+    signal: AbortSignal.timeout(15000),
+  });
+  const payload = await profiles.json();
+  const installed = profiles.ok || payload.code === "42501";
+  console.log(
+    "Contas e perfis: " +
+      (installed ? "disponíveis" : "precisam da migração SQL"),
+  );
+  if (!installed) {
+    console.log(
+      "Execute supabase/migrations/202610280001_accounts.sql no SQL Editor do projeto.",
+    );
+    process.exitCode = 1;
+  }
 }
 main().catch((error) => {
   console.error(`Não foi possível verificar: ${error.message}`);

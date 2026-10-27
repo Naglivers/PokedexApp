@@ -14,7 +14,12 @@ import {
   ScanLine,
   SlidersHorizontal,
 } from "lucide-react-native";
-import { colors as c, font, ui } from "../src/theme";
+import {
+  font,
+  useTheme,
+  useThemedStyles,
+  type ThemeColors,
+} from "../src/theme";
 import {
   Badge,
   Button,
@@ -38,7 +43,15 @@ import { useFavorites } from "../src/store/favorites";
 import { matchesName, matchesDex } from "../src/utils/pokemon";
 import { types } from "../src/constants/pokemon";
 
-export default function Pokedex({ megaOnly = false, gmaxOnly = false }: { megaOnly?: boolean; gmaxOnly?: boolean }) {
+export default function Pokedex({
+  megaOnly = false,
+  gmaxOnly = false,
+}: {
+  megaOnly?: boolean;
+  gmaxOnly?: boolean;
+}) {
+  const { colors: c, ui, types } = useTheme();
+  const s = useThemedStyles(createStyles);
   const dex = megaOnly ? "mega" : gmaxOnly ? "gmax" : "normal";
   const params = useLocalSearchParams<{ q?: string; type?: string }>();
   const { width } = useWindowDimensions();
@@ -176,15 +189,18 @@ export default function Pokedex({ megaOnly = false, gmaxOnly = false }: { megaOn
           <Text style={[ui.label, { color: c.accent, marginBottom: 7 }]}>
             EXPLORE. CONHEÇA. COLECIONE.
           </Text>
-          <Text style={ui.title}>{megaOnly ? "Mega Dex" : gmaxOnly ? "Gmax Dex" : "Pokédex nacional"}</Text>
+          <Text style={ui.title}>
+            {megaOnly ? "Mega Dex" : gmaxOnly ? "Gmax Dex" : "Pokédex nacional"}
+          </Text>
           <Text style={[ui.subtitle, { marginTop: 5 }]}>
             {megaOnly
               ? "Formas Mega Evoluídas, reunidas em um só lugar."
-              : gmaxOnly ? "Formas Gigantamax, reunidas em um só lugar."
-              : "De Bulbasaur às novas descobertas. Todos têm seu lugar aqui."}
+              : gmaxOnly
+                ? "Formas Gigantamax, reunidas em um só lugar."
+                : "De Bulbasaur às novas descobertas. Todos têm seu lugar aqui."}
           </Text>
         </View>
-        <ScanLine size={35} strokeWidth={1} color="#BCC5D1" />
+        <ScanLine size={35} strokeWidth={1} color={c.placeholder} />
       </View>
       <View style={[ui.panel, { padding: 18, gap: 15 }]}>
         <View style={[ui.row, { flexWrap: "wrap" }]}>
@@ -192,12 +208,13 @@ export default function Pokedex({ megaOnly = false, gmaxOnly = false }: { megaOn
             <SearchInput
               value={search}
               onChange={(text) => change(() => setSearch(text))}
-            placeholder={
-              megaOnly
-                ? "Pesquisar Mega Pokémon…"
-                : gmaxOnly ? "Pesquisar Pokémon Gigantamax…"
-                : "Nome ou número, ex.: pikachu ou 25"
-            }
+              placeholder={
+                megaOnly
+                  ? "Pesquisar Mega Pokémon…"
+                  : gmaxOnly
+                    ? "Pesquisar Pokémon Gigantamax…"
+                    : "Nome ou número, ex.: pikachu ou 25"
+              }
             />
           </View>
           <Button
@@ -209,7 +226,9 @@ export default function Pokedex({ megaOnly = false, gmaxOnly = false }: { megaOn
           </Button>
           <Button
             variant={favoritesOnly ? "primary" : "outline"}
-            icon={<Heart size={15} color={favoritesOnly ? "#FFF" : c.muted} />}
+            icon={
+              <Heart size={15} color={favoritesOnly ? c.onAccent : c.muted} />
+            }
             onPress={() => change(() => setFavoritesOnly(!favoritesOnly))}
           >
             {width < 600 ? "Salvos" : "Só favoritos"}
@@ -320,14 +339,15 @@ export default function Pokedex({ megaOnly = false, gmaxOnly = false }: { megaOn
     </View>
   );
 }
-const s = StyleSheet.create({
-  filters: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
-  filter: { flex: 1, minWidth: 155, gap: 7 },
-  filterLabel: {
-    ...font,
-    color: "#99A1AE",
-    fontSize: 8,
-    letterSpacing: 1,
-    fontWeight: "600",
-  },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    filters: { flexDirection: "row", flexWrap: "wrap", gap: 12 },
+    filter: { flex: 1, minWidth: 155, gap: 7 },
+    filterLabel: {
+      ...font,
+      color: c.muted,
+      fontSize: 8,
+      letterSpacing: 1,
+      fontWeight: "600",
+    },
+  });

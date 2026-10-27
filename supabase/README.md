@@ -1,5 +1,7 @@
 # Ativação da comunidade
 
+Para login com nickname/senha, perfil, e-mail opcional e foto, siga [Contas e configurações](ACCOUNTS.md) e execute a migração adicional de contas.
+
 A chave publishable configura o cliente, mas não possui permissão para criar tabelas, executar SQL administrativo ou mudar opções do Auth. Não é necessária nenhuma chave secreta no aplicativo.
 
 1. Abra o SQL Editor do projeto Supabase e execute todo o arquivo `migrations/202610260001_community.sql`.

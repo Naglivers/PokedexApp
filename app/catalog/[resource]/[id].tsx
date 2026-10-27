@@ -3,16 +3,21 @@ import { Text, View, useWindowDimensions } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { ArrowLeft, Database } from "lucide-react-native";
-import { colors as c, ui } from "../../../src/theme";
+import { useTheme } from "../../../src/theme";
 import { getResource } from "../../../src/services/api";
 import { resourceLabels } from "../../../src/constants/pokemon";
-import { localText, pretty, localDescription } from "../../../src/utils/pokemon";
+import {
+  localText,
+  pretty,
+  localDescription,
+} from "../../../src/utils/pokemon";
 import { Button, ErrorState, Loading } from "../../../src/components/ui";
 import { ResourceData } from "../../../src/components/ResourceData";
 import { EvolutionTree } from "../../../src/features/pokemon/EvolutionTree";
 import type { EvolutionChain, TypeDetail } from "../../../src/services/api";
 import { TypePokemon } from "../../../src/features/catalog/TypePokemon";
 export default function ResourceDetail() {
+  const { colors: c, ui } = useTheme();
   const { resource, id } = useLocalSearchParams<{
     resource: string;
     id: string;
@@ -68,7 +73,10 @@ export default function ResourceDetail() {
           </Text>
           <ResourceData data={query.data} />
           {resource === "type" && Array.isArray(query.data.pokemon) && (
-            <TypePokemon name={String(query.data.name ?? id)} pokemon={(query.data as unknown as TypeDetail).pokemon} />
+            <TypePokemon
+              name={String(query.data.name ?? id)}
+              pokemon={(query.data as unknown as TypeDetail).pokemon}
+            />
           )}
         </>
       )}

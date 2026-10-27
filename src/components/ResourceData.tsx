@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { ArrowUpRight, ChevronDown, ChevronRight } from "lucide-react-native";
-import { colors as c, font, ui } from "../theme";
+import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 import { idFromUrl, resourceFromUrl } from "../services/api";
 import { pretty } from "../utils/pokemon";
 import { Button } from "./ui";
@@ -13,6 +13,8 @@ export function resourcePath(resource: string, id: string) {
     : `/catalog/${resource}/${id}`;
 }
 export function ResourceLink({ url, name }: { url: string; name?: string }) {
+  const { colors: c } = useTheme();
+  const s = useThemedStyles(createStyles);
   const router = useRouter();
   const resource = resourceFromUrl(url);
   return (
@@ -92,6 +94,8 @@ export function ResourceData({ data }: { data: Record<string, unknown> }) {
   );
 }
 function Field({ name, value }: { name: string; value: unknown }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const expandable = !!value && typeof value === "object";
   const [open, setOpen] = useState(false);
   if (
@@ -151,6 +155,8 @@ function Field({ name, value }: { name: string; value: unknown }) {
   );
 }
 function Value({ value }: { value: unknown }) {
+  const { ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const [limit, setLimit] = useState(15);
   if (Array.isArray(value))
     return (
@@ -186,50 +192,51 @@ function Value({ value }: { value: unknown }) {
     </Text>
   );
 }
-const s = StyleSheet.create({
-  link: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 6,
-    alignItems: "center",
-    paddingVertical: 4,
-    maxWidth: "100%",
-  },
-  linkText: { ...font, color: c.accent, fontSize: 12, flexShrink: 1 },
-  field: {
-    backgroundColor: "#FFF",
-    borderWidth: 1,
-    borderColor: c.line,
-    borderRadius: 10,
-    overflow: "hidden",
-  },
-  fieldHeader: {
-    padding: 16,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 10,
-    alignItems: "center",
-    justifyContent: "space-between",
-  },
-  fieldName: { ...font, fontSize: 12, fontWeight: "600", color: c.ink },
-  count: { ...font, fontSize: 10, color: c.muted },
-  scalar: { ...font, fontSize: 12, color: "#778193", maxWidth: "100%" },
-  nested: {
-    borderTopWidth: 1,
-    borderTopColor: c.line,
-    padding: 14,
-    backgroundColor: "#FAFBFC",
-  },
-  arrayItem: { paddingBottom: 5 },
-  simpleField: {
-    padding: 16,
-    borderWidth: 1,
-    borderColor: c.line,
-    borderRadius: 10,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 12,
-  },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    link: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 6,
+      alignItems: "center",
+      paddingVertical: 4,
+      maxWidth: "100%",
+    },
+    linkText: { ...font, color: c.accent, fontSize: 12, flexShrink: 1 },
+    field: {
+      backgroundColor: c.surface,
+      borderWidth: 1,
+      borderColor: c.line,
+      borderRadius: 10,
+      overflow: "hidden",
+    },
+    fieldHeader: {
+      padding: 16,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 10,
+      alignItems: "center",
+      justifyContent: "space-between",
+    },
+    fieldName: { ...font, fontSize: 12, fontWeight: "600", color: c.ink },
+    count: { ...font, fontSize: 10, color: c.muted },
+    scalar: { ...font, fontSize: 12, color: c.muted, maxWidth: "100%" },
+    nested: {
+      borderTopWidth: 1,
+      borderTopColor: c.line,
+      padding: 14,
+      backgroundColor: c.surfaceAlt,
+    },
+    arrayItem: { paddingBottom: 5 },
+    simpleField: {
+      padding: 16,
+      borderWidth: 1,
+      borderColor: c.line,
+      borderRadius: 10,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: 12,
+    },
+  });

@@ -2,18 +2,32 @@ import React from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { useRouter } from "expo-router";
 import { ArrowRight, ArrowLeftRight } from "lucide-react-native";
-import { EvolutionNode, NamedResource, idFromUrl, spriteUrl } from "../../services/api";
-import { colors as c, font } from "../../theme";
+import {
+  EvolutionNode,
+  NamedResource,
+  idFromUrl,
+  spriteUrl,
+} from "../../services/api";
+import { font, useTheme, useThemedStyles, type ThemeColors } from "../../theme";
 import { evolutionCondition, pretty } from "../../utils/pokemon";
 import { Art } from "../../components/ui";
 export function EvolutionTree({ node }: { node: EvolutionNode }) {
   return (
-    <ScrollView horizontal contentContainerStyle={{ flexGrow: 1, justifyContent: "center", padding: 8 }}>
+    <ScrollView
+      horizontal
+      contentContainerStyle={{
+        flexGrow: 1,
+        justifyContent: "center",
+        padding: 8,
+      }}
+    >
       <EvolutionBranch node={node} />
     </ScrollView>
   );
 }
 function EvolutionStep({ details }: { details: Record<string, unknown> }) {
+  const { colors: c } = useTheme();
+  const s = useThemedStyles(createStyles);
   const router = useRouter();
   const trigger = details.trigger as NamedResource | undefined;
   const item = (details.item ?? details.held_item) as NamedResource | undefined;
@@ -26,22 +40,49 @@ function EvolutionStep({ details }: { details: Record<string, unknown> }) {
   const additional = evolutionCondition(extra);
   return (
     <View style={s.condition}>
-      {trade && <View style={{ alignItems: "center", gap: 3 }}>
-        <ArrowLeftRight size={20} color={c.accent} />
-        <Text style={s.conditionText}>Precisa de troca</Text>
-      </View>}
-      {item && <Pressable accessibilityRole="link" accessibilityLabel={`Ver item ${pretty(item.name)}`} onPress={() => router.push(`/catalog/item/${item.name}`)} style={{ alignItems: "center" }}>
-        <Art uri={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.name}.png`} name={pretty(item.name)} style={{ width: 36, height: 36 }} />
-        <Text style={s.conditionText}>{details.held_item ? "Segurando " : ""}{pretty(item.name)}</Text>
-      </Pressable>}
-      {details.min_level != null && <Text style={s.conditionText}>Nível {String(details.min_level)}</Text>}
-      <ArrowRight size={24} color="#A6AFBD" />
-      {additional !== "Evolução" && <Text style={s.conditionText}>{additional}</Text>}
-      {!trade && !item && details.min_level == null && additional === "Evolução" && <Text style={s.conditionText}>{evolutionCondition(details)}</Text>}
+      {trade && (
+        <View style={{ alignItems: "center", gap: 3 }}>
+          <ArrowLeftRight size={20} color={c.accent} />
+          <Text style={s.conditionText}>Precisa de troca</Text>
+        </View>
+      )}
+      {item && (
+        <Pressable
+          accessibilityRole="link"
+          accessibilityLabel={`Ver item ${pretty(item.name)}`}
+          onPress={() => router.push(`/catalog/item/${item.name}`)}
+          style={{ alignItems: "center" }}
+        >
+          <Art
+            uri={`https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/${item.name}.png`}
+            name={pretty(item.name)}
+            style={{ width: 36, height: 36 }}
+          />
+          <Text style={s.conditionText}>
+            {details.held_item ? "Segurando " : ""}
+            {pretty(item.name)}
+          </Text>
+        </Pressable>
+      )}
+      {details.min_level != null && (
+        <Text style={s.conditionText}>Nível {String(details.min_level)}</Text>
+      )}
+      <ArrowRight size={24} color={c.muted} />
+      {additional !== "Evolução" && (
+        <Text style={s.conditionText}>{additional}</Text>
+      )}
+      {!trade &&
+        !item &&
+        details.min_level == null &&
+        additional === "Evolução" && (
+          <Text style={s.conditionText}>{evolutionCondition(details)}</Text>
+        )}
     </View>
   );
 }
 function EvolutionBranch({ node }: { node: EvolutionNode }) {
+  const { colors: c } = useTheme();
+  const s = useThemedStyles(createStyles);
   const router = useRouter();
   return (
     <View style={s.tree}>
@@ -71,7 +112,9 @@ function EvolutionBranch({ node }: { node: EvolutionNode }) {
                     <EvolutionStep details={details} />
                   </View>
                 ))}
-                {!child.evolution_details.length && <ArrowRight size={24} color="#A6AFBD" />}
+                {!child.evolution_details.length && (
+                  <ArrowRight size={24} color={c.muted} />
+                )}
               </View>
               <EvolutionBranch node={child} />
             </View>
@@ -81,38 +124,44 @@ function EvolutionBranch({ node }: { node: EvolutionNode }) {
     </View>
   );
 }
-const s = StyleSheet.create({
-  tree: { flexDirection: "row", alignItems: "center", gap: 12, paddingVertical: 8 },
-  pokemon: {
-    borderRadius: 15,
-    backgroundColor: "#FFF",
-    borderColor: c.line,
-    borderWidth: 1,
-    padding: 15,
-    alignItems: "center",
-    width: 170,
-  },
-  art: { height: 100, width: 120 },
-  number: { ...font, color: c.muted, fontSize: 9, marginTop: 7 },
-  name: {
-    ...font,
-    color: c.ink,
-    fontWeight: "700",
-    fontSize: 13,
-    marginTop: 6,
-  },
-  branches: {
-    flexDirection: "column",
-    justifyContent: "center",
-    gap: 20,
-  },
-  branch: { flexDirection: "row", alignItems: "center", gap: 6 },
-  condition: { width: 110, alignItems: "center", gap: 5, padding: 5 },
-  conditionText: {
-    ...font,
-    fontSize: 10,
-    color: c.muted,
-    lineHeight: 16,
-    textAlign: "center",
-  },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    tree: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+      paddingVertical: 8,
+    },
+    pokemon: {
+      borderRadius: 15,
+      backgroundColor: c.surface,
+      borderColor: c.line,
+      borderWidth: 1,
+      padding: 15,
+      alignItems: "center",
+      width: 170,
+    },
+    art: { height: 100, width: 120 },
+    number: { ...font, color: c.muted, fontSize: 9, marginTop: 7 },
+    name: {
+      ...font,
+      color: c.ink,
+      fontWeight: "700",
+      fontSize: 13,
+      marginTop: 6,
+    },
+    branches: {
+      flexDirection: "column",
+      justifyContent: "center",
+      gap: 20,
+    },
+    branch: { flexDirection: "row", alignItems: "center", gap: 6 },
+    condition: { width: 110, alignItems: "center", gap: 5, padding: 5 },
+    conditionText: {
+      ...font,
+      fontSize: 10,
+      color: c.muted,
+      lineHeight: 16,
+      textAlign: "center",
+    },
+  });

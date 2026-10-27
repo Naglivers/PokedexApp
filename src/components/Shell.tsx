@@ -34,10 +34,13 @@ import {
   X,
 } from "lucide-react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { colors as c, font, ui } from "../theme";
+import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 import { IconButton, SearchInput } from "./ui";
 import { useFavorites } from "../store/favorites";
 import { LanguageSelector } from "../i18n/LanguageSelector";
+import { ThemeSelector } from "../theme/ThemeSelector";
+import { useAuth } from "../features/auth/AuthProvider";
+import { ProfileAvatar } from "../features/auth/ProfileAvatar";
 
 const navigation = [
   {
@@ -74,11 +77,14 @@ const navigation = [
   },
 ] as const;
 export function Shell({ children }: { children: React.ReactNode }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const { width } = useWindowDimensions();
   const desktop = width >= 1080;
   const mobile = width < 650;
   const path = usePathname();
   const router = useRouter();
+  const { session, loading: authLoading } = useAuth();
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState("");
   const favorites = useFavorites((state) => state.ids.length);
@@ -94,7 +100,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
         style={s.brand}
       >
         <View style={s.brandIcon}>
-          <ScanLine size={23} color="#FFF" strokeWidth={2.1} />
+          <ScanLine size={23} color={c.onAccent} strokeWidth={2.1} />
         </View>
         <View>
           <Text style={s.brandName}>
@@ -170,10 +176,10 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <View style={s.root}>
         {desktop && <View style={s.sidebar}>{nav}</View>}
         <View style={s.workspace}>
-          <View
-            style={[s.header, mobile && { paddingHorizontal: 16, gap: 12 }]}
-          >
-            <View style={[ui.row, { flex: 1, minWidth: 0, maxWidth: 640 }]}>
+          <View style={[s.header, mobile && s.mobileHeader]}>
+            <View
+              style={[ui.row, s.headerSearch, mobile && s.mobileHeaderSearch]}
+            >
               {!desktop && (
                 <IconButton label="Abrir menu" onPress={() => setMenu(true)}>
                   <Menu size={20} color={c.ink} />
@@ -207,34 +213,67 @@ export function Shell({ children }: { children: React.ReactNode }) {
                 />
               </View>
             </View>
-            <View style={[ui.row, { gap: 9 }]}>
-              <IconButton
-                label="Meus favoritos"
-                onPress={() => go("/favorites")}
-              >
-                <Heart size={18} color={c.muted} />
-              </IconButton>
-              <LanguageSelector />
-              {!mobile && (
-                <>
-                  <View style={s.headerDivider} />
-                  <View style={s.avatar}>
-                    <Text
-                      style={{
-                        color: "#8A6C3F",
-                        fontSize: 11,
-                        fontWeight: "800",
-                      }}
-                    >
-                      TR
-                    </Text>
-                  </View>
-                  <View>
-                    <Text style={s.trainer}>Olá, treinador!</Text>
-                    <Text style={s.trainerSub}>Sua aventura começa aqui</Text>
-                  </View>
-                </>
+            <View
+              style={[
+                ui.row,
+                { gap: mobile ? 8 : 9 },
+                mobile && s.mobileHeaderActions,
+              ]}
+            >
+              {width >= 400 && (
+                <IconButton
+                  label="Meus favoritos"
+                  onPress={() => go("/favorites")}
+                >
+                  <Heart size={18} color={c.muted} />
+                </IconButton>
               )}
+              <ThemeSelector />
+              <LanguageSelector />
+              {
+                <>
+                  {!mobile && <View style={s.headerDivider} />}
+                  <Pressable
+                    accessibilityRole="button"
+                    accessibilityLabel={
+                      session
+                        ? "Configurações de " + session.user.nickname
+                        : "Login"
+                    }
+                    disabled={authLoading}
+                    onPress={() => go(session ? "/profile" : "/login")}
+                    style={[
+                      ui.row,
+                      {
+                        minHeight: 44,
+                        maxWidth: 200,
+                        opacity: authLoading ? 0.5 : 1,
+                      },
+                    ]}
+                  >
+                    <ProfileAvatar
+                      uri={session?.user.avatar_url}
+                      size={mobile ? 28 : 34}
+                    />
+                    <View style={{ flexShrink: 1 }}>
+                      <Text numberOfLines={1} style={s.trainer}>
+                        {authLoading
+                          ? "..."
+                          : session
+                            ? session.user.nickname
+                            : "Login"}
+                      </Text>
+                      {!mobile && (
+                        <Text style={s.trainerSub}>
+                          {session
+                            ? "Configurações da conta"
+                            : "Sua aventura começa aqui"}
+                        </Text>
+                      )}
+                    </View>
+                  </Pressable>
+                </>
+              }
             </View>
           </View>
           <ScrollView
@@ -270,7 +309,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
           style={{
             flex: 1,
             flexDirection: "row",
-            backgroundColor: "#0D152BB3",
+            backgroundColor: c.overlay,
           }}
         >
           <View style={[s.sidebar, { width: 270 }]}>
@@ -294,129 +333,144 @@ export function Shell({ children }: { children: React.ReactNode }) {
     </SafeAreaView>
   );
 }
-const s = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: c.bg },
-  root: { flex: 1, flexDirection: "row" },
-  sidebar: { width: 222, backgroundColor: c.navy },
-  sideContent: { flex: 1, padding: 16, paddingTop: 30 },
-  brand: {
-    flexDirection: "row",
-    gap: 9,
-    alignItems: "center",
-    paddingHorizontal: 10,
-    marginBottom: 39,
-  },
-  brandIcon: {
-    backgroundColor: c.accent,
-    width: 35,
-    height: 35,
-    borderRadius: 11,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  brandName: {
-    ...font,
-    fontWeight: "800",
-    fontSize: 23,
-    letterSpacing: -0.8,
-    color: "#F7F8FC",
-  },
-  brandSub: {
-    ...font,
-    color: "#7F90A6",
-    fontSize: 7,
-    letterSpacing: 2,
-    marginTop: 2,
-  },
-  groupLabel: {
-    ...font,
-    fontSize: 8,
-    fontWeight: "600",
-    color: "#78889F",
-    letterSpacing: 1.5,
-    paddingHorizontal: 13,
-    marginBottom: 9,
-  },
-  navItem: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 11,
-    paddingVertical: 12,
-    paddingHorizontal: 13,
-    borderRadius: 8,
-  },
-  navActive: { backgroundColor: "#2F333F" },
-  navText: { ...font, fontSize: 11, color: "#A6B2C2", flex: 1 },
-  activeDot: {
-    width: 5,
-    height: 5,
-    borderRadius: 3,
-    backgroundColor: "#EE8274",
-  },
-  navCount: { fontSize: 9, color: "#F5B1A7" },
-  sideFoot: {
-    borderTopWidth: 1,
-    borderTopColor: "#2B3748",
-    paddingTop: 20,
-    marginTop: 16,
-    gap: 8,
-    paddingHorizontal: 7,
-  },
-  sourceDot: {
-    width: 5,
-    height: 5,
-    backgroundColor: "#74BCAA",
-    borderRadius: 4,
-  },
-  sourceText: { ...font, color: "#A5B3C5", fontSize: 8 },
-  copyright: { ...font, fontSize: 8, color: "#63758D", marginLeft: 15 },
-  workspace: { flex: 1, minWidth: 0 },
-  header: {
-    height: 78,
-    borderBottomWidth: 1,
-    borderBottomColor: c.line,
-    backgroundColor: "#FFF",
-    paddingHorizontal: 30,
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    gap: 28,
-  },
-  breadcrumb: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 9,
-    marginRight: 13,
-  },
-  breadcrumbText: { ...font, color: c.muted, fontSize: 10 },
-  headerDivider: {
-    height: 24,
-    width: 1,
-    backgroundColor: c.line,
-    marginHorizontal: 6,
-  },
-  avatar: {
-    width: 33,
-    height: 33,
-    borderRadius: 12,
-    backgroundColor: "#F6EDD9",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  trainer: { ...font, fontSize: 10, fontWeight: "700", color: c.ink },
-  trainerSub: { ...font, fontSize: 8, color: c.muted, marginTop: 4 },
-  footer: {
-    paddingHorizontal: 30,
-    paddingVertical: 21,
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 12,
-    alignItems: "center",
-    justifyContent: "space-between",
-    borderTopColor: c.line,
-    borderTopWidth: 1,
-    marginTop: 18,
-  },
-  footerText: { ...font, fontSize: 9, color: "#9199A5" },
-  closeMenu: { position: "absolute", right: 12, top: 9, padding: 8 },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    safe: { flex: 1, backgroundColor: c.bg },
+    root: { flex: 1, flexDirection: "row" },
+    sidebar: { width: 222, backgroundColor: c.navy },
+    sideContent: { flex: 1, padding: 16, paddingTop: 30 },
+    brand: {
+      flexDirection: "row",
+      gap: 9,
+      alignItems: "center",
+      paddingHorizontal: 10,
+      marginBottom: 39,
+    },
+    brandIcon: {
+      backgroundColor: c.accent,
+      width: 35,
+      height: 35,
+      borderRadius: 11,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    brandName: {
+      ...font,
+      fontWeight: "800",
+      fontSize: 23,
+      letterSpacing: -0.8,
+      color: "#F7F8FC",
+    },
+    brandSub: {
+      ...font,
+      color: "#7F90A6",
+      fontSize: 7,
+      letterSpacing: 2,
+      marginTop: 2,
+    },
+    groupLabel: {
+      ...font,
+      fontSize: 8,
+      fontWeight: "600",
+      color: "#78889F",
+      letterSpacing: 1.5,
+      paddingHorizontal: 13,
+      marginBottom: 9,
+    },
+    navItem: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 11,
+      paddingVertical: 12,
+      paddingHorizontal: 13,
+      borderRadius: 8,
+    },
+    navActive: { backgroundColor: "#2F333F" },
+    navText: { ...font, fontSize: 11, color: "#A6B2C2", flex: 1 },
+    activeDot: {
+      width: 5,
+      height: 5,
+      borderRadius: 3,
+      backgroundColor: "#EE8274",
+    },
+    navCount: { fontSize: 9, color: "#F5B1A7" },
+    sideFoot: {
+      borderTopWidth: 1,
+      borderTopColor: "#2B3748",
+      paddingTop: 20,
+      marginTop: 16,
+      gap: 8,
+      paddingHorizontal: 7,
+    },
+    sourceDot: {
+      width: 5,
+      height: 5,
+      backgroundColor: "#74BCAA",
+      borderRadius: 4,
+    },
+    sourceText: { ...font, color: "#A5B3C5", fontSize: 8 },
+    copyright: { ...font, fontSize: 8, color: "#63758D", marginLeft: 15 },
+    workspace: { flex: 1, minWidth: 0 },
+    header: {
+      height: 78,
+      borderBottomWidth: 1,
+      borderBottomColor: c.line,
+      backgroundColor: c.surface,
+      paddingHorizontal: 30,
+      flexDirection: "row",
+      alignItems: "center",
+      justifyContent: "space-between",
+      gap: 28,
+    },
+    mobileHeader: {
+      height: 116,
+      paddingHorizontal: 12,
+      paddingVertical: 8,
+      flexDirection: "column",
+      alignItems: "stretch",
+      justifyContent: "center",
+      gap: 7,
+    },
+    headerSearch: { flex: 1, minWidth: 0, maxWidth: 640 },
+    mobileHeaderSearch: {
+      width: "100%",
+      flex: 0,
+      height: 43,
+      maxWidth: undefined,
+    },
+    mobileHeaderActions: {
+      width: "100%",
+      flex: 0,
+      height: 43,
+      justifyContent: "flex-end",
+    },
+    breadcrumb: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 9,
+      marginRight: 13,
+    },
+    breadcrumbText: { ...font, color: c.muted, fontSize: 10 },
+    headerDivider: {
+      height: 24,
+      width: 1,
+      backgroundColor: c.line,
+      marginHorizontal: 6,
+    },
+    trainer: { ...font, fontSize: 10, fontWeight: "700", color: c.ink },
+    trainerSub: { ...font, fontSize: 8, color: c.muted, marginTop: 4 },
+    footer: {
+      paddingHorizontal: 30,
+      paddingVertical: 21,
+      flexDirection: "row",
+      flexWrap: "wrap",
+      gap: 12,
+      alignItems: "center",
+      justifyContent: "space-between",
+      borderTopColor: c.line,
+      borderTopWidth: 1,
+      marginTop: 18,
+    },
+    footerText: { ...font, fontSize: 9, color: c.muted },
+    closeMenu: { position: "absolute", right: 12, top: 9, padding: 8 },
+  });

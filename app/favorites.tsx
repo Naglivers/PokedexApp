@@ -3,10 +3,11 @@ import { Text, View, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { Heart } from "lucide-react-native";
 import { useFavorites } from "../src/store/favorites";
-import { colors as c, ui } from "../src/theme";
+import { useTheme } from "../src/theme";
 import { Button, Empty } from "../src/components/ui";
 import { PokemonGrid } from "../src/components/PokemonCard";
 export default function Favorites() {
+  const { colors: c, ui } = useTheme();
   const { width } = useWindowDimensions();
   const router = useRouter();
   const ids = useFavorites((state) => state.ids);

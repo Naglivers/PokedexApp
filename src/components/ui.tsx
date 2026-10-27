@@ -20,8 +20,7 @@ import {
   Search,
   X,
 } from "lucide-react-native";
-import { colors as c, font, ui } from "../theme";
-import { types } from "../constants/pokemon";
+import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 
 export function Button({
   children,
@@ -40,6 +39,8 @@ export function Button({
   small?: boolean;
   label?: string;
 }) {
+  const { colors: c } = useTheme();
+  const s = useThemedStyles(createStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -62,7 +63,7 @@ export function Button({
               : variant === "dark"
                 ? c.navy
                 : variant === "outline"
-                  ? "#FFF"
+                  ? c.surface
                   : "transparent",
           borderColor: variant === "outline" ? c.line : "transparent",
           opacity: disabled ? 0.4 : pressed ? 0.7 : hovered ? 0.88 : 1,
@@ -74,7 +75,12 @@ export function Button({
         style={[
           s.buttonText,
           {
-            color: variant === "primary" || variant === "dark" ? "#FFF" : c.ink,
+            color:
+              variant === "primary"
+                ? c.onAccent
+                : variant === "dark"
+                  ? "#FFF"
+                  : c.ink,
           },
         ]}
       >
@@ -94,6 +100,8 @@ export function IconButton({
   children: React.ReactNode;
   active?: boolean;
 }) {
+  const { colors: c } = useTheme();
+  const s = useThemedStyles(createStyles);
   return (
     <Pressable
       accessibilityRole="button"
@@ -108,7 +116,11 @@ export function IconButton({
       }) => [
         s.iconButton,
         {
-          backgroundColor: active ? c.accentSoft : hovered ? "#F1F3F6" : "#FFF",
+          backgroundColor: active
+            ? c.accentSoft
+            : hovered
+              ? c.surfaceHover
+              : c.surface,
           opacity: pressed ? 0.6 : 1,
         },
       ]}
@@ -124,7 +136,9 @@ export function Badge({
   name: string;
   onPress?: () => void;
 }) {
-  const type = types[name] ?? { name, color: c.muted, bg: "#F0F2F6" };
+  const { colors: c, types } = useTheme();
+  const s = useThemedStyles(createStyles);
+  const type = types[name] ?? { name, color: c.muted, bg: c.surfaceAlt };
   return (
     <Pressable
       disabled={!onPress}
@@ -146,6 +160,8 @@ export function Art({
   name: string;
   style?: StyleProp<ImageStyle>;
 }) {
+  const { ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const [failed, setFailed] = useState(false);
   useEffect(() => setFailed(false), [uri]);
   return uri && !failed ? (
@@ -177,13 +193,15 @@ export function SearchInput({
   placeholder: string;
   onSubmit?: () => void;
 }) {
+  const { colors: c } = useTheme();
+  const s = useThemedStyles(createStyles);
   return (
     <View style={s.search}>
       <Search size={18} color={c.muted} />
       <TextInput
         accessibilityLabel={placeholder}
         placeholder={placeholder}
-        placeholderTextColor="#9AA2AF"
+        placeholderTextColor={c.placeholder}
         style={s.searchInput}
         value={value}
         onChangeText={onChange}
@@ -225,6 +243,8 @@ export function Select({
   onChange: (value: string) => void;
   label: string;
 }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -253,7 +273,7 @@ export function Select({
             <View style={ui.between}>
               <Text style={ui.sectionTitle}>{label}</Text>
               <IconButton label="Fechar opções" onPress={() => setOpen(false)}>
-                <X size={18} />
+                <X size={18} color={c.ink} />
               </IconButton>
             </View>
             <ScrollView
@@ -281,7 +301,7 @@ export function Select({
                           ? c.accentSoft
                           : hovered
                             ? c.bg
-                            : "#FFF",
+                            : c.surface,
                     },
                   ]}
                 >
@@ -312,9 +332,11 @@ export function Empty({
   description?: string;
   action?: React.ReactNode;
 }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   return (
     <View style={s.empty}>
-      <Search size={30} color="#B1B8C3" />
+      <Search size={30} color={c.placeholder} />
       <Text style={[ui.sectionTitle, { marginTop: 6 }]}>{title}</Text>
       <Text style={[ui.subtitle, { textAlign: "center", maxWidth: 360 }]}>
         {description}
@@ -324,6 +346,8 @@ export function Empty({
   );
 }
 export function ErrorState({ retry }: { retry: () => void }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   return (
     <View style={s.empty}>
       <AlertCircle size={30} color={c.accent} />
@@ -340,6 +364,8 @@ export function Loading({
 }: {
   text?: string;
 }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   return (
     <View style={s.empty}>
       <ActivityIndicator color={c.accent} />
@@ -354,9 +380,10 @@ export function Skeleton({
   height?: number;
   width?: number | `${number}%`;
 }) {
+  const { colors: c } = useTheme();
   return (
     <View
-      style={{ height, width, borderRadius: 9, backgroundColor: "#EAEDEF" }}
+      style={{ height, width, borderRadius: 9, backgroundColor: c.skeleton }}
     />
   );
 }
@@ -371,6 +398,8 @@ export function Pagination({
   pageSize?: number;
   setPage: (page: number) => void;
 }) {
+  const { colors: c, ui } = useTheme();
+  const s = useThemedStyles(createStyles);
   const pages = Math.max(1, Math.ceil(total / pageSize));
   const numbers = Array.from(new Set([0, page - 1, page, page + 1, pages - 1]))
     .filter((n) => n >= 0 && n < pages)
@@ -426,114 +455,115 @@ export function Pagination({
     </View>
   );
 }
-const s = StyleSheet.create({
-  button: {
-    borderWidth: 1,
-    borderRadius: 9,
-    minHeight: 43,
-    paddingHorizontal: 16,
-    paddingVertical: 11,
-    flexDirection: "row",
-    gap: 8,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  buttonText: { ...font, fontSize: 12, fontWeight: "600" },
-  iconButton: {
-    width: 38,
-    height: 38,
-    alignItems: "center",
-    justifyContent: "center",
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: c.line,
-  },
-  badge: {
-    paddingHorizontal: 9,
-    paddingVertical: 5,
-    borderRadius: 6,
-    flexDirection: "row",
-    gap: 5,
-    alignItems: "center",
-  },
-  badgeText: { ...font, fontSize: 10, fontWeight: "600" },
-  badgeDot: { width: 4, height: 4, borderRadius: 4 },
-  search: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 10,
-    minHeight: 44,
-    paddingHorizontal: 13,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: c.line,
-    backgroundColor: "#FFF",
-  },
-  searchInput: {
-    ...font,
-    flex: 1,
-    fontSize: 12,
-    paddingVertical: 12,
-    color: c.ink,
-    minWidth: 0,
-  },
-  select: {
-    borderWidth: 1,
-    borderColor: c.line,
-    borderRadius: 9,
-    minHeight: 42,
-    paddingHorizontal: 12,
-    paddingVertical: 9,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    backgroundColor: "#FFF",
-    justifyContent: "space-between",
-  },
-  selectText: { ...font, color: "#586373", fontSize: 12, flexShrink: 1 },
-  backdrop: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "#17233388",
-    padding: 20,
-  },
-  selectModal: {
-    backgroundColor: "#FFF",
-    borderRadius: 18,
-    padding: 20,
-    maxWidth: 420,
-    width: "100%",
-    gap: 16,
-  },
-  option: { padding: 14, borderRadius: 9 },
-  empty: {
-    padding: 35,
-    minHeight: 210,
-    justifyContent: "center",
-    alignItems: "center",
-    gap: 12,
-  },
-  pagination: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    alignItems: "center",
-    justifyContent: "center",
-    gap: 16,
-    paddingVertical: 12,
-  },
-  pageNumber: {
-    width: 31,
-    height: 33,
-    borderRadius: 7,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  placeholderBall: {
-    height: 38,
-    width: 38,
-    borderWidth: 5,
-    borderColor: "#CBD1DA",
-    borderRadius: 30,
-  },
-});
+const createStyles = (c: ThemeColors) =>
+  StyleSheet.create({
+    button: {
+      borderWidth: 1,
+      borderRadius: 9,
+      minHeight: 43,
+      paddingHorizontal: 16,
+      paddingVertical: 11,
+      flexDirection: "row",
+      gap: 8,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    buttonText: { ...font, fontSize: 12, fontWeight: "600" },
+    iconButton: {
+      width: 38,
+      height: 38,
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: c.line,
+    },
+    badge: {
+      paddingHorizontal: 9,
+      paddingVertical: 5,
+      borderRadius: 6,
+      flexDirection: "row",
+      gap: 5,
+      alignItems: "center",
+    },
+    badgeText: { ...font, fontSize: 10, fontWeight: "600" },
+    badgeDot: { width: 4, height: 4, borderRadius: 4 },
+    search: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 10,
+      minHeight: 44,
+      paddingHorizontal: 13,
+      borderRadius: 10,
+      borderWidth: 1,
+      borderColor: c.line,
+      backgroundColor: c.surface,
+    },
+    searchInput: {
+      ...font,
+      flex: 1,
+      fontSize: 12,
+      paddingVertical: 12,
+      color: c.ink,
+      minWidth: 0,
+    },
+    select: {
+      borderWidth: 1,
+      borderColor: c.line,
+      borderRadius: 9,
+      minHeight: 42,
+      paddingHorizontal: 12,
+      paddingVertical: 9,
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 12,
+      backgroundColor: c.surface,
+      justifyContent: "space-between",
+    },
+    selectText: { ...font, color: c.body, fontSize: 12, flexShrink: 1 },
+    backdrop: {
+      flex: 1,
+      alignItems: "center",
+      justifyContent: "center",
+      backgroundColor: c.overlay,
+      padding: 20,
+    },
+    selectModal: {
+      backgroundColor: c.surface,
+      borderRadius: 18,
+      padding: 20,
+      maxWidth: 420,
+      width: "100%",
+      gap: 16,
+    },
+    option: { padding: 14, borderRadius: 9 },
+    empty: {
+      padding: 35,
+      minHeight: 210,
+      justifyContent: "center",
+      alignItems: "center",
+      gap: 12,
+    },
+    pagination: {
+      flexDirection: "row",
+      flexWrap: "wrap",
+      alignItems: "center",
+      justifyContent: "center",
+      gap: 16,
+      paddingVertical: 12,
+    },
+    pageNumber: {
+      width: 31,
+      height: 33,
+      borderRadius: 7,
+      alignItems: "center",
+      justifyContent: "center",
+    },
+    placeholderBall: {
+      height: 38,
+      width: 38,
+      borderWidth: 5,
+      borderColor: c.borderStrong,
+      borderRadius: 30,
+    },
+  });

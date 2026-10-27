@@ -1,6 +1,14 @@
 // Portuguese, English, Spanish, Japanese, Simplified Chinese.
 // Stable text lives in the bundle: no translation API, key or recurring charge.
 export const messages: [string, string, string, string, string][] = [
+  ["Aparência","Appearance","Apariencia","外観","外观"],
+  ["Claro","Light","Claro","ライト","浅色"],
+  ["Escuro","Dark","Oscuro","ダーク","深色"],
+  ["Sistema","System","Sistema","システム","系统"],
+  ["Cores claras para o dia a dia","Light colors for every day","Colores claros para el día a día","毎日使える明るい配色","适合日常使用的浅色"],
+  ["Mais conforto em ambientes escuros","Comfort in darker surroundings","Más comodidad en ambientes oscuros","暗い場所でも快適に","在暗处看得更舒适"],
+  ["Acompanhar o tema do dispositivo","Follow the device theme","Seguir el tema del dispositivo","デバイスのテーマに合わせる","跟随设备主题"],
+  ["Escolher tema claro, escuro ou do sistema","Choose light, dark or system theme","Elegir tema claro, oscuro o del sistema","ライト、ダーク、システムからテーマを選択","选择浅色、深色或系统主题"],
   ["Idioma", "Language", "Idioma", "言語", "语言"],
   ["Automático", "Automatic", "Automático", "自動", "自动"],
   ["Visão geral", "Overview", "Resumen", "概要", "概览"],

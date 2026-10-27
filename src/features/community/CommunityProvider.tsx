@@ -9,6 +9,7 @@ import {
   trackPage,
 } from "../../services/community";
 import { supabase, supabaseConfigured } from "../../services/supabase";
+import { useAuth } from "../auth/AuthProvider";
 
 type State = {
   ready: boolean;
@@ -41,12 +42,13 @@ const tracked = new Set<string>();
 export function CommunityProvider({ children }: { children: React.ReactNode }) {
   const path = usePathname();
   const client = useQueryClient();
+  const auth = useAuth();
   const overview = useQuery(overviewOptions);
   // No account/session is created until the database schema has been installed.
   const session = useQuery({
     queryKey: ["community", "session"],
     queryFn: ensureCommunitySession,
-    enabled: overview.isSuccess,
+    enabled: overview.isSuccess && !!auth.session,
     staleTime: Infinity,
     retry: false,
     retryOnMount: false,
@@ -54,13 +56,13 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
   const likes = useQuery({
     queryKey: ["community", "my-likes"],
     queryFn: getMyLikes,
-    enabled: session.isSuccess,
+    enabled: !!auth.session && session.isSuccess,
     staleTime: 60000,
     retry: false,
     retryOnMount: false,
   });
   useEffect(() => {
-    if (!session.data || !overview.isSuccess) return;
+    if (!auth.session || !session.data || !overview.isSuccess) return;
     const key = `${session.data.user.id}:${new Date().toISOString().slice(0, 10)}:${path}`;
     if (tracked.has(key)) return;
     let active = true;
@@ -78,7 +80,13 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
     return () => {
       active = false;
     };
-  }, [path, session.data?.user.id, overview.isSuccess, client]);
+  }, [
+    path,
+    auth.session?.user.id,
+    session.data?.user.id,
+    overview.isSuccess,
+    client,
+  ]);
   useEffect(() => {
     if (Platform.OS === "web" || !supabase || !session.isSuccess) return;
     const service = supabase;
@@ -97,9 +105,11 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
     <Context.Provider
       value={{
         ready: overview.isSuccess,
-        authenticated: session.isSuccess && likes.isSuccess,
-        connecting: overview.isLoading || session.isLoading || likes.isLoading,
-        likedIds: likes.data ?? [],
+        authenticated: !!auth.session && session.isSuccess && likes.isSuccess,
+        connecting:
+          overview.isLoading ||
+          (!!auth.session && (session.isLoading || likes.isLoading)),
+        likedIds: auth.session ? (likes.data ?? []) : [],
         error: overview.error ?? session.error ?? likes.error,
         retry: () => {
           void client.resetQueries({ queryKey: ["community", "session"] });

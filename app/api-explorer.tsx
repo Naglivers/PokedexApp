@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, ArrowUpRight, Braces, Database } from "lucide-react-native";
-import { colors as c, ui } from "../src/theme";
+import { useTheme } from "../src/theme";
 import {
   Button,
   Empty,
@@ -23,6 +23,7 @@ import { pretty } from "../src/utils/pokemon";
 import { ResourceData } from "../src/components/ResourceData";
 
 export default function Explorer() {
+  const { colors: c, ui } = useTheme();
   const { width } = useWindowDimensions();
   const [resource, setResource] = useState("pokemon");
   const [input, setInput] = useState("");
@@ -99,7 +100,7 @@ export default function Explorer() {
           style={[
             ui.row,
             {
-              backgroundColor: "#F5F6F9",
+              backgroundColor: c.surfaceAlt,
               padding: 12,
               borderRadius: 7,
               flexWrap: "wrap",
@@ -111,7 +112,7 @@ export default function Explorer() {
           </Text>
           <Text
             selectable
-            style={{ color: "#8490A3", fontSize: 10, flexShrink: 1 }}
+            style={{ color: c.muted, fontSize: 10, flexShrink: 1 }}
           >
             https://pokeapi.co/api/v2/{resource}/
             {record ? `${record}/` : `?limit=20&offset=${page * 20}`}
@@ -207,10 +208,10 @@ export default function Explorer() {
                   gap: 18,
                   borderTopColor: c.line,
                   borderTopWidth: index ? 1 : 0,
-                  backgroundColor: hovered ? "#FAFBFD" : "#FFF",
+                  backgroundColor: hovered ? c.surfaceHover : c.surface,
                 })}
               >
-                <Text style={{ fontSize: 10, color: "#A4ADBA", width: 40 }}>
+                <Text style={{ fontSize: 10, color: c.muted, width: 40 }}>
                   #{idFromUrl(item.url).padStart(4, "0")}
                 </Text>
                 <Text
