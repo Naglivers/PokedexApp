@@ -6,7 +6,7 @@ Para o botão **Completar Pokédex / Completar Shinydex**, execute depois `migra
 
 ## Edição em lote
 
-Na Pokédex e Shinydex, **Edição em lote** permite selecionar Pokémon de várias boxes antes de salvar. **Selecionar box**, **Selecionar todos** e **Limpar seleção** alteram somente a seleção temporária. **Salvar capturados** grava os selecionados na conta atual em uma única transação, usando a mesma função da migração `202610280004_complete_tracker.sql`; não é necessária uma nova migração. Capturas anteriores são preservadas e não são duplicadas. **Cancelar** descarta a seleção sem gravar. Se o salvamento falhar, a seleção continua disponível para tentar novamente. O modo em lote não remove capturas já salvas.
+Na Pokédex, Shinydex e Livingdex, **Edição em lote** começa com as capturas atuais marcadas. Marque para capturado ou desmarque para não capturado; **Salvar alterações** envia inclusões e remoções em uma única transação. É possível desmarcar tudo e salvar. **Marcar todos**, **Desmarcar todos** e as ações por box alteram somente o rascunho. **Reverter alterações** restaura o estado inicial e **Cancelar** sai sem salvar. Em caso de falha, o rascunho é preservado. Esse fluxo exige a migração `202610280006_gamesdex_bulk_edit.sql`. Veja também `GAMESDEX.md`.
 
 A coleção fica em `pokeatlas_private.tracker_marks`, com chave composta por `account_id`, `tracker_kind` (`pokedex` ou `shinydex`) e `pokemon_id`. Para conferir pelo SQL Editor:
 

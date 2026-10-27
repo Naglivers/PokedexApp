@@ -1,0 +1,543 @@
+[
+  {
+    "key": "red-blue",
+    "title": "Pokémon Red / Blue",
+    "versions": ["red", "blue"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 150
+      },
+      {
+        "key": "kanto",
+        "title": "Kanto",
+        "total": 150
+      }
+    ],
+    "total": 150
+  },
+  {
+    "key": "yellow",
+    "title": "Pokémon Yellow",
+    "versions": ["yellow"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 137
+      },
+      {
+        "key": "kanto",
+        "title": "Kanto",
+        "total": 137
+      }
+    ],
+    "total": 137
+  },
+  {
+    "key": "gold-silver",
+    "title": "Pokémon Gold / Silver",
+    "versions": ["gold", "silver"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 232
+      },
+      {
+        "key": "original-johto",
+        "title": "Original Johto",
+        "total": 232
+      }
+    ],
+    "total": 232
+  },
+  {
+    "key": "crystal",
+    "title": "Pokémon Crystal",
+    "versions": ["crystal"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 223
+      },
+      {
+        "key": "original-johto",
+        "title": "Original Johto",
+        "total": 223
+      }
+    ],
+    "total": 223
+  },
+  {
+    "key": "ruby-sapphire",
+    "title": "Pokémon Ruby / Sapphire",
+    "versions": ["ruby", "sapphire"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 200
+      },
+      {
+        "key": "hoenn",
+        "title": "Original Hoenn",
+        "total": 200
+      }
+    ],
+    "total": 200
+  },
+  {
+    "key": "emerald",
+    "title": "Pokémon Emerald",
+    "versions": ["emerald"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 237
+      },
+      {
+        "key": "hoenn",
+        "title": "Original Hoenn",
+        "total": 195
+      }
+    ],
+    "total": 237
+  },
+  {
+    "key": "firered-leafgreen",
+    "title": "Pokémon FireRed / LeafGreen",
+    "versions": ["firered", "leafgreen"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 215
+      },
+      {
+        "key": "kanto",
+        "title": "Kanto",
+        "total": 150
+      }
+    ],
+    "total": 215
+  },
+  {
+    "key": "diamond-pearl",
+    "title": "Pokémon Diamond / Pearl",
+    "versions": ["diamond", "pearl"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 437
+      },
+      {
+        "key": "original-sinnoh",
+        "title": "Original Sinnoh",
+        "total": 150
+      }
+    ],
+    "total": 437
+  },
+  {
+    "key": "platinum",
+    "title": "Pokémon Platinum",
+    "versions": ["platinum"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 429
+      },
+      {
+        "key": "extended-sinnoh",
+        "title": "Extended Sinnoh",
+        "total": 201
+      }
+    ],
+    "total": 429
+  },
+  {
+    "key": "heartgold-soulsilver",
+    "title": "Pokémon HeartGold / SoulSilver",
+    "versions": ["heartgold", "soulsilver"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 427
+      },
+      {
+        "key": "updated-johto",
+        "title": "Updated Johto",
+        "total": 254
+      }
+    ],
+    "total": 427
+  },
+  {
+    "key": "black-white",
+    "title": "Pokémon Black / White",
+    "versions": ["black", "white"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 465
+      },
+      {
+        "key": "original-unova",
+        "title": "Original Unova",
+        "total": 150
+      }
+    ],
+    "total": 465
+  },
+  {
+    "key": "black-2-white-2",
+    "title": "Pokémon Black 2 / White 2",
+    "versions": ["black-2", "white-2"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 482
+      },
+      {
+        "key": "updated-unova",
+        "title": "Updated Unova",
+        "total": 294
+      }
+    ],
+    "total": 482
+  },
+  {
+    "key": "x-y",
+    "title": "Pokémon X / Y",
+    "versions": ["x", "y"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 593
+      },
+      {
+        "key": "kalos-central",
+        "title": "Central Kalos",
+        "total": 150
+      },
+      {
+        "key": "kalos-coastal",
+        "title": "Coastal Kalos",
+        "total": 153
+      },
+      {
+        "key": "kalos-mountain",
+        "title": "Mountain Kalos",
+        "total": 151
+      }
+    ],
+    "total": 593
+  },
+  {
+    "key": "omega-ruby-alpha-sapphire",
+    "title": "Pokémon Omega Ruby / Alpha Sapphire",
+    "versions": ["omega-ruby", "alpha-sapphire"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 477
+      },
+      {
+        "key": "updated-hoenn",
+        "title": "New Hoenn",
+        "total": 210
+      }
+    ],
+    "total": 477
+  },
+  {
+    "key": "sun-moon",
+    "title": "Pokémon Sun / Moon",
+    "versions": ["sun", "moon"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 384
+      },
+      {
+        "key": "original-alola",
+        "title": "Original Alola",
+        "total": 300
+      },
+      {
+        "key": "original-melemele",
+        "title": "Original Melemele",
+        "total": 120
+      },
+      {
+        "key": "original-akala",
+        "title": "Original Akala",
+        "total": 130
+      },
+      {
+        "key": "original-ulaula",
+        "title": "Original Ula’ula",
+        "total": 130
+      },
+      {
+        "key": "original-poni",
+        "title": "Original Poni",
+        "total": 100
+      }
+    ],
+    "total": 384
+  },
+  {
+    "key": "ultra-sun-ultra-moon",
+    "title": "Pokémon Ultra Sun / Ultra Moon",
+    "versions": ["ultra-sun", "ultra-moon"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 560
+      },
+      {
+        "key": "updated-alola",
+        "title": "Updated Alola",
+        "total": 400
+      },
+      {
+        "key": "updated-melemele",
+        "title": "Updated Melemele",
+        "total": 150
+      },
+      {
+        "key": "updated-akala",
+        "title": "Updated Akala",
+        "total": 160
+      },
+      {
+        "key": "updated-ulaula",
+        "title": "Updated Ula’ula",
+        "total": 160
+      },
+      {
+        "key": "updated-poni",
+        "title": "Updated Poni",
+        "total": 130
+      }
+    ],
+    "total": 560
+  },
+  {
+    "key": "lets-go-pikachu-lets-go-eevee",
+    "title": "Pokémon Let's Go Pikachu / Eevee",
+    "versions": ["lets-go-pikachu", "lets-go-eevee"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 150
+      },
+      {
+        "key": "letsgo-kanto",
+        "title": "Let’s Go Kanto",
+        "total": 150
+      }
+    ],
+    "total": 150
+  },
+  {
+    "key": "sword-shield",
+    "title": "Pokémon Sword / Shield",
+    "versions": ["sword", "shield"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 401
+      },
+      {
+        "key": "galar",
+        "title": "Galar",
+        "total": 400
+      }
+    ],
+    "total": 401
+  },
+  {
+    "key": "sword-shield-isle-of-armor",
+    "title": "Pokémon Sword / Shield — The Isle of Armor",
+    "versions": ["sword", "shield"],
+    "parentGame": "sword-shield",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 219
+      },
+      {
+        "key": "isle-of-armor",
+        "title": "Isle of Armor",
+        "total": 210
+      }
+    ],
+    "total": 219
+  },
+  {
+    "key": "sword-shield-crown-tundra",
+    "title": "Pokémon Sword / Shield — The Crown Tundra",
+    "versions": ["sword", "shield"],
+    "parentGame": "sword-shield",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 499
+      },
+      {
+        "key": "crown-tundra",
+        "title": "Crown Tundra",
+        "total": 210
+      }
+    ],
+    "total": 499
+  },
+  {
+    "key": "brilliant-diamond-shining-pearl",
+    "title": "Pokémon Brilliant Diamond / Shining Pearl",
+    "versions": ["brilliant-diamond", "shining-pearl"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 487
+      },
+      {
+        "key": "original-sinnoh",
+        "title": "Original Sinnoh",
+        "total": 150
+      }
+    ],
+    "total": 487
+  },
+  {
+    "key": "legends-arceus",
+    "title": "Pokémon Legends: Arceus",
+    "versions": ["legends-arceus"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 242
+      },
+      {
+        "key": "hisui",
+        "title": "Hisui",
+        "total": 242
+      }
+    ],
+    "total": 242
+  },
+  {
+    "key": "scarlet-violet",
+    "title": "Pokémon Scarlet / Violet",
+    "versions": ["scarlet", "violet"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 402
+      },
+      {
+        "key": "paldea",
+        "title": "Paldea",
+        "total": 400
+      }
+    ],
+    "total": 402
+  },
+  {
+    "key": "scarlet-violet-teal-mask",
+    "title": "Pokémon Scarlet / Violet — The Teal Mask",
+    "versions": ["scarlet", "violet"],
+    "parentGame": "scarlet-violet",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 200
+      },
+      {
+        "key": "kitakami",
+        "title": "Kitakami",
+        "total": 200
+      }
+    ],
+    "total": 200
+  },
+  {
+    "key": "scarlet-violet-indigo-disk",
+    "title": "Pokémon Scarlet / Violet — The Indigo Disk",
+    "versions": ["scarlet", "violet"],
+    "parentGame": "scarlet-violet",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 267
+      },
+      {
+        "key": "blueberry",
+        "title": "Blueberry",
+        "total": 240
+      }
+    ],
+    "total": 267
+  },
+  {
+    "key": "legends-za",
+    "title": "Pokémon Legends: Z-A",
+    "versions": ["legends-za"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 230
+      },
+      {
+        "key": "lumiose-city",
+        "title": "Lumiose",
+        "total": 230
+      }
+    ],
+    "total": 230
+  },
+  {
+    "key": "legends-za-mega-dimension",
+    "title": "Pokémon Legends: Z-A — Mega Dimension",
+    "versions": ["legends-za"],
+    "parentGame": "legends-za",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 131
+      },
+      {
+        "key": "hyperspace",
+        "title": "Hyperspace",
+        "total": 131
+      }
+    ],
+    "total": 131
+  }
+]

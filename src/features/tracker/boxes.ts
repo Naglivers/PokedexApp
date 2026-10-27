@@ -3,7 +3,7 @@ import { idFromUrl } from "../../services/api";
 import type { TrackerKind } from "../../services/tracker";
 
 export const BOX_SIZE = 30;
-export type BoxPokemon = { id: number; name: string };
+export type BoxPokemon = { id: number; name: string; dexNumber?: number };
 export function createTrackerBoxes(species: NamedResource[]): BoxPokemon[][] {
   const entries = new Map<number, BoxPokemon>();
   for (const record of species) {
@@ -19,7 +19,7 @@ export function createTrackerBoxes(species: NamedResource[]): BoxPokemon[][] {
 export const dexNumber = (id: number) => String(id).padStart(4, "0");
 export function boxRange(box: BoxPokemon[]) {
   return box.length
-    ? `${dexNumber(box[0].id)} - ${dexNumber(box[box.length - 1].id)}`
+    ? `${dexNumber(box[0].dexNumber ?? box[0].id)} - ${dexNumber(box[box.length - 1].dexNumber ?? box[box.length - 1].id)}`
     : "";
 }
 export function trackerName(name: string) {

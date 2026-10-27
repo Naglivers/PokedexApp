@@ -17,29 +17,52 @@ import {
   getTracker,
   completeTracker,
   setTrackerMarks,
+  applyTrackerChanges,
   type TrackerKind,
 } from "../../services/tracker";
 import { useAuth } from "../auth/AuthProvider";
 import { createTrackerBoxes, type BoxPokemon } from "./boxes";
 import { TrackerBox, trackerBoxMask } from "./TrackerBox";
 import { createTrackerStyles } from "./trackerStyles";
+import {
+  getGamePokedex,
+  type TrackerGame,
+  type GamePokedex,
+} from "../../services/gameDex";
+
+type TrackerProps = {
+  kind: TrackerKind;
+  game?: TrackerGame;
+  pokedex?: GamePokedex;
+  navigation?: React.ReactNode;
+};
 
 const boxKey = (box: BoxPokemon[]) => String(box[0].id);
 const BoxSeparator = React.memo(function BoxSeparator() {
   return <View style={{ height: 26 }} />;
 });
 
-export function DexBoxTracker({ kind }: { kind: TrackerKind }) {
+export function DexBoxTracker({
+  kind,
+  game,
+  pokedex,
+  navigation,
+}: TrackerProps) {
   const { session } = useAuth();
   return (
     <AccountTracker
-      key={kind + ":" + (session?.user.id ?? "guest")}
+      key={[kind, session?.user.id ?? "guest", game?.key, pokedex?.key].join(
+        ":",
+      )}
       kind={kind}
+      game={game}
+      pokedex={pokedex}
+      navigation={navigation}
     />
   );
 }
 
-function AccountTracker({ kind }: { kind: TrackerKind }) {
+function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
   const { session, loading: authLoading } = useAuth();
   const { colors: c, ui } = useTheme();
   const s = useThemedStyles(createTrackerStyles);
@@ -50,22 +73,37 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
   const saving = useRef(false);
   const [bulkEditing, setBulkEditing] = useState(false);
   const [selectedIds, setSelectedIds] = useState<Set<number>>(() => new Set());
-  const species = useQuery(indexOptions("pokemon-species"));
+  const initialMarks = useRef<Set<number>>(new Set());
+  const national = useQuery({
+    ...indexOptions("pokemon-species"),
+    enabled: kind !== "gamesdex",
+  });
+  const regional = useQuery({
+    queryKey: ["game-pokedex", game?.key, pokedex?.key, "regional-order-v1"],
+    queryFn: ({ signal }) => getGamePokedex(pokedex!.key, signal, game?.key),
+    enabled: kind === "gamesdex" && !!pokedex,
+    staleTime: 24 * 60 * 60 * 1000,
+  });
+  const species = kind === "gamesdex" ? regional : national;
   const boxes = useMemo(
-    () => createTrackerBoxes(species.data?.results ?? []),
-    [species.data],
+    () =>
+      kind === "gamesdex"
+        ? (regional.data ?? [])
+        : createTrackerBoxes(national.data?.results ?? []),
+    [kind, regional.data, national.data],
   );
   const allIds = useMemo(
     () => boxes.flatMap((box) => box.map(({ id }) => id)),
     [boxes],
   );
   const queryKey = useMemo(
-    () => ["dex-tracker", session?.user.id, kind],
-    [session?.user.id, kind],
+    () => ["dex-tracker", session?.user.id, kind, game?.key, "dlc-split-v1"],
+    [session?.user.id, kind, game?.key],
   );
   const progress = useQuery({
     queryKey,
-    queryFn: ({ signal }) => getTracker(session!.token, kind, signal),
+    queryFn: ({ signal }) =>
+      getTracker(session!.token, kind, signal, game?.key),
     enabled: !!session,
     staleTime: 60000,
     refetchOnMount: "always",
@@ -76,6 +114,18 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
     () => new Set(session ? (progress.data ?? []) : []),
     [!!session, progress.data],
   );
+  const changes = useMemo(() => {
+    const added: number[] = [];
+    const removed: number[] = [];
+    if (bulkEditing)
+      for (const id of allIds) {
+        if (selectedIds.has(id) && !initialMarks.current.has(id))
+          added.push(id);
+        else if (!selectedIds.has(id) && initialMarks.current.has(id))
+          removed.push(id);
+      }
+    return { added, removed, count: added.length + removed.length };
+  }, [allIds, selectedIds, bulkEditing]);
   const mutation = useMutation({
     mutationKey: [...queryKey, "save"],
     mutationFn: ({
@@ -83,15 +133,25 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
       caught,
       complete,
       bulk,
+      removedIds,
     }: {
       ids: number[];
       caught: boolean;
       complete?: boolean;
       bulk?: boolean;
+      removedIds?: number[];
     }) =>
-      complete || bulk
-        ? completeTracker(session!.token, kind, ids)
-        : setTrackerMarks(session!.token, kind, ids, caught),
+      bulk
+        ? applyTrackerChanges(
+            session!.token,
+            kind,
+            ids,
+            removedIds ?? [],
+            game?.key,
+          )
+        : complete
+          ? completeTracker(session!.token, kind, ids, game?.key)
+          : setTrackerMarks(session!.token, kind, ids, caught, game?.key),
     onMutate: () => client.cancelQueries({ queryKey }),
     onSuccess: (ids, variables) => {
       client.setQueryData(queryKey, ids);
@@ -102,6 +162,10 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
       void client.invalidateQueries({
         queryKey: ["public-profile", session!.user.nickname.toLowerCase()],
       });
+      if (game)
+        void client.invalidateQueries({
+          queryKey: ["gamesdex-summary", session!.user.id],
+        });
     },
     onSettled: () => {
       saving.current = false;
@@ -203,7 +267,14 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
     : total
       ? Math.floor((totalMarked / total) * 100)
       : 0;
-  const collectionName = kind === "shinydex" ? "Shinydex" : "Pokédex";
+  const collectionName =
+    kind === "shinydex"
+      ? "Shinydex"
+      : pokedex?.key === "obtainable"
+        ? "Coleção"
+        : pokedex
+          ? "Pokédex " + pokedex.title
+          : "Pokédex";
 
   const beginBulkEdit = () => {
     if (!session) {
@@ -212,14 +283,20 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
     }
     if (busy || unavailable || saving.current) return;
     mutation.reset();
-    setSelectedIds(new Set());
+    initialMarks.current = new Set(marked);
+    setSelectedIds(new Set(marked));
     setBulkEditing(true);
   };
   const saveSelection = () => {
-    if (!session || busy || unavailable || saving.current || !selectedIds.size)
+    if (!session || busy || unavailable || saving.current || !changes.count)
       return;
     saving.current = true;
-    mutate({ ids: [...selectedIds], caught: true, bulk: true });
+    mutate({
+      ids: changes.added,
+      removedIds: changes.removed,
+      caught: true,
+      bulk: true,
+    });
   };
   const cancelBulkEdit = () => {
     if (busy || saving.current) return;
@@ -231,22 +308,24 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
     <View style={s.bulkToolbar}>
       <View style={{ gap: 6 }}>
         <Text style={s.bulkToolbarTitle}>
-          Edição em lote · {selectedIds.size} selecionados
+          Edição em lote · {changes.added.length} capturas e{" "}
+          {changes.removed.length} remoções
         </Text>
         <Text style={s.status}>
-          Selecione os Pokémon nas boxes. Nada é enviado até você salvar.
+          Marcado: capturado. Desmarcado: não capturado. As alterações só vão
+          para o banco ao salvar.
         </Text>
       </View>
       <View style={s.bulkActions}>
         <Button
           small
-          disabled={busy || unavailable || !selectedIds.size}
+          disabled={busy || unavailable || !changes.count}
           icon={<Check size={14} color={c.onAccent} />}
           onPress={saveSelection}
         >
           {mutation.isPending && mutation.variables?.bulk
             ? "Salvando…"
-            : "Salvar capturados"}
+            : "Salvar alterações"}
         </Button>
         <Button
           small
@@ -262,31 +341,48 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
           disabled={busy || !total}
           onPress={() => selectPokemon(allIds, true)}
         >
-          Selecionar todos
+          Marcar todos
         </Button>
         <Button
           small
           variant="ghost"
-          disabled={busy || !selectedIds.size}
+          disabled={busy}
           onPress={() => setSelectedIds(new Set())}
         >
-          Limpar seleção
+          Desmarcar todos
+        </Button>
+        <Button
+          small
+          variant="ghost"
+          disabled={busy || !changes.count}
+          onPress={() => setSelectedIds(new Set(initialMarks.current))}
+        >
+          Reverter alterações
         </Button>
       </View>
     </View>
   );
   const header = (
     <View>
+      {navigation}
       <View style={s.header}>
         <View style={{ flex: 1, minWidth: 0 }}>
           <Text style={s.eyebrow}>DEX TRACKER</Text>
           <Text style={ui.title}>
-            {kind === "shinydex" ? "Shinydex Tracker" : "Pokedex Tracker"}
+            {game
+              ? game.title
+              : kind === "shinydex"
+                ? "Shinydex Tracker"
+                : "Pokedex Tracker"}
           </Text>
           <Text style={[ui.subtitle, { marginTop: 8 }]}>
             {bulkEditing
-              ? "Selecione os Pokémon que você capturou e salve tudo de uma vez."
-              : "Toque em um Pokémon para marcar ou desmarcar sua captura."}
+              ? "Marque o que capturou, desmarque o que não capturou e salve as alterações."
+              : pokedex
+                ? "Pokédex " +
+                  pokedex.title +
+                  " · Toque para marcar ou desmarcar sua captura."
+                : "Toque em um Pokémon para marcar ou desmarcar sua captura."}
           </Text>
         </View>
         {kind === "shinydex" && <Sparkles size={28} color={c.accent} />}
@@ -348,7 +444,7 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
             <View style={s.sync}>
               {busy ? (
                 <ActivityIndicator size="small" color={c.accent} />
-              ) : bulkEditing && selectedIds.size > 0 ? (
+              ) : bulkEditing && changes.count > 0 ? (
                 <ListChecks size={14} color={c.accent} />
               ) : !progress.isError && !mutation.isError ? (
                 <Check size={14} color={c.green} />
@@ -360,7 +456,7 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
                     ? "Falha ao salvar"
                     : progress.isError
                       ? "Falha ao carregar"
-                      : bulkEditing && selectedIds.size > 0
+                      : bulkEditing && changes.count > 0
                         ? "Seleção ainda não salva"
                         : "Salvo na sua conta"}
               </Text>
@@ -430,7 +526,7 @@ function AccountTracker({ kind }: { kind: TrackerKind }) {
       ) : (
         <Text style={[s.legend, { marginBottom: 20 }]}>
           {bulkEditing
-            ? "Seleção destacada: pendente de salvar · ✓: já capturado"
+            ? "Destaques indicam alterações pendentes: capturas e remoções"
             : "✓ Capturado"}{" "}
           · {boxes.length} boxes de até 30 Pokémon
         </Text>

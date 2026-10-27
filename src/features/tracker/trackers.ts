@@ -15,8 +15,8 @@ export const dexTrackers = [
   },
   {
     slug: "gamesdex",
-    title: "Gamesdex Tracker",
-    description: "Acompanhe suas coleções por jogo Pokémon.",
+    title: "Livingdex",
+    description: "Acompanhe sua Livingdex por conjunto de jogos Pokémon.",
     Icon: Gamepad2,
   },
   {

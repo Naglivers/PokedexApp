@@ -10,6 +10,7 @@ import { useAuth } from "../src/features/auth/AuthProvider";
 import { dexTrackers } from "../src/features/tracker/trackers";
 import { createTrackerBoxes } from "../src/features/tracker/boxes";
 import { indexOptions } from "../src/services/queries";
+import { trackerGames } from "../src/services/gameDex";
 import {
   getPublicProfile,
   publicProfilePath,
@@ -73,6 +74,9 @@ export default function PublicProfileRoute() {
       />
     );
   const user = profile.data;
+  const completedGames = trackerGames.filter(
+    (game) => (user.games?.[game.key] ?? 0) >= game.total,
+  ).length;
 
   return (
     <View style={[ui.page, width < 650 && { padding: 18 }]}>
@@ -131,12 +135,21 @@ export default function PublicProfileRoute() {
         ) : (
           <View style={s.dexGrid}>
             {dexTrackers.map(({ slug, title, Icon }) => {
-              const available = slug === "pokedex" || slug === "shinydex";
-              const captured = available
-                ? Math.min(user.trackers[slug], total)
+              const nationalDex = slug === "pokedex" || slug === "shinydex";
+              const available = nationalDex || slug === "gamesdex";
+              const dexTotal =
+                slug === "gamesdex" ? trackerGames.length : total;
+              const captured =
+                slug === "gamesdex"
+                  ? completedGames
+                  : nationalDex
+                    ? Math.min(user.trackers[slug], total)
+                    : 0;
+              const complete =
+                available && dexTotal > 0 && captured === dexTotal;
+              const percent = dexTotal
+                ? Math.floor((captured / dexTotal) * 100)
                 : 0;
-              const complete = available && total > 0 && captured === total;
-              const percent = total ? Math.floor((captured / total) * 100) : 0;
               return (
                 <View
                   key={slug}
@@ -166,7 +179,7 @@ export default function PublicProfileRoute() {
                     <>
                       <View style={s.countRow}>
                         <Text style={s.captured}>
-                          {captured} <Text style={s.total}>/ {total}</Text>
+                          {captured} <Text style={s.total}>/ {dexTotal}</Text>
                         </Text>
                         <Text
                           style={[s.percent, complete && { color: c.gold }]}
@@ -178,7 +191,7 @@ export default function PublicProfileRoute() {
                         accessibilityRole="progressbar"
                         accessibilityValue={{
                           min: 0,
-                          max: total,
+                          max: dexTotal,
                           now: captured,
                           text: percent + "%",
                         }}
@@ -197,9 +210,11 @@ export default function PublicProfileRoute() {
                       <Text style={[s.status, complete && { color: c.gold }]}>
                         {complete
                           ? "Coleção completa!"
-                          : slug === "shinydex"
-                            ? "Pokémon shiny capturados"
-                            : "Pokémon capturados"}
+                          : slug === "gamesdex"
+                            ? "Medalhas de conjuntos conquistadas"
+                            : slug === "shinydex"
+                              ? "Pokémon shiny capturados"
+                              : "Pokémon capturados"}
                       </Text>
                     </>
                   ) : (
@@ -208,6 +223,37 @@ export default function PublicProfileRoute() {
                 </View>
               );
             })}
+          </View>
+        )}
+        {completedGames > 0 && (
+          <View style={{ marginTop: 26, gap: 14 }}>
+            <Text style={ui.sectionTitle}>Medalhas dos conjuntos</Text>
+            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
+              {trackerGames
+                .filter((game) => (user.games?.[game.key] ?? 0) >= game.total)
+                .map((game) => (
+                  <View
+                    key={game.key}
+                    accessibilityRole="image"
+                    accessibilityLabel={"Medalha de " + game.title}
+                    style={{
+                      flexDirection: "row",
+                      alignItems: "center",
+                      gap: 9,
+                      padding: 12,
+                      borderRadius: 12,
+                      backgroundColor: c.goldSoft,
+                    }}
+                  >
+                    <Award size={23} color={c.gold} />
+                    <Text
+                      style={{ color: c.gold, fontWeight: "600", fontSize: 12 }}
+                    >
+                      {game.title}
+                    </Text>
+                  </View>
+                ))}
+            </View>
           </View>
         )}
       </View>

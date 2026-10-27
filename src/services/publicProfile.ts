@@ -1,11 +1,12 @@
 import { AccountError } from "./account";
 import { supabase } from "./supabase";
-import type { TrackerKind } from "./tracker";
+import type { BaseTrackerKind } from "./tracker";
 
 export type PublicProfile = {
   nickname: string;
   avatar_url: string | null;
-  trackers: Record<TrackerKind, number>;
+  trackers: Record<BaseTrackerKind, number>;
+  games: Record<string, number>;
 };
 
 // Static app routes keep their existing meaning. A fallback handles accounts
@@ -79,6 +80,15 @@ export async function getPublicProfile(
   return {
     nickname: profile.nickname,
     avatar_url: profile.avatar_url,
+    games:
+      profile.games &&
+      typeof profile.games === "object" &&
+      !Array.isArray(profile.games) &&
+      Object.values(profile.games).every(
+        (value) => Number.isSafeInteger(value) && Number(value) >= 0,
+      )
+        ? profile.games
+        : {},
     trackers: {
       pokedex: profile.trackers.pokedex,
       shinydex: profile.trackers.shinydex,

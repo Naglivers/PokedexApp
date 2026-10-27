@@ -1,6 +1,6 @@
 import React, { useMemo, useState } from "react";
 import { Image, Pressable, Text, View } from "react-native";
-import { Check } from "lucide-react-native";
+import { Check, Minus } from "lucide-react-native";
 import { useRouter } from "expo-router";
 import { useTheme, useThemedStyles } from "../../theme";
 import type { TrackerKind } from "../../services/tracker";
@@ -84,6 +84,8 @@ const TrackerCell = React.memo(function TrackerCell({
   const router = useRouter();
   const { colors: c } = useTheme();
   const s = useThemedStyles(createTrackerStyles);
+  const pendingRemoval = bulkEditing && caught && !selected;
+  const pendingAddition = bulkEditing && !caught && selected;
   return (
     <View style={s.cellFrame}>
       <Pressable
@@ -91,7 +93,7 @@ const TrackerCell = React.memo(function TrackerCell({
         accessibilityLabel={
           trackerName(pokemon.name) +
           " #" +
-          dexNumber(pokemon.id) +
+          dexNumber(pokemon.dexNumber ?? pokemon.id) +
           (kind === "shinydex" ? " shiny" : "")
         }
         accessibilityState={{
@@ -100,7 +102,7 @@ const TrackerCell = React.memo(function TrackerCell({
         }}
         accessibilityHint={
           bulkEditing
-            ? "Seleciona para salvar como capturado. Ainda não altera o banco."
+            ? "Marque para capturado ou desmarque para não capturado. Só salva ao confirmar."
             : "Marca ou desmarca sua captura."
         }
         disabled={disabled}
@@ -109,8 +111,9 @@ const TrackerCell = React.memo(function TrackerCell({
           s.cell,
           {
             height: mobile ? 94 : 116,
-            backgroundColor:
-              bulkEditing && selected
+            backgroundColor: pendingRemoval
+              ? c.warningBg
+              : pendingAddition
                 ? c.accentSoft
                 : caught
                   ? c.mint
@@ -123,7 +126,15 @@ const TrackerCell = React.memo(function TrackerCell({
       >
         {bulkEditing && (
           <>
-            {selected && <View pointerEvents="none" style={s.selectionRing} />}
+            {(pendingAddition || pendingRemoval) && (
+              <View
+                pointerEvents="none"
+                style={[
+                  s.selectionRing,
+                  pendingRemoval && { borderColor: c.warningText },
+                ]}
+              />
+            )}
             <View
               pointerEvents="none"
               style={[
@@ -138,7 +149,11 @@ const TrackerCell = React.memo(function TrackerCell({
             </View>
           </>
         )}
-        {caught && <Check size={12} color={c.green} style={s.check} />}
+        {pendingRemoval ? (
+          <Minus size={12} color={c.warningText} style={s.check} />
+        ) : (
+          caught && <Check size={12} color={c.green} style={s.check} />
+        )}
         <Text
           numberOfLines={2}
           style={[s.name, { fontSize: mobile ? 10 : 13 }]}
@@ -162,7 +177,7 @@ const TrackerCell = React.memo(function TrackerCell({
             },
           ]}
         >
-          #{dexNumber(pokemon.id)}
+          #{dexNumber(pokemon.dexNumber ?? pokemon.id)}
         </Text>
       </Pressable>
       <Pressable
@@ -230,7 +245,7 @@ export const TrackerBox = React.memo(function TrackerBox({
           accessibilityLabel={
             (bulkEditing
               ? allSelected
-                ? "Limpar seleção de"
+                ? "Desmarcar"
                 : "Selecionar"
               : allMarked
                 ? "Desmarcar"
@@ -251,7 +266,7 @@ export const TrackerBox = React.memo(function TrackerBox({
           <Text style={s.bulkText}>
             {bulkEditing
               ? allSelected
-                ? "Limpar seleção"
+                ? "Desmarcar box"
                 : "Selecionar box"
               : allMarked
                 ? "Desmarcar todos"

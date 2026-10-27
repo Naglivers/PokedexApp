@@ -5,6 +5,7 @@ import { useTheme } from "../../src/theme";
 import { Empty } from "../../src/components/ui";
 import { dexTrackers } from "../../src/features/tracker/trackers";
 import { DexBoxTracker } from "../../src/features/tracker/DexBoxTracker";
+import { GamesdexTracker } from "../../src/features/tracker/GamesdexTracker";
 
 export default function DexTrackerRoute() {
   const { tracker } = useLocalSearchParams<{ tracker: string }>();
@@ -13,6 +14,7 @@ export default function DexTrackerRoute() {
   const { width } = useWindowDimensions();
 
   if (!selected) return <Redirect href="/dex-tracker/pokedex" />;
+  if (selected.slug === "gamesdex") return <GamesdexTracker />;
   if (selected.slug === "pokedex" || selected.slug === "shinydex") {
     return <DexBoxTracker kind={selected.slug} />;
   }

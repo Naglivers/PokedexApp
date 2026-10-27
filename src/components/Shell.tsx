@@ -91,7 +91,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const mobile = width < 650;
   const path = usePathname();
   const trackerOwnsScroll =
-    path === "/dex-tracker/pokedex" || path === "/dex-tracker/shinydex";
+    path === "/dex-tracker/pokedex" ||
+    path === "/dex-tracker/shinydex" ||
+    path === "/dex-tracker/gamesdex";
   const router = useRouter();
   const { session, loading: authLoading } = useAuth();
   const [menu, setMenu] = useState(false);
