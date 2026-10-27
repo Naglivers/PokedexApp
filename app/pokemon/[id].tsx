@@ -38,6 +38,7 @@ import {
   Species,
   EvolutionChain,
   getByUrl,
+  idFromUrl,
   spriteUrl,
 } from "../../src/services/api";
 import { indexOptions, pokemonOptions } from "../../src/services/queries";
@@ -59,6 +60,7 @@ import {
 } from "../../src/features/pokemon/Panels";
 import { ResourceLink } from "../../src/components/ResourceData";
 import { PokemonAllData } from "../../src/features/pokemon/PokemonAllData";
+import { PokemonTcg } from "../../src/features/pokemon/PokemonTcg";
 
 export default function PokemonRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -230,6 +232,7 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
           ["moves", "Golpes"],
           ["encounters", "Onde encontrar"],
           ["forms", "Formas e sprites"],
+          ["tcg", "Cartas Pokémon TCG"],
           ["all", "Todos os dados"],
         ].map(([key, label]) => (
           <Pressable
@@ -245,6 +248,12 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
           </Pressable>
         ))}
       </ScrollView>
+      {tab === "tcg" && (
+        <PokemonTcg
+          key={p.species.url}
+          speciesId={Number(idFromUrl(p.species.url))}
+        />
+      )}
       {tab === "overview" && (
         <>
           <View style={[s.columns, mobile && { flexDirection: "column" }]}>

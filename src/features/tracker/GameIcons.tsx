@@ -62,7 +62,14 @@ export const GameIcons = memo(function GameIcons({
   size?: number;
 }) {
   return (
-    <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
+    <View
+      style={{
+        flexDirection: "row",
+        flexWrap: "wrap",
+        alignItems: "center",
+        gap: 4,
+      }}
+    >
       {versions.map((version) => (
         <EditionIcon key={version} version={version} size={size} />
       ))}

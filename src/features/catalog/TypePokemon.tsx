@@ -1,8 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
-import { Art } from "../../components/ui";
-import { idFromUrl, NamedResource } from "../../services/api";
+import { useQueries } from "@tanstack/react-query";
+import { Art, Badge, Button } from "../../components/ui";
+import {
+  getResource,
+  idFromUrl,
+  NamedResource,
+  type TypeDetail,
+} from "../../services/api";
+import { types as typeCatalog } from "../../constants/pokemon";
 import { pretty } from "../../utils/pokemon";
 import { useTheme } from "../../theme";
 
@@ -16,6 +23,29 @@ export function TypePokemon({
   const { colors: c, ui, types } = useTheme();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const typeQueries = useQueries({
+    queries: Object.keys(typeCatalog).map((typeName) => ({
+      queryKey: ["resource", "type", typeName],
+      queryFn: ({ signal }: { signal: AbortSignal }) =>
+        getResource<TypeDetail>("type", typeName, signal),
+      staleTime: 24 * 60 * 60 * 1000,
+    })),
+  });
+  const pokemonTypes = useMemo(() => {
+    const result = new Map<string, { name: string; slot: number }[]>();
+    for (const query of typeQueries) {
+      if (!query.data) continue;
+      for (const entry of query.data.pokemon) {
+        const id = idFromUrl(entry.pokemon.url);
+        const current = result.get(id) ?? [];
+        current.push({ name: query.data.name, slot: entry.slot });
+        result.set(id, current);
+      }
+    }
+    for (const entries of result.values())
+      entries.sort((a, b) => a.slot - b.slot);
+    return result;
+  }, [typeQueries]);
   const columns = width >= 1400 ? 5 : width >= 1080 ? 4 : width >= 700 ? 3 : 2;
   const records = [...pokemon].sort(
     (a, b) =>
@@ -32,9 +62,32 @@ export function TypePokemon({
           Pokémon para abrir seus detalhes.
         </Text>
       </View>
+      {typeQueries.some((query) => query.isError) && (
+        <Button
+          small
+          variant="ghost"
+          onPress={() => {
+            for (const query of typeQueries)
+              if (query.isError) void query.refetch();
+          }}
+        >
+          Recarregar tipos
+        </Button>
+      )}
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
         {records.map(({ pokemon: entry }) => {
           const id = idFromUrl(entry.url);
+          const knownTypes = pokemonTypes.get(id) ?? [];
+          const badges = knownTypes.some((type) => type.name === name)
+            ? knownTypes
+            : [
+                ...knownTypes,
+                {
+                  name,
+                  slot:
+                    pokemon.find((p) => p.pokemon.url === entry.url)?.slot ?? 1,
+                },
+              ].sort((a, b) => a.slot - b.slot);
           return (
             <Pressable
               key={entry.url}
@@ -64,11 +117,13 @@ export function TypePokemon({
                 <Text style={[ui.subtitle, { fontSize: 10 }]}>
                   #{id.padStart(4, "0")}
                 </Text>
-                <Text
-                  style={{ color: types[name]?.color ?? c.muted, fontSize: 10 }}
+                <View
+                  style={{ flexDirection: "row", flexWrap: "wrap", gap: 4 }}
                 >
-                  {types[name]?.name ?? pretty(name)}
-                </Text>
+                  {badges.map((type) => (
+                    <Badge key={type.name} name={type.name} />
+                  ))}
+                </View>
               </View>
             </Pressable>
           );

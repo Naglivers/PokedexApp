@@ -38,6 +38,8 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { Art } from "../../components/ui";
 import { resourcePath } from "../../components/ResourceData";
 import { MoveTMIcon } from "./MoveTMIcon";
+import { ResourceFavoriteButton } from "../../components/ResourceFavoriteButton";
+import { isFavoriteResource } from "../../store/resourceFavorites";
 
 const regionImages: Record<string, number> = {
   kanto: require("../../../assets/regions/kanto.png"),
@@ -271,6 +273,11 @@ export function ResourceCard({
         { borderColor: hovered ? c.borderStrong : c.line },
       ]}
     >
+      {isFavoriteResource(resource) && (
+        <View style={{ alignSelf: "flex-end" }}>
+          <ResourceFavoriteButton resource={resource} id={id} name={name} />
+        </View>
+      )}
       <View style={ui.between}>
         <View style={[s.icon, { backgroundColor: typeMeta?.bg ?? c.lavender }]}>
           {resource === "move" && type ? (

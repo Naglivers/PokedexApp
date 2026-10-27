@@ -6,6 +6,7 @@ import { useFavorites } from "../src/store/favorites";
 import { useTheme } from "../src/theme";
 import { Button, Empty } from "../src/components/ui";
 import { PokemonGrid } from "../src/components/PokemonCard";
+import { SavedResources } from "../src/features/catalog/SavedResources";
 export default function Favorites() {
   const { colors: c, ui } = useTheme();
   const { width } = useWindowDimensions();
@@ -25,29 +26,37 @@ export default function Favorites() {
         </View>
         <Heart size={30} color="#E4B9B6" strokeWidth={1.2} />
       </View>
-      <Text style={ui.subtitle}>{ids.length} Pokémon favoritos</Text>
-      <Text style={ui.subtitle}>
-        Favoritar também curte o Pokémon na comunidade. Ao remover dos
-        favoritos, sua curtida também é removida.
-      </Text>
-      {!ids.length ? (
-        <Empty
-          title="Sua coleção começa com um coração"
-          description="Entre na sua conta e toque no coração de qualquer Pokémon para favoritar e curtir."
-          action={
-            <Button onPress={() => router.push("/pokedex")}>
-              Encontrar favoritos
-            </Button>
-          }
-        />
-      ) : (
-        <PokemonGrid
-          records={ids.map((id) => ({
-            name: `Pokémon ${id}`,
-            url: `https://pokeapi.co/api/v2/pokemon/${id}/`,
-          }))}
-        />
-      )}
+      <SavedResources
+        pokemonCount={ids.length}
+        pokemonContent={
+          <>
+            <Text style={ui.sectionTitle}>Pokémon favoritos</Text>
+            <Text style={ui.subtitle}>{ids.length} Pokémon favoritos</Text>
+            <Text style={ui.subtitle}>
+              Favoritar também curte o Pokémon na comunidade. Ao remover dos
+              favoritos, sua curtida também é removida.
+            </Text>
+            {!ids.length ? (
+              <Empty
+                title="Sua coleção começa com um coração"
+                description="Entre na sua conta e toque no coração de qualquer Pokémon para favoritar e curtir."
+                action={
+                  <Button onPress={() => router.push("/pokedex")}>
+                    Encontrar favoritos
+                  </Button>
+                }
+              />
+            ) : (
+              <PokemonGrid
+                records={ids.map((id) => ({
+                  name: `Pokémon ${id}`,
+                  url: `https://pokeapi.co/api/v2/pokemon/${id}/`,
+                }))}
+              />
+            )}
+          </>
+        }
+      />
     </View>
   );
 }

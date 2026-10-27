@@ -62,6 +62,7 @@ const reservedPaths = new Set([
   "search",
   "api-explorer",
   "catalog",
+  "cards",
   "pokemon",
   "dex-tracker",
   "u",

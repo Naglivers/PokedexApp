@@ -17,6 +17,7 @@ import {
   ChevronRight,
   Code2,
   Compass,
+  Layers,
   Dna,
   Gamepad2,
   Heart,
@@ -37,19 +38,34 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 import { IconButton, SearchInput } from "./ui";
 import { useFavorites } from "../store/favorites";
+import { useSavedResources } from "../store/resourceFavorites";
 import { LanguageSelector } from "../i18n/LanguageSelector";
 import { ThemeSelector } from "../theme/ThemeSelector";
 import { useAuth } from "../features/auth/AuthProvider";
 import { ProfileAvatar } from "../features/auth/ProfileAvatar";
-import { dexTrackers } from "../features/tracker/trackers";
 import { publicProfilePath } from "../services/publicProfile";
 
 const navigation = [
   {
+    group: "",
+    items: [["/", "Início", Home]],
+  },
+  {
+    group: "SEU ESPAÇO",
+    items: [
+      ["/dex-tracker", "Dex Tracker", BookOpen],
+      ["/shiny-counter", "Contador Shiny", Sparkles],
+      ["/favorites", "Favoritos", Heart],
+      ["/community", "Comunidade", BarChart3],
+      ["/compare", "Comparador", Shuffle],
+      ["/team-builder", "Minha equipe", Users],
+    ],
+  },
+  {
     group: "EXPLORAR",
     items: [
-      ["/", "Visão geral", Home],
       ["/pokedex", "Pokédex", ScanLine],
+      ["/cards", "Cartas", Layers],
       ["/mega-dex", "Mega Dex", Gem],
       ["/gmax-dex", "Gmax Dex", Sparkles],
       ["/catalog/type", "Tipos", Dna],
@@ -60,27 +76,12 @@ const navigation = [
     ],
   },
   {
-    group: "DEX TRACKER",
-    items: dexTrackers.map(
-      ({ slug, title, Icon }) => [`/dex-tracker/${slug}`, title, Icon] as const,
-    ),
-  },
-  {
     group: "UNIVERSO POKÉMON",
     items: [
       ["/catalog/generation", "Jogos e gerações", Gamepad2],
       ["/catalog/region", "Regiões", Map],
       ["/catalog/berry", "Frutas", Leaf],
       ["/api-explorer", "Todas as categorias", Compass],
-    ],
-  },
-  {
-    group: "SEU ESPAÇO",
-    items: [
-      ["/favorites", "Favoritos", Heart],
-      ["/community", "Comunidade", BarChart3],
-      ["/compare", "Comparador", Shuffle],
-      ["/team-builder", "Minha equipe", Users],
     ],
   },
 ] as const;
@@ -101,7 +102,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const { session, loading: authLoading } = useAuth();
   const [menu, setMenu] = useState(false);
   const [search, setSearch] = useState("");
-  const favorites = useFavorites((state) => state.ids.length);
+  const pokemonFavorites = useFavorites((state) => state.ids.length);
+  const { entries: resourceFavorites } = useSavedResources();
+  const favorites = pokemonFavorites + resourceFavorites.length;
   const go = (href: string) => {
     router.push(href);
     setMenu(false);
@@ -129,7 +132,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
       >
         {navigation.map((group) => (
           <View key={group.group} style={{ gap: 5 }}>
-            <Text style={s.groupLabel}>{group.group}</Text>
+            {!!group.group && <Text style={s.groupLabel}>{group.group}</Text>}
             {group.items.map(([href, label, Icon]) => {
               const active =
                 path === href || (href !== "/" && path.startsWith(href + "/"));

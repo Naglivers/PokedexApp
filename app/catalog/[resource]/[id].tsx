@@ -16,6 +16,17 @@ import { ResourceData } from "../../../src/components/ResourceData";
 import { EvolutionTree } from "../../../src/features/pokemon/EvolutionTree";
 import type { EvolutionChain, TypeDetail } from "../../../src/services/api";
 import { TypePokemon } from "../../../src/features/catalog/TypePokemon";
+import { ResourceFavoriteButton } from "../../../src/components/ResourceFavoriteButton";
+import { isFavoriteResource } from "../../../src/store/resourceFavorites";
+import { GameDetail } from "../../../src/features/catalog/GameDetail";
+import {
+  RegionDetail,
+  type RegionData,
+} from "../../../src/features/catalog/RegionDetail";
+import {
+  GenerationDetail,
+  type GenerationData,
+} from "../../../src/features/catalog/GenerationDetail";
 export default function ResourceDetail() {
   const { colors: c, ui } = useTheme();
   const { resource, id } = useLocalSearchParams<{
@@ -45,9 +56,27 @@ export default function ResourceDetail() {
         <Loading />
       ) : query.isError ? (
         <ErrorState retry={() => query.refetch()} />
+      ) : resource === "region" ? (
+        <RegionDetail key={id} data={query.data as unknown as RegionData} />
+      ) : resource === "version" || resource === "version-group" ? (
+        <GameDetail resource={resource} data={query.data} />
+      ) : resource === "generation" ? (
+        <GenerationDetail
+          key={id}
+          data={query.data as unknown as GenerationData}
+        />
       ) : (
         <>
           <View style={ui.panel}>
+            {isFavoriteResource(resource) && (
+              <View style={{ alignSelf: "flex-end" }}>
+                <ResourceFavoriteButton
+                  resource={resource}
+                  id={String(query.data.id ?? id)}
+                  name={String(query.data.name ?? id)}
+                />
+              </View>
+            )}
             <Text style={[ui.label, { color: c.accent }]}>
               {resourceLabels[resource] ?? resource} / #{id}
             </Text>
