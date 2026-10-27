@@ -2,8 +2,9 @@ import { AccountError } from "./account";
 import { ensureCommunitySession } from "./community";
 import { supabase } from "./supabase";
 import { obtainablePokemon } from "../features/tracker/gameAvailability";
+import { megaIds } from "../features/tracker/megaDex";
 
-export type BaseTrackerKind = "pokedex" | "shinydex";
+export type BaseTrackerKind = "pokedex" | "shinydex" | "megadex";
 export type TrackerKind = BaseTrackerKind | "gamesdex";
 async function trackerRpc(
   name: string,
@@ -59,6 +60,8 @@ export function getTracker(
   signal?: AbortSignal,
   game?: string,
 ) {
+  if (tracker === "megadex")
+    return trackerRpc("pokeatlas_megadex_get", { p_token: token }, signal);
   if (tracker === "gamesdex") {
     const allowed = new Set(obtainablePokemon[game ?? ""] ?? []);
     return trackerRpc(
@@ -90,7 +93,7 @@ export function setTrackerMarks(
       "Selecione de 1 a 30 Pokémon válidos.",
     );
   }
-  if (tracker === "gamesdex")
+  if (tracker === "gamesdex" || tracker === "megadex")
     return applyTrackerChanges(
       token,
       tracker,
@@ -122,7 +125,7 @@ export function completeTracker(
       "Não foi possível completar essa coleção. Recarregue os Pokémon e tente novamente.",
     );
   }
-  if (tracker === "gamesdex")
+  if (tracker === "gamesdex" || tracker === "megadex")
     return applyTrackerChanges(token, tracker, pokemonIds, [], game);
   return trackerRpc("pokeatlas_tracker_complete", {
     p_token: token,
@@ -144,7 +147,9 @@ export function applyTrackerChanges(
   const allowed =
     tracker === "gamesdex"
       ? new Set(obtainablePokemon[game ?? ""] ?? [])
-      : null;
+      : tracker === "megadex"
+        ? megaIds
+        : null;
   if (
     (!addIds.length && !removeIds.length) ||
     addIds.length + removeIds.length > 4000 ||
@@ -160,6 +165,12 @@ export function applyTrackerChanges(
       "Revise as alterações antes de salvar.",
     );
   }
+  if (tracker === "megadex")
+    return trackerRpc("pokeatlas_megadex_apply", {
+      p_token: token,
+      p_add_ids: addIds,
+      p_remove_ids: removeIds,
+    });
   return trackerRpc("pokeatlas_tracker_apply", {
     p_token: token,
     p_tracker: tracker,

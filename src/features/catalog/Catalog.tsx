@@ -37,6 +37,7 @@ import {
 import { useDebounce } from "../../hooks/useDebounce";
 import { Art } from "../../components/ui";
 import { resourcePath } from "../../components/ResourceData";
+import { MoveTMIcon } from "./MoveTMIcon";
 
 const regionImages: Record<string, number> = {
   kanto: require("../../../assets/regions/kanto.png"),
@@ -236,22 +237,31 @@ export function ResourceCard({
   const type = data?.type as { name: string } | undefined;
   const typeMeta =
     resource === "type" ? types[name] : type ? types[type.name] : undefined;
-  const description = localDescription(data);
+  const description =
+    localDescription(data) ||
+    (typeof data?.catalog_description === "string"
+      ? data.catalog_description
+      : "");
   const sprites = data?.sprites as { default?: string } | undefined;
   const regionImage = resource === "region" ? regionImages[name] : undefined;
   const consoleInfo =
     resource === "generation" ? generationConsoles[id] : undefined;
-  const facts = [
-    "power",
-    "accuracy",
-    "pp",
-    "cost",
-    "growth_time",
-    "size",
-    "order",
-  ]
-    .filter((key) => typeof data?.[key] === "number")
-    .slice(0, 3);
+  const facts =
+    resource === "move"
+      ? ["power", "accuracy", "pp"]
+      : [
+          "power",
+          "accuracy",
+          "pp",
+          "cost",
+          "fling_power",
+          "growth_time",
+          "size",
+          "max_harvest",
+          "order",
+        ]
+          .filter((key) => typeof data?.[key] === "number")
+          .slice(0, 3);
   return (
     <Pressable
       accessibilityRole="link"
@@ -263,7 +273,15 @@ export function ResourceCard({
     >
       <View style={ui.between}>
         <View style={[s.icon, { backgroundColor: typeMeta?.bg ?? c.lavender }]}>
-          {consoleInfo ? (
+          {resource === "move" && type ? (
+            <MoveTMIcon key={type.name} type={type.name} />
+          ) : resource === "ability" ? (
+            <Art
+              name="Ability Patch"
+              uri="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ability-patch.png"
+              style={{ width: 40, height: 40 }}
+            />
+          ) : consoleInfo ? (
             <PixelConsole generation={id} />
           ) : regionImage || sprites?.default ? (
             <Art
@@ -290,10 +308,33 @@ export function ResourceCard({
         <ArrowUpRight size={15} color={c.muted} />
       </View>
       {type && (
-        <View style={{ alignSelf: "flex-start" }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            flexWrap: "wrap",
+            gap: 10,
+          }}
+        >
           <Badge name={type.name} />
+          {resource === "berry" && <Text style={s.fact}>Natural Gift</Text>}
+          {resource === "move" && !!data?.damage_class && (
+            <Text style={s.fact}>
+              {(
+                {
+                  physical: "Físico",
+                  special: "Especial",
+                  status: "Status",
+                } as Record<string, string>
+              )[(data.damage_class as { name: string }).name] ?? ""}
+            </Text>
+          )}
         </View>
       )}
+      {(resource === "item" || resource === "berry") &&
+        typeof data?.catalog_category_label === "string" && (
+          <Text style={s.fact}>{data.catalog_category_label}</Text>
+        )}
       {pending ? (
         <Skeleton height={13} width="80%" />
       ) : (
@@ -316,14 +357,25 @@ export function ResourceCard({
                     accuracy: "Precisão",
                     pp: "PP",
                     cost: "Custo",
+                    fling_power: "Poder de Fling",
                     size: "Tamanho",
                     order: "Ordem",
                     growth_time: "Crescimento",
+                    max_harvest: "Colheita máx.",
                   } as Record<string, string>
                 )[key]
               }{" "}
               <Text style={{ fontWeight: "700", color: c.ink }}>
-                {String(data?.[key])}
+                {data?.[key] == null
+                  ? "—"
+                  : String(data[key]) +
+                    (resource === "move" && key === "accuracy"
+                      ? "%"
+                      : resource === "berry" && key === "growth_time"
+                        ? " h/estágio"
+                        : resource === "berry" && key === "size"
+                          ? " mm"
+                          : "")}
               </Text>
             </Text>
           ))}

@@ -57,7 +57,8 @@ import {
   Encounters,
   Sprites,
 } from "../../src/features/pokemon/Panels";
-import { ResourceData, ResourceLink } from "../../src/components/ResourceData";
+import { ResourceLink } from "../../src/components/ResourceData";
+import { PokemonAllData } from "../../src/features/pokemon/PokemonAllData";
 
 export default function PokemonRoute() {
   const { id } = useLocalSearchParams<{ id: string }>();
@@ -377,16 +378,15 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
         </>
       )}
       {tab === "all" && (
-        <>
-          <Text style={ui.sectionTitle}>Pokémon: dados completos</Text>
-          <ResourceData data={p as unknown as Record<string, unknown>} />
-          {sp && (
-            <>
-              <Text style={ui.sectionTitle}>Espécie: dados completos</Text>
-              <ResourceData data={sp as unknown as Record<string, unknown>} />
-            </>
-          )}
-        </>
+        <PokemonAllData
+          pokemon={p}
+          species={sp}
+          speciesLoading={species.isPending}
+          speciesError={species.isError}
+          onRetrySpecies={() => {
+            void species.refetch();
+          }}
+        />
       )}
     </View>
   );

@@ -42,6 +42,7 @@ import { ThemeSelector } from "../theme/ThemeSelector";
 import { useAuth } from "../features/auth/AuthProvider";
 import { ProfileAvatar } from "../features/auth/ProfileAvatar";
 import { dexTrackers } from "../features/tracker/trackers";
+import { publicProfilePath } from "../services/publicProfile";
 
 const navigation = [
   {
@@ -93,7 +94,9 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const trackerOwnsScroll =
     path === "/dex-tracker/pokedex" ||
     path === "/dex-tracker/shinydex" ||
-    path === "/dex-tracker/gamesdex";
+    path === "/dex-tracker/megadex" ||
+    path === "/dex-tracker/gamesdex" ||
+    /^\/u\/[^/]+\/collection$/.test(path);
   const router = useRouter();
   const { session, loading: authLoading } = useAuth();
   const [menu, setMenu] = useState(false);
@@ -248,11 +251,17 @@ export function Shell({ children }: { children: React.ReactNode }) {
                     accessibilityRole="button"
                     accessibilityLabel={
                       session
-                        ? "Configurações de " + session.user.nickname
+                        ? "Perfil público de " + session.user.nickname
                         : "Login"
                     }
                     disabled={authLoading}
-                    onPress={() => go(session ? "/profile" : "/login")}
+                    onPress={() =>
+                      go(
+                        session
+                          ? publicProfilePath(session.user.nickname)
+                          : "/login",
+                      )
+                    }
                     style={[
                       ui.row,
                       {
@@ -277,7 +286,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
                       {!mobile && (
                         <Text style={s.trainerSub}>
                           {session
-                            ? "Configurações da conta"
+                            ? "Ver perfil público"
                             : "Sua aventura começa aqui"}
                         </Text>
                       )}

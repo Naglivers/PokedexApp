@@ -1,6 +1,41 @@
 import { AccountError } from "./account";
 import { supabase } from "./supabase";
-import type { BaseTrackerKind } from "./tracker";
+import type { BaseTrackerKind, TrackerKind } from "./tracker";
+
+export async function getPublicTracker(
+  nickname: string,
+  tracker: TrackerKind,
+  game?: string,
+  signal?: AbortSignal,
+): Promise<number[]> {
+  if (!supabase)
+    throw new AccountError(
+      "configuration",
+      "A coleção pública ainda não está disponível.",
+    );
+  const { data, error } = await supabase
+    .rpc("pokeatlas_public_tracker", {
+      p_nickname: nickname,
+      p_tracker: tracker,
+      p_game: game ?? null,
+    })
+    .abortSignal(signal ?? AbortSignal.timeout(20000));
+  if (
+    error ||
+    !data?.ok ||
+    !Array.isArray(data.pokemon_ids) ||
+    !data.pokemon_ids.every(
+      (id: unknown) =>
+        Number.isInteger(id) && Number(id) > 0 && Number(id) <= 20000,
+    )
+  ) {
+    throw new AccountError(
+      "network",
+      "Não foi possível carregar as capturas deste treinador. Tente novamente mais tarde.",
+    );
+  }
+  return data.pokemon_ids;
+}
 
 export type PublicProfile = {
   nickname: string;
@@ -20,6 +55,7 @@ const reservedPaths = new Set([
   "gmax-dex",
   "favorites",
   "community",
+  "forum",
   "compare",
   "team-builder",
   "type-battle",
@@ -92,6 +128,11 @@ export async function getPublicProfile(
     trackers: {
       pokedex: profile.trackers.pokedex,
       shinydex: profile.trackers.shinydex,
+      megadex:
+        Number.isSafeInteger(profile.trackers.megadex) &&
+        profile.trackers.megadex >= 0
+          ? profile.trackers.megadex
+          : 0,
     },
   };
 }

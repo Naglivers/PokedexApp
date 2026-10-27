@@ -23,6 +23,7 @@ import {
 import { useAuth } from "../auth/AuthProvider";
 import { createTrackerBoxes, type BoxPokemon } from "./boxes";
 import { TrackerBox, trackerBoxMask } from "./TrackerBox";
+import { createMegaBoxes } from "./megaDex";
 import { createTrackerStyles } from "./trackerStyles";
 import {
   getGamePokedex,
@@ -76,7 +77,7 @@ function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
   const initialMarks = useRef<Set<number>>(new Set());
   const national = useQuery({
     ...indexOptions("pokemon-species"),
-    enabled: kind !== "gamesdex",
+    enabled: kind !== "gamesdex" && kind !== "megadex",
   });
   const regional = useQuery({
     queryKey: ["game-pokedex", game?.key, pokedex?.key, "regional-order-v1"],
@@ -84,13 +85,22 @@ function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
     enabled: kind === "gamesdex" && !!pokedex,
     staleTime: 24 * 60 * 60 * 1000,
   });
-  const species = kind === "gamesdex" ? regional : national;
+  const mega = useQuery({
+    queryKey: ["mega-catalog"],
+    queryFn: async () => createMegaBoxes(),
+    enabled: kind === "megadex",
+    staleTime: Infinity,
+  });
+  const species =
+    kind === "gamesdex" ? regional : kind === "megadex" ? mega : national;
   const boxes = useMemo(
     () =>
       kind === "gamesdex"
         ? (regional.data ?? [])
-        : createTrackerBoxes(national.data?.results ?? []),
-    [kind, regional.data, national.data],
+        : kind === "megadex"
+          ? (mega.data ?? [])
+          : createTrackerBoxes(national.data?.results ?? []),
+    [kind, regional.data, national.data, mega.data],
   );
   const allIds = useMemo(
     () => boxes.flatMap((box) => box.map(({ id }) => id)),
@@ -161,6 +171,9 @@ function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
       }
       void client.invalidateQueries({
         queryKey: ["public-profile", session!.user.nickname.toLowerCase()],
+      });
+      void client.invalidateQueries({
+        queryKey: ["public-tracker", session!.user.nickname.toLowerCase()],
       });
       if (game)
         void client.invalidateQueries({
@@ -270,11 +283,13 @@ function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
   const collectionName =
     kind === "shinydex"
       ? "Shinydex"
-      : pokedex?.key === "obtainable"
-        ? "Coleção"
-        : pokedex
-          ? "Pokédex " + pokedex.title
-          : "Pokédex";
+      : kind === "megadex"
+        ? "Megadex"
+        : pokedex?.key === "obtainable"
+          ? "Coleção"
+          : pokedex
+            ? "Pokédex " + pokedex.title
+            : "Pokédex";
 
   const beginBulkEdit = () => {
     if (!session) {
@@ -373,7 +388,9 @@ function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
               ? game.title
               : kind === "shinydex"
                 ? "Shinydex Tracker"
-                : "Pokedex Tracker"}
+                : kind === "megadex"
+                  ? "Megadex Tracker"
+                  : "Pokedex Tracker"}
           </Text>
           <Text style={[ui.subtitle, { marginTop: 8 }]}>
             {bulkEditing
@@ -382,7 +399,9 @@ function AccountTracker({ kind, game, pokedex, navigation }: TrackerProps) {
                 ? "Pokédex " +
                   pokedex.title +
                   " · Toque para marcar ou desmarcar sua captura."
-                : "Toque em um Pokémon para marcar ou desmarcar sua captura."}
+                : kind === "megadex"
+                  ? "Cada Mega Evolução tem sua marcação, incluindo formas X, Y e Z. Toque para marcar ou desmarcar."
+                  : "Toque em um Pokémon para marcar ou desmarcar sua captura."}
           </Text>
         </View>
         {kind === "shinydex" && <Sparkles size={28} color={c.accent} />}

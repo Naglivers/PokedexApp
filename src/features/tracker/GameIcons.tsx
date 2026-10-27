@@ -24,8 +24,10 @@ const retroIcons: Record<string, string> = {
 
 const EditionIcon = memo(function EditionIcon({
   version,
+  size,
 }: {
   version: string;
+  size: number;
 }) {
   const { colors: c } = useTheme();
   const [failed, setFailed] = useState(0);
@@ -34,7 +36,8 @@ const EditionIcon = memo(function EditionIcon({
     version === "legends-za"
       ? "https://img.pokemondb.net/logos/legends-z-a-logo.jpg"
       : `https://img.pokemondb.net/boxes/${version}.jpg`;
-  if (failed >= (retro ? 2 : 1)) return <Gamepad2 size={28} color={c.accent} />;
+  if (failed >= (retro ? 2 : 1))
+    return <Gamepad2 size={size} color={c.accent} />;
   return (
     <Image
       accessibilityLabel={`Pokémon ${version}`}
@@ -46,20 +49,22 @@ const EditionIcon = memo(function EditionIcon({
       }}
       resizeMode="contain"
       onError={() => setFailed((value) => value + 1)}
-      style={{ width: 32, height: 32, borderRadius: 4 }}
+      style={{ width: size, height: size, borderRadius: 4 }}
     />
   );
 });
 
 export const GameIcons = memo(function GameIcons({
   versions,
+  size = 32,
 }: {
   versions: readonly string[];
+  size?: number;
 }) {
   return (
     <View style={{ flexDirection: "row", alignItems: "center", gap: 4 }}>
       {versions.map((version) => (
-        <EditionIcon key={version} version={version} />
+        <EditionIcon key={version} version={version} size={size} />
       ))}
     </View>
   );

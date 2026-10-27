@@ -15,7 +15,11 @@ export default function DexTrackerRoute() {
 
   if (!selected) return <Redirect href="/dex-tracker/pokedex" />;
   if (selected.slug === "gamesdex") return <GamesdexTracker />;
-  if (selected.slug === "pokedex" || selected.slug === "shinydex") {
+  if (
+    selected.slug === "pokedex" ||
+    selected.slug === "shinydex" ||
+    selected.slug === "megadex"
+  ) {
     return <DexBoxTracker kind={selected.slug} />;
   }
   const { Icon } = selected;

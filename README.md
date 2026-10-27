@@ -43,6 +43,8 @@ Curtidas e rankings globais usam Supabase, com configuração em `.env.local`, p
 
 Execute `npm run supabase:check` para verificar se os serviços necessários já estão disponíveis.
 
+O fórum, as notícias e o painel administrativo de postagens estão documentados em [supabase/FORUM.md](supabase/FORUM.md). A migração 010 ativa esses recursos e vincula a administração ao ID da conta `naglivers` existente.
+
 ## Organização do código
 
 Os ícones ficam em `assets/brand/`: a fonte vetorial `icon.svg`, o ícone 1024 px sem transparência para iOS/Android, o foreground transparente do ícone adaptativo Android e os favicons. Para regenerar os PNGs após alterar o desenho: `npm run icons`. Os ícones web são publicados também em `public/`; a configuração nativa fica em `app.json`.

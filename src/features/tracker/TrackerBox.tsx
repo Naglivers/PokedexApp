@@ -71,6 +71,7 @@ const TrackerCell = React.memo(function TrackerCell({
   disabled,
   mobile,
   onToggle,
+  readOnly = false,
 }: {
   pokemon: BoxPokemon;
   kind: TrackerKind;
@@ -80,6 +81,7 @@ const TrackerCell = React.memo(function TrackerCell({
   disabled: boolean;
   mobile: boolean;
   onToggle: TogglePokemon;
+  readOnly?: boolean;
 }) {
   const router = useRouter();
   const { colors: c } = useTheme();
@@ -98,14 +100,16 @@ const TrackerCell = React.memo(function TrackerCell({
         }
         accessibilityState={{
           checked: bulkEditing ? selected : caught,
-          disabled,
+          disabled: disabled || readOnly,
         }}
         accessibilityHint={
-          bulkEditing
-            ? "Marque para capturado ou desmarque para não capturado. Só salva ao confirmar."
-            : "Marca ou desmarca sua captura."
+          readOnly
+            ? "Captura deste treinador. Somente leitura."
+            : bulkEditing
+              ? "Marque para capturado ou desmarque para não capturado. Só salva ao confirmar."
+              : "Marca ou desmarca sua captura."
         }
-        disabled={disabled}
+        disabled={disabled || readOnly}
         onPress={() => onToggle(pokemon.id, caught, selected)}
         style={({ hovered }: { hovered?: boolean; pressed: boolean }) => [
           s.cell,
@@ -209,6 +213,7 @@ export const TrackerBox = React.memo(function TrackerBox({
   mobile,
   onToggle,
   onToggleBox,
+  readOnly = false,
 }: {
   box: BoxPokemon[];
   index: number;
@@ -220,6 +225,7 @@ export const TrackerBox = React.memo(function TrackerBox({
   mobile: boolean;
   onToggle: TogglePokemon;
   onToggleBox: ToggleBox;
+  readOnly?: boolean;
 }) {
   const s = useThemedStyles(createTrackerStyles);
   const ids = useMemo(() => box.map(({ id }) => id), [box]);
@@ -240,39 +246,41 @@ export const TrackerBox = React.memo(function TrackerBox({
             {bulkEditing ? " · " + selected + " selecionados" : ""}
           </Text>
         </View>
-        <Pressable
-          accessibilityRole="button"
-          accessibilityLabel={
-            (bulkEditing
-              ? allSelected
-                ? "Desmarcar"
-                : "Selecionar"
-              : allMarked
-                ? "Desmarcar"
-                : "Marcar") +
-            " todos os Pokémon da box " +
-            (index + 1)
-          }
-          disabled={disabled}
-          onPress={() =>
-            onToggleBox(
-              ids,
-              bulkEditing ? !allSelected : !allMarked,
-              bulkEditing,
-            )
-          }
-          style={[s.bulk, disabled && s.disabled]}
-        >
-          <Text style={s.bulkText}>
-            {bulkEditing
-              ? allSelected
-                ? "Desmarcar box"
-                : "Selecionar box"
-              : allMarked
-                ? "Desmarcar todos"
-                : "Marcar todos"}
-          </Text>
-        </Pressable>
+        {!readOnly && (
+          <Pressable
+            accessibilityRole="button"
+            accessibilityLabel={
+              (bulkEditing
+                ? allSelected
+                  ? "Desmarcar"
+                  : "Selecionar"
+                : allMarked
+                  ? "Desmarcar"
+                  : "Marcar") +
+              " todos os Pokémon da box " +
+              (index + 1)
+            }
+            disabled={disabled}
+            onPress={() =>
+              onToggleBox(
+                ids,
+                bulkEditing ? !allSelected : !allMarked,
+                bulkEditing,
+              )
+            }
+            style={[s.bulk, disabled && s.disabled]}
+          >
+            <Text style={s.bulkText}>
+              {bulkEditing
+                ? allSelected
+                  ? "Desmarcar box"
+                  : "Selecionar box"
+                : allMarked
+                  ? "Desmarcar todos"
+                  : "Marcar todos"}
+            </Text>
+          </Pressable>
+        )}
       </View>
       <View style={s.grid}>
         {box.map((pokemon, position) => (
@@ -286,6 +294,7 @@ export const TrackerBox = React.memo(function TrackerBox({
             disabled={disabled}
             mobile={mobile}
             onToggle={onToggle}
+            readOnly={readOnly}
           />
         ))}
       </View>

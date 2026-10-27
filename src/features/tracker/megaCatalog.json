@@ -1,0 +1,487 @@
+[
+  {
+    "id": 10033,
+    "name": "venusaur-mega",
+    "dexNumber": 3
+  },
+  {
+    "id": 10034,
+    "name": "charizard-mega-x",
+    "dexNumber": 6
+  },
+  {
+    "id": 10035,
+    "name": "charizard-mega-y",
+    "dexNumber": 6
+  },
+  {
+    "id": 10036,
+    "name": "blastoise-mega",
+    "dexNumber": 9
+  },
+  {
+    "id": 10090,
+    "name": "beedrill-mega",
+    "dexNumber": 15
+  },
+  {
+    "id": 10073,
+    "name": "pidgeot-mega",
+    "dexNumber": 18
+  },
+  {
+    "id": 10304,
+    "name": "raichu-mega-x",
+    "dexNumber": 26
+  },
+  {
+    "id": 10305,
+    "name": "raichu-mega-y",
+    "dexNumber": 26
+  },
+  {
+    "id": 10278,
+    "name": "clefable-mega",
+    "dexNumber": 36
+  },
+  {
+    "id": 10037,
+    "name": "alakazam-mega",
+    "dexNumber": 65
+  },
+  {
+    "id": 10279,
+    "name": "victreebel-mega",
+    "dexNumber": 71
+  },
+  {
+    "id": 10071,
+    "name": "slowbro-mega",
+    "dexNumber": 80
+  },
+  {
+    "id": 10038,
+    "name": "gengar-mega",
+    "dexNumber": 94
+  },
+  {
+    "id": 10039,
+    "name": "kangaskhan-mega",
+    "dexNumber": 115
+  },
+  {
+    "id": 10280,
+    "name": "starmie-mega",
+    "dexNumber": 121
+  },
+  {
+    "id": 10040,
+    "name": "pinsir-mega",
+    "dexNumber": 127
+  },
+  {
+    "id": 10041,
+    "name": "gyarados-mega",
+    "dexNumber": 130
+  },
+  {
+    "id": 10042,
+    "name": "aerodactyl-mega",
+    "dexNumber": 142
+  },
+  {
+    "id": 10281,
+    "name": "dragonite-mega",
+    "dexNumber": 149
+  },
+  {
+    "id": 10043,
+    "name": "mewtwo-mega-x",
+    "dexNumber": 150
+  },
+  {
+    "id": 10044,
+    "name": "mewtwo-mega-y",
+    "dexNumber": 150
+  },
+  {
+    "id": 10282,
+    "name": "meganium-mega",
+    "dexNumber": 154
+  },
+  {
+    "id": 10283,
+    "name": "feraligatr-mega",
+    "dexNumber": 160
+  },
+  {
+    "id": 10045,
+    "name": "ampharos-mega",
+    "dexNumber": 181
+  },
+  {
+    "id": 10072,
+    "name": "steelix-mega",
+    "dexNumber": 208
+  },
+  {
+    "id": 10046,
+    "name": "scizor-mega",
+    "dexNumber": 212
+  },
+  {
+    "id": 10047,
+    "name": "heracross-mega",
+    "dexNumber": 214
+  },
+  {
+    "id": 10284,
+    "name": "skarmory-mega",
+    "dexNumber": 227
+  },
+  {
+    "id": 10048,
+    "name": "houndoom-mega",
+    "dexNumber": 229
+  },
+  {
+    "id": 10049,
+    "name": "tyranitar-mega",
+    "dexNumber": 248
+  },
+  {
+    "id": 10065,
+    "name": "sceptile-mega",
+    "dexNumber": 254
+  },
+  {
+    "id": 10050,
+    "name": "blaziken-mega",
+    "dexNumber": 257
+  },
+  {
+    "id": 10064,
+    "name": "swampert-mega",
+    "dexNumber": 260
+  },
+  {
+    "id": 10051,
+    "name": "gardevoir-mega",
+    "dexNumber": 282
+  },
+  {
+    "id": 10066,
+    "name": "sableye-mega",
+    "dexNumber": 302
+  },
+  {
+    "id": 10052,
+    "name": "mawile-mega",
+    "dexNumber": 303
+  },
+  {
+    "id": 10053,
+    "name": "aggron-mega",
+    "dexNumber": 306
+  },
+  {
+    "id": 10054,
+    "name": "medicham-mega",
+    "dexNumber": 308
+  },
+  {
+    "id": 10055,
+    "name": "manectric-mega",
+    "dexNumber": 310
+  },
+  {
+    "id": 10070,
+    "name": "sharpedo-mega",
+    "dexNumber": 319
+  },
+  {
+    "id": 10087,
+    "name": "camerupt-mega",
+    "dexNumber": 323
+  },
+  {
+    "id": 10067,
+    "name": "altaria-mega",
+    "dexNumber": 334
+  },
+  {
+    "id": 10056,
+    "name": "banette-mega",
+    "dexNumber": 354
+  },
+  {
+    "id": 10306,
+    "name": "chimecho-mega",
+    "dexNumber": 358
+  },
+  {
+    "id": 10057,
+    "name": "absol-mega",
+    "dexNumber": 359
+  },
+  {
+    "id": 10307,
+    "name": "absol-mega-z",
+    "dexNumber": 359
+  },
+  {
+    "id": 10074,
+    "name": "glalie-mega",
+    "dexNumber": 362
+  },
+  {
+    "id": 10089,
+    "name": "salamence-mega",
+    "dexNumber": 373
+  },
+  {
+    "id": 10076,
+    "name": "metagross-mega",
+    "dexNumber": 376
+  },
+  {
+    "id": 10062,
+    "name": "latias-mega",
+    "dexNumber": 380
+  },
+  {
+    "id": 10063,
+    "name": "latios-mega",
+    "dexNumber": 381
+  },
+  {
+    "id": 10079,
+    "name": "rayquaza-mega",
+    "dexNumber": 384
+  },
+  {
+    "id": 10308,
+    "name": "staraptor-mega",
+    "dexNumber": 398
+  },
+  {
+    "id": 10088,
+    "name": "lopunny-mega",
+    "dexNumber": 428
+  },
+  {
+    "id": 10058,
+    "name": "garchomp-mega",
+    "dexNumber": 445
+  },
+  {
+    "id": 10309,
+    "name": "garchomp-mega-z",
+    "dexNumber": 445
+  },
+  {
+    "id": 10059,
+    "name": "lucario-mega",
+    "dexNumber": 448
+  },
+  {
+    "id": 10310,
+    "name": "lucario-mega-z",
+    "dexNumber": 448
+  },
+  {
+    "id": 10060,
+    "name": "abomasnow-mega",
+    "dexNumber": 460
+  },
+  {
+    "id": 10068,
+    "name": "gallade-mega",
+    "dexNumber": 475
+  },
+  {
+    "id": 10285,
+    "name": "froslass-mega",
+    "dexNumber": 478
+  },
+  {
+    "id": 10311,
+    "name": "heatran-mega",
+    "dexNumber": 485
+  },
+  {
+    "id": 10312,
+    "name": "darkrai-mega",
+    "dexNumber": 491
+  },
+  {
+    "id": 10286,
+    "name": "emboar-mega",
+    "dexNumber": 500
+  },
+  {
+    "id": 10287,
+    "name": "excadrill-mega",
+    "dexNumber": 530
+  },
+  {
+    "id": 10069,
+    "name": "audino-mega",
+    "dexNumber": 531
+  },
+  {
+    "id": 10288,
+    "name": "scolipede-mega",
+    "dexNumber": 545
+  },
+  {
+    "id": 10289,
+    "name": "scrafty-mega",
+    "dexNumber": 560
+  },
+  {
+    "id": 10290,
+    "name": "eelektross-mega",
+    "dexNumber": 604
+  },
+  {
+    "id": 10291,
+    "name": "chandelure-mega",
+    "dexNumber": 609
+  },
+  {
+    "id": 10313,
+    "name": "golurk-mega",
+    "dexNumber": 623
+  },
+  {
+    "id": 10292,
+    "name": "chesnaught-mega",
+    "dexNumber": 652
+  },
+  {
+    "id": 10293,
+    "name": "delphox-mega",
+    "dexNumber": 655
+  },
+  {
+    "id": 10294,
+    "name": "greninja-mega",
+    "dexNumber": 658
+  },
+  {
+    "id": 10295,
+    "name": "pyroar-mega",
+    "dexNumber": 668
+  },
+  {
+    "id": 10296,
+    "name": "floette-mega",
+    "dexNumber": 670
+  },
+  {
+    "id": 10314,
+    "name": "meowstic-male-mega",
+    "dexNumber": 678
+  },
+  {
+    "id": 10326,
+    "name": "meowstic-female-mega",
+    "dexNumber": 678
+  },
+  {
+    "id": 10297,
+    "name": "malamar-mega",
+    "dexNumber": 687
+  },
+  {
+    "id": 10298,
+    "name": "barbaracle-mega",
+    "dexNumber": 689
+  },
+  {
+    "id": 10299,
+    "name": "dragalge-mega",
+    "dexNumber": 691
+  },
+  {
+    "id": 10300,
+    "name": "hawlucha-mega",
+    "dexNumber": 701
+  },
+  {
+    "id": 10301,
+    "name": "zygarde-mega",
+    "dexNumber": 718
+  },
+  {
+    "id": 10075,
+    "name": "diancie-mega",
+    "dexNumber": 719
+  },
+  {
+    "id": 10315,
+    "name": "crabominable-mega",
+    "dexNumber": 740
+  },
+  {
+    "id": 10316,
+    "name": "golisopod-mega",
+    "dexNumber": 768
+  },
+  {
+    "id": 10302,
+    "name": "drampa-mega",
+    "dexNumber": 780
+  },
+  {
+    "id": 10317,
+    "name": "magearna-mega",
+    "dexNumber": 801
+  },
+  {
+    "id": 10318,
+    "name": "magearna-original-mega",
+    "dexNumber": 801
+  },
+  {
+    "id": 10319,
+    "name": "zeraora-mega",
+    "dexNumber": 807
+  },
+  {
+    "id": 10303,
+    "name": "falinks-mega",
+    "dexNumber": 870
+  },
+  {
+    "id": 10320,
+    "name": "scovillain-mega",
+    "dexNumber": 952
+  },
+  {
+    "id": 10321,
+    "name": "glimmora-mega",
+    "dexNumber": 970
+  },
+  {
+    "id": 10322,
+    "name": "tatsugiri-curly-mega",
+    "dexNumber": 978
+  },
+  {
+    "id": 10323,
+    "name": "tatsugiri-droopy-mega",
+    "dexNumber": 978
+  },
+  {
+    "id": 10324,
+    "name": "tatsugiri-stretchy-mega",
+    "dexNumber": 978
+  },
+  {
+    "id": 10325,
+    "name": "baxcalibur-mega",
+    "dexNumber": 998
+  }
+]

@@ -1,16 +1,25 @@
-import React, { useMemo } from "react";
-import { StyleSheet, Text, View, useWindowDimensions } from "react-native";
+import React, { useMemo, useState } from "react";
+import {
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  useWindowDimensions,
+} from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import Head from "expo-router/head";
 import { useQuery } from "@tanstack/react-query";
 import { Award, RefreshCw, Settings } from "lucide-react-native";
 import { Button, Empty, ErrorState, Loading } from "../src/components/ui";
 import { ProfileAvatar } from "../src/features/auth/ProfileAvatar";
+import { ProfileBadges } from "../src/features/auth/ProfileBadges";
+import { ProfilePokedexes } from "../src/features/auth/ProfilePokedexes";
 import { useAuth } from "../src/features/auth/AuthProvider";
 import { dexTrackers } from "../src/features/tracker/trackers";
 import { createTrackerBoxes } from "../src/features/tracker/boxes";
 import { indexOptions } from "../src/services/queries";
 import { trackerGames } from "../src/services/gameDex";
+import { megaTotal } from "../src/features/tracker/megaDex";
 import {
   getPublicProfile,
   publicProfilePath,
@@ -30,6 +39,9 @@ export default function PublicProfileRoute() {
   const s = useThemedStyles(createStyles);
   const { width } = useWindowDimensions();
   const router = useRouter();
+  const [tab, setTab] = useState<"overview" | "pokedexes" | "badges">(
+    "overview",
+  );
   const profile = useQuery({
     queryKey: ["public-profile", nickname.toLowerCase()],
     queryFn: ({ signal }) => getPublicProfile(nickname, signal),
@@ -109,152 +121,176 @@ export default function PublicProfileRoute() {
           )}
         </View>
 
-        <View style={s.sectionHeader}>
-          <Text style={ui.sectionTitle}>Conclusão das dex</Text>
-          <Button
-            small
-            variant="ghost"
-            disabled={profile.isFetching || species.isFetching}
-            icon={<RefreshCw size={13} color={c.muted} />}
-            onPress={() => {
-              void profile.refetch();
-              void species.refetch();
-            }}
-          >
-            Atualizar
-          </Button>
+        <View style={s.tabs}>
+          {(
+            [
+              ["overview", "Visão geral"],
+              ["pokedexes", "Pokédexes"],
+              ["badges", "Badges"],
+            ] as const
+          ).map(([key, label]) => (
+            <Pressable
+              key={key}
+              accessibilityRole="tab"
+              accessibilityState={{ selected: tab === key }}
+              onPress={() => setTab(key)}
+              style={[s.tab, tab === key && s.tabActive]}
+            >
+              <Text style={[s.tabText, tab === key && { color: c.accent }]}>
+                {label}
+              </Text>
+            </Pressable>
+          ))}
         </View>
-        {species.isPending ? (
-          <Loading text="Carregando as dex…" />
-        ) : species.isError ? (
-          <ErrorState
-            retry={() => {
-              void species.refetch();
-            }}
-          />
-        ) : (
-          <View style={s.dexGrid}>
-            {dexTrackers.map(({ slug, title, Icon }) => {
-              const nationalDex = slug === "pokedex" || slug === "shinydex";
-              const available = nationalDex || slug === "gamesdex";
-              const dexTotal =
-                slug === "gamesdex" ? trackerGames.length : total;
-              const captured =
-                slug === "gamesdex"
-                  ? completedGames
-                  : nationalDex
-                    ? Math.min(user.trackers[slug], total)
-                    : 0;
-              const complete =
-                available && dexTotal > 0 && captured === dexTotal;
-              const percent = dexTotal
-                ? Math.floor((captured / dexTotal) * 100)
-                : 0;
-              return (
-                <View
-                  key={slug}
-                  style={[
-                    s.dexCard,
-                    { width: width >= 850 ? "48.5%" : "100%" },
-                  ]}
-                >
-                  <View style={s.cardHeader}>
-                    <View style={s.dexIcon}>
-                      <Icon size={20} color={c.accent} />
-                    </View>
-                    <Text style={s.dexTitle}>{title}</Text>
-                    {complete && (
-                      <View
-                        accessibilityRole="image"
-                        accessibilityLabel={
-                          title + " completa: medalha de 100%"
-                        }
-                        style={s.medal}
-                      >
-                        <Award size={24} color={c.gold} />
-                      </View>
-                    )}
-                  </View>
-                  {available ? (
-                    <>
-                      <View style={s.countRow}>
-                        <Text style={s.captured}>
-                          {captured} <Text style={s.total}>/ {dexTotal}</Text>
-                        </Text>
-                        <Text
-                          style={[s.percent, complete && { color: c.gold }]}
-                        >
-                          {percent}%
-                        </Text>
-                      </View>
-                      <View
-                        accessibilityRole="progressbar"
-                        accessibilityValue={{
-                          min: 0,
-                          max: dexTotal,
-                          now: captured,
-                          text: percent + "%",
-                        }}
-                        style={s.progressTrack}
-                      >
-                        <View
-                          style={[
-                            s.progressFill,
-                            {
-                              width: (percent + "%") as `${number}%`,
-                              backgroundColor: complete ? c.gold : c.accent,
-                            },
-                          ]}
-                        />
-                      </View>
-                      <Text style={[s.status, complete && { color: c.gold }]}>
-                        {complete
-                          ? "Coleção completa!"
-                          : slug === "gamesdex"
-                            ? "Medalhas de conjuntos conquistadas"
-                            : slug === "shinydex"
-                              ? "Pokémon shiny capturados"
-                              : "Pokémon capturados"}
-                      </Text>
-                    </>
-                  ) : (
-                    <Text style={s.comingSoon}>Em preparação</Text>
-                  )}
-                </View>
-              );
-            })}
-          </View>
-        )}
-        {completedGames > 0 && (
-          <View style={{ marginTop: 26, gap: 14 }}>
-            <Text style={ui.sectionTitle}>Medalhas dos conjuntos</Text>
-            <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
-              {trackerGames
-                .filter((game) => (user.games?.[game.key] ?? 0) >= game.total)
-                .map((game) => (
-                  <View
-                    key={game.key}
-                    accessibilityRole="image"
-                    accessibilityLabel={"Medalha de " + game.title}
-                    style={{
-                      flexDirection: "row",
-                      alignItems: "center",
-                      gap: 9,
-                      padding: 12,
-                      borderRadius: 12,
-                      backgroundColor: c.goldSoft,
-                    }}
-                  >
-                    <Award size={23} color={c.gold} />
-                    <Text
-                      style={{ color: c.gold, fontWeight: "600", fontSize: 12 }}
-                    >
-                      {game.title}
-                    </Text>
-                  </View>
-                ))}
+        {tab === "overview" && (
+          <>
+            <View style={s.sectionHeader}>
+              <Text style={ui.sectionTitle}>Resumo das coleções</Text>
+              <Button
+                small
+                variant="ghost"
+                disabled={profile.isFetching || species.isFetching}
+                icon={<RefreshCw size={13} color={c.muted} />}
+                onPress={() => {
+                  void profile.refetch();
+                  void species.refetch();
+                }}
+              >
+                Atualizar
+              </Button>
             </View>
-          </View>
+            {species.isPending ? (
+              <Loading text="Carregando as dex…" />
+            ) : species.isError ? (
+              <ErrorState
+                retry={() => {
+                  void species.refetch();
+                }}
+              />
+            ) : (
+              <View style={s.dexGrid}>
+                {dexTrackers.map(({ slug, title, Icon }) => {
+                  const nationalDex =
+                    slug === "pokedex" ||
+                    slug === "shinydex" ||
+                    slug === "megadex";
+                  const available = nationalDex || slug === "gamesdex";
+                  const dexTotal =
+                    slug === "gamesdex"
+                      ? trackerGames.length
+                      : slug === "megadex"
+                        ? megaTotal
+                        : total;
+                  const captured =
+                    slug === "gamesdex"
+                      ? completedGames
+                      : nationalDex
+                        ? Math.min(user.trackers[slug], dexTotal)
+                        : 0;
+                  const complete =
+                    available && dexTotal > 0 && captured === dexTotal;
+                  const percent = dexTotal
+                    ? Math.floor((captured / dexTotal) * 100)
+                    : 0;
+                  return (
+                    <Pressable
+                      key={slug}
+                      accessibilityRole="link"
+                      accessibilityLabel={`Ver ${title} de ${user.nickname}`}
+                      disabled={!available}
+                      onPress={() => {
+                        if (slug === "gamesdex") setTab("pokedexes");
+                        else
+                          router.push({
+                            pathname: "/u/[nickname]/collection",
+                            params: { nickname: user.nickname, tracker: slug },
+                          });
+                      }}
+                      style={[
+                        s.dexCard,
+                        { width: width >= 850 ? "48.5%" : "100%" },
+                      ]}
+                    >
+                      <View style={s.cardHeader}>
+                        <View style={s.dexIcon}>
+                          <Icon size={20} color={c.accent} />
+                        </View>
+                        <Text style={s.dexTitle}>{title}</Text>
+                        {complete && (
+                          <View
+                            accessibilityRole="image"
+                            accessibilityLabel={
+                              title + " completa: medalha de 100%"
+                            }
+                            style={s.medal}
+                          >
+                            <Award size={24} color={c.gold} />
+                          </View>
+                        )}
+                      </View>
+                      {available ? (
+                        <>
+                          <View style={s.countRow}>
+                            <Text style={s.captured}>
+                              {captured}{" "}
+                              <Text style={s.total}>/ {dexTotal}</Text>
+                            </Text>
+                            <Text
+                              style={[s.percent, complete && { color: c.gold }]}
+                            >
+                              {percent}%
+                            </Text>
+                          </View>
+                          <View
+                            accessibilityRole="progressbar"
+                            accessibilityValue={{
+                              min: 0,
+                              max: dexTotal,
+                              now: captured,
+                              text: percent + "%",
+                            }}
+                            style={s.progressTrack}
+                          >
+                            <View
+                              style={[
+                                s.progressFill,
+                                {
+                                  width: (percent + "%") as `${number}%`,
+                                  backgroundColor: complete ? c.gold : c.accent,
+                                },
+                              ]}
+                            />
+                          </View>
+                          <Text
+                            style={[s.status, complete && { color: c.gold }]}
+                          >
+                            {complete
+                              ? "Coleção completa!"
+                              : slug === "gamesdex"
+                                ? "Medalhas de conjuntos conquistadas"
+                                : slug === "shinydex"
+                                  ? "Pokémon shiny capturados"
+                                  : "Pokémon capturados"}
+                          </Text>
+                        </>
+                      ) : (
+                        <Text style={s.comingSoon}>Em preparação</Text>
+                      )}
+                    </Pressable>
+                  );
+                })}
+              </View>
+            )}
+          </>
+        )}
+        {tab === "pokedexes" && (
+          <ProfilePokedexes profile={user} total={total} />
+        )}
+        {tab === "badges" && (
+          <ProfileBadges
+            profile={user}
+            nationalTotal={species.isSuccess ? total : 0}
+          />
         )}
       </View>
     </View>
@@ -308,6 +344,21 @@ const createStyles = (c: ThemeColors) =>
       gap: 10,
       marginBottom: 16,
     },
+    tabs: {
+      flexDirection: "row",
+      gap: 22,
+      borderBottomWidth: 1,
+      borderBottomColor: c.line,
+      marginBottom: 20,
+    },
+    tab: {
+      paddingVertical: 15,
+      paddingHorizontal: 2,
+      borderBottomWidth: 2,
+      borderBottomColor: "transparent",
+    },
+    tabActive: { borderBottomColor: c.accent },
+    tabText: { ...font, color: c.muted, fontSize: 12, fontWeight: "600" },
     dexGrid: {
       flexDirection: "row",
       flexWrap: "wrap",

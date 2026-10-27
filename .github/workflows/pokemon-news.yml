@@ -1,0 +1,25 @@
+name: Pokemon news
+on:
+  schedule:
+    - cron: "37 * * * *"
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: pokemon-news-import
+  cancel-in-progress: false
+jobs:
+  import-news:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    steps:
+      - name: Obter importador
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: false
+      - name: Importar noticias Pokemon
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL || secrets.EXPO_PUBLIC_SUPABASE_URL }}
+          SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY || secrets.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+          SUPABASE_NEWS_IMPORT_TOKEN: ${{ secrets.SUPABASE_NEWS_IMPORT_TOKEN }}
+        run: python3 scripts/import-pokemon-news.py

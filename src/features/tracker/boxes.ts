@@ -23,6 +23,14 @@ export function boxRange(box: BoxPokemon[]) {
     : "";
 }
 export function trackerName(name: string) {
+  if (/-mega(?:-|$)/.test(name)) {
+    const [species, variant] = name.split("-mega");
+    return (
+      "Mega " +
+      trackerName(species) +
+      (variant ? " " + variant.slice(1).toUpperCase() : "")
+    );
+  }
   const special: Record<string, string> = {
     "nidoran-f": "Nidoran♀",
     "nidoran-m": "Nidoran♂",
@@ -43,5 +51,7 @@ export function trackerName(name: string) {
   );
 }
 export function trackerSprite(id: number, kind: TrackerKind) {
+  if (kind === "megadex")
+    return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/${id}.png`;
   return `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/${kind === "shinydex" ? "shiny/" : ""}${id}.png`;
 }
