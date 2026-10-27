@@ -119,6 +119,67 @@ def child_text(element, name):
     return ""
 
 
+
+class MediaParser(HTMLParser):
+    def __init__(self):
+        super().__init__(convert_charrefs=True)
+        self.image = None
+        self.video = None
+
+    def handle_starttag(self, tag, attrs):
+        attrs = dict(attrs)
+        if tag == "meta" and attrs.get("property") == "og:image" and not self.image:
+            self.image = media_url(attrs.get("content", ""), "image")
+        if tag == "img" and not self.image:
+            self.image = media_url(attrs.get("src", ""), "image")
+        if tag in ("iframe", "video", "source", "a") and not self.video:
+            self.video = media_url(attrs.get("src", attrs.get("href", "")), "video")
+
+
+def media_url(value, kind):
+    try:
+        url = urllib.parse.urlsplit(html.unescape(value))
+        if url.scheme != "https" or url.username or url.password or url.port not in (None, 443):
+            return None
+        host = (url.hostname or "").lower()
+        if kind == "image" and (host == "images.nintendolife.com" or host.endswith(".nintendolife.com")):
+            return urllib.parse.urlunsplit(("https", host, url.path, url.query, ""))
+        if kind == "video":
+            if host in ("www.youtube.com", "youtube.com", "www.youtube-nocookie.com", "youtube-nocookie.com"):
+                match = re.fullmatch(r"/(?:embed|shorts)/([A-Za-z0-9_-]{11})", url.path)
+                video_id = match.group(1) if match else urllib.parse.parse_qs(url.query).get("v", [""])[0]
+            elif host == "youtu.be":
+                video_id = url.path.strip("/")
+            else:
+                return None
+            if re.fullmatch(r"[A-Za-z0-9_-]{11}", video_id):
+                return "https://www.youtube.com/watch?v=" + video_id
+    except ValueError:
+        pass
+    return None
+
+
+def read_media(item, article_url):
+    parser = MediaParser()
+    for node in item.iter():
+        local = node.tag.rsplit("}", 1)[-1]
+        if local in ("description", "encoded"):
+            parser.feed("".join(node.itertext()))
+        candidate = node.attrib.get("url", "")
+        if local in ("content", "thumbnail", "enclosure"):
+            if not parser.image:
+                parser.image = media_url(candidate, "image")
+            if not parser.video:
+                parser.video = media_url(candidate, "video")
+    if not parser.image or not parser.video:
+        try:
+            # Apenas metadados de mídia; nunca importa o texto da matéria.
+            parser.feed(read_url(article_url).decode("utf-8", errors="replace"))
+        except (RuntimeError, ValueError):
+            pass
+    return {"image_url": parser.image, "video_url": parser.video}
+
+
 def read_entries():
     payload = read_url(FEED_URL)
     upper = payload.upper()
@@ -157,6 +218,7 @@ def read_entries():
             "summary": summary,
             "url": link,
             "published_at": published.isoformat(),
+            **read_media(item, link),
         }
     return sorted(entries.values(), key=lambda item: item["published_at"])[-20:]
 
