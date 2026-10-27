@@ -24,8 +24,23 @@ test("nickname accounts: optional fields, private profiles, session isolation, e
     path.join(__dirname, "../supabase/migrations/202610280001_accounts.sql"),
     "utf8",
   );
+  await db.exec(
+    fs.readFileSync(
+      path.join(__dirname, "../supabase/migrations/202610260001_community.sql"),
+      "utf8",
+    ),
+  );
   await db.exec(sql);
   await db.exec(sql); // Safe to rerun without deleting accounts.
+  const likesSql = fs.readFileSync(
+    path.join(
+      __dirname,
+      "../supabase/migrations/202610280002_account_likes.sql",
+    ),
+    "utf8",
+  );
+  await db.exec(likesSql);
+  await db.exec(likesSql);
   const owner = async () => db.exec("reset role");
   const asDevice = async (id = device) => {
     await db.exec("reset role");
@@ -58,6 +73,49 @@ test("nickname accounts: optional fields, private profiles, session isolation, e
   assert.equal(first.user.avatar_url, null);
   assert.match(first.token, /^[a-f0-9]{64}$/);
   assert.ok(!JSON.stringify(result).includes("my-private-password"));
+  await owner();
+  await db.query(
+    "insert into public.pokeatlas_likes(user_id, pokemon_id) values ($1, 992)",
+    [device],
+  );
+  await asDevice();
+  assert.equal(
+    (await rpc("pokeatlas_account_set_like", [first.token, 992, true])).ok,
+    true,
+  );
+  await rpc("pokeatlas_account_set_like", [first.token, 992, true]);
+  assert.deepEqual(
+    (await rpc("pokeatlas_account_my_likes", [first.token])).likes,
+    [992],
+  );
+  assert.equal((await rpc("pokeatlas_community_overview", [])).total_likes, 2);
+  assert.deepEqual(
+    (
+      await db.query(
+        "select * from public.pokeatlas_account_like_counts(array[992])",
+      )
+    ).rows,
+    [{ pokemon_id: 992, total: 1 }],
+  );
+  await asDevice(secondDevice);
+  assert.equal(
+    (await rpc("pokeatlas_account_set_like", [first.token, 992, false])).code,
+    "session_expired",
+  );
+  await asDevice();
+  assert.equal(
+    (await rpc("pokeatlas_account_set_like", [first.token, 992, false])).ok,
+    true,
+  );
+  assert.deepEqual(
+    (await rpc("pokeatlas_account_my_likes", [first.token])).likes,
+    [],
+  );
+  assert.equal((await rpc("pokeatlas_community_overview", [])).total_likes, 1);
+  await assert.rejects(
+    db.query("select * from pokeatlas_private.account_likes"),
+    /permission denied/,
+  );
   const photo = "data:image/png;base64,iVBORw0KGgo=";
   const saved = await rpc("pokeatlas_account_save", [
     first.token,

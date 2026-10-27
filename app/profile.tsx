@@ -8,15 +8,23 @@ import {
   TextInput,
   View,
 } from "react-native";
-import { Redirect } from "expo-router";
+import { Redirect, useRouter } from "expo-router";
+import { useQueryClient } from "@tanstack/react-query";
 import * as ImagePicker from "expo-image-picker";
 import { manipulateAsync, SaveFormat } from "expo-image-manipulator";
-import { Camera, LogOut, Save, Trash2 } from "lucide-react-native";
+import {
+  Camera,
+  ExternalLink,
+  LogOut,
+  Save,
+  Trash2,
+} from "lucide-react-native";
 import { Button, Loading } from "../src/components/ui";
 import { useAuth } from "../src/features/auth/AuthProvider";
 import { ProfileAvatar } from "../src/features/auth/ProfileAvatar";
 import { useTheme, useThemedStyles, type ThemeColors } from "../src/theme";
 import { validateProfile } from "../src/services/account";
+import { publicProfilePath } from "../src/services/publicProfile";
 
 export default function Profile() {
   const { session, loading } = useAuth();
@@ -25,6 +33,8 @@ export default function Profile() {
   return <ProfileForm key={session.user.id} />;
 }
 function ProfileForm() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
   const { session, syncError, saveProfile, refreshProfile, signOut } =
     useAuth();
   const { colors: c, ui } = useTheme();
@@ -87,6 +97,9 @@ function ProfileForm() {
     setError("");
     try {
       await saveProfile(email, avatar);
+      void queryClient.invalidateQueries({
+        queryKey: ["public-profile", user.nickname.toLowerCase()],
+      });
       setDirty(false);
       setMessage("Perfil salvo.");
     } catch (e) {
@@ -152,6 +165,18 @@ function ProfileForm() {
         )}
         <Text style={s.label}>Nickname</Text>
         <Text style={s.nickname}>{user.nickname}</Text>
+        <Button
+          variant="outline"
+          small
+          icon={<ExternalLink size={14} color={c.muted} />}
+          onPress={() => router.push(publicProfilePath(user.nickname))}
+        >
+          Ver perfil público
+        </Button>
+        <Text style={s.hint}>
+          {publicProfilePath(user.nickname)} · Foto e progresso das dex visíveis
+          para todos.
+        </Text>
         <Text style={s.label}>E-mail (opcional)</Text>
         <TextInput
           accessibilityLabel="E-mail (opcional)"

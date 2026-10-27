@@ -41,6 +41,7 @@ import { LanguageSelector } from "../i18n/LanguageSelector";
 import { ThemeSelector } from "../theme/ThemeSelector";
 import { useAuth } from "../features/auth/AuthProvider";
 import { ProfileAvatar } from "../features/auth/ProfileAvatar";
+import { dexTrackers } from "../features/tracker/trackers";
 
 const navigation = [
   {
@@ -56,6 +57,12 @@ const navigation = [
       ["/catalog/ability", "Habilidades", Sparkles],
       ["/catalog/item", "Itens", Shield],
     ],
+  },
+  {
+    group: "DEX TRACKER",
+    items: dexTrackers.map(
+      ({ slug, title, Icon }) => [`/dex-tracker/${slug}`, title, Icon] as const,
+    ),
   },
   {
     group: "UNIVERSO POKÉMON",
@@ -83,6 +90,8 @@ export function Shell({ children }: { children: React.ReactNode }) {
   const desktop = width >= 1080;
   const mobile = width < 650;
   const path = usePathname();
+  const trackerOwnsScroll =
+    path === "/dex-tracker/pokedex" || path === "/dex-tracker/shinydex";
   const router = useRouter();
   const { session, loading: authLoading } = useAuth();
   const [menu, setMenu] = useState(false);
@@ -118,7 +127,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <Text style={s.groupLabel}>{group.group}</Text>
             {group.items.map(([href, label, Icon]) => {
               const active =
-                path === href || (href !== "/" && path.startsWith(href));
+                path === href || (href !== "/" && path.startsWith(href + "/"));
               return (
                 <Pressable
                   key={href}
@@ -276,27 +285,33 @@ export function Shell({ children }: { children: React.ReactNode }) {
               }
             </View>
           </View>
-          <ScrollView
-            key={path}
-            style={{ flex: 1 }}
-            contentContainerStyle={{ flexGrow: 1 }}
-            keyboardShouldPersistTaps="handled"
-          >
-            <View style={{ flex: 1 }}>{children}</View>
-            <View style={[s.footer, mobile && { paddingHorizontal: 20 }]}>
-              <Text style={s.footerText}>
-                Feito para quem nunca deixou de explorar.
-              </Text>
-              <Pressable
-                accessibilityRole="link"
-                onPress={() => go("/api-explorer")}
-                style={ui.row}
-              >
-                <Text style={s.footerText}>PokéAPI · Projeto de fãs</Text>
-                <ArrowUpRight size={12} color={c.muted} />
-              </Pressable>
+          {trackerOwnsScroll ? (
+            <View key={path} style={{ flex: 1, minHeight: 0 }}>
+              {children}
             </View>
-          </ScrollView>
+          ) : (
+            <ScrollView
+              key={path}
+              style={{ flex: 1 }}
+              contentContainerStyle={{ flexGrow: 1 }}
+              keyboardShouldPersistTaps="handled"
+            >
+              <View style={{ flex: 1 }}>{children}</View>
+              <View style={[s.footer, mobile && { paddingHorizontal: 20 }]}>
+                <Text style={s.footerText}>
+                  Feito para quem nunca deixou de explorar.
+                </Text>
+                <Pressable
+                  accessibilityRole="link"
+                  onPress={() => go("/api-explorer")}
+                  style={ui.row}
+                >
+                  <Text style={s.footerText}>PokéAPI · Projeto de fãs</Text>
+                  <ArrowUpRight size={12} color={c.muted} />
+                </Pressable>
+              </View>
+            </ScrollView>
+          )}
         </View>
       </View>
       <Modal

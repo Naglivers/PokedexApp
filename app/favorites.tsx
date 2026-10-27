@@ -25,17 +25,15 @@ export default function Favorites() {
         </View>
         <Heart size={30} color="#E4B9B6" strokeWidth={1.2} />
       </View>
+      <Text style={ui.subtitle}>{ids.length} Pokémon favoritos</Text>
       <Text style={ui.subtitle}>
-        {ids.length} Pokémon salvos neste dispositivo
-      </Text>
-      <Text style={ui.subtitle}>
-        Favoritar no coração é uma ação pessoal. Para participar do ranking da
-        comunidade, use o botão Curtir.
+        Favoritar também curte o Pokémon na comunidade. Ao remover dos
+        favoritos, sua curtida também é removida.
       </Text>
       {!ids.length ? (
         <Empty
           title="Sua coleção começa com um coração"
-          description="Toque no coração de qualquer Pokémon para encontrá-lo aqui, mesmo depois de fechar o app."
+          description="Entre na sua conta e toque no coração de qualquer Pokémon para favoritar e curtir."
           action={
             <Button onPress={() => router.push("/pokedex")}>
               Encontrar favoritos

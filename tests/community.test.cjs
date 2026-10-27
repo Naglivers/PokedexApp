@@ -23,6 +23,7 @@ let response = {
   error: null,
 };
 const calls = [];
+const rpcResponses = new Map();
 const fake = {
   auth: {
     getSession: async () => ({ data: { session: signedIn }, error: null }),
@@ -37,7 +38,7 @@ const fake = {
   },
   rpc: async (name, params) => {
     calls.push({ name, params });
-    return response;
+    return rpcResponses.get(name) ?? response;
   },
   from: (table) => ({
     select: (fields) => ({
@@ -115,7 +116,12 @@ test("tracking only accepts Pokemon, moves, abilities and items", async () => {
   await community.trackPage("/catalog/item/1");
   assert.deepEqual(
     calls.slice(before).map(({ params }) => params.p_path),
-    ["/pokemon/25", "/catalog/move/10", "/catalog/ability/65", "/catalog/item/1"],
+    [
+      "/pokemon/25",
+      "/catalog/move/10",
+      "/catalog/ability/65",
+      "/catalog/item/1",
+    ],
   );
 });
 test("missing schema is a setup state and does not fabricate rankings", async () => {
@@ -184,5 +190,56 @@ test("No radar displays Iron Hands with one saved like and Pikachu without votes
     getRadarPokemon({ ...empty, likes: [{ pokemon_id: 992, total: 0 }] })
       .pokemonId,
     25,
+  );
+});
+
+test("992 keeps its legacy like and adds account likes without hiding backend errors", async () => {
+  try {
+    rpcResponses.set("pokeatlas_like_counts", {
+      data: [{ pokemon_id: 992, total: 1 }],
+      error: null,
+    });
+    rpcResponses.set("pokeatlas_account_like_counts", {
+      data: [],
+      error: null,
+    });
+    assert.deepEqual(await community.getLikeCounts([992]), { 992: 1 });
+    rpcResponses.set("pokeatlas_account_like_counts", {
+      data: [{ pokemon_id: 992, total: 2 }],
+      error: null,
+    });
+    assert.deepEqual(await community.getLikeCounts([992]), { 992: 3 });
+    rpcResponses.set("pokeatlas_account_like_counts", {
+      data: null,
+      error: { code: "PGRST202" },
+    });
+    await assert.rejects(
+      community.getLikeCounts([992]),
+      (error) => error.code === "schema",
+    );
+  } finally {
+    rpcResponses.clear();
+  }
+});
+
+test("nickname likes send the account token for reading, adding and removing", async () => {
+  response = { data: { ok: true, likes: [992] }, error: null };
+  assert.deepEqual(await community.getMyLikes("account-token"), [992]);
+  assert.deepEqual(calls.at(-1), {
+    name: "pokeatlas_account_my_likes",
+    params: { p_token: "account-token" },
+  });
+  for (const liked of [true, false]) {
+    response = { data: { ok: true, liked, total: liked ? 1 : 0 }, error: null };
+    await community.setPokemonLike(992, liked, "account-token");
+    assert.deepEqual(calls.at(-1), {
+      name: "pokeatlas_account_set_like",
+      params: { p_token: "account-token", p_pokemon_id: 992, p_liked: liked },
+    });
+  }
+  response = { data: { ok: false, code: "session_expired" }, error: null };
+  await assert.rejects(
+    community.setPokemonLike(992, true, "account-token"),
+    (error) => error.code === "auth",
   );
 });

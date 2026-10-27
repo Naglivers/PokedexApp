@@ -68,6 +68,24 @@ async function main() {
     );
     process.exitCode = 1;
   }
+  const tracker = await fetch(url + "/rest/v1/rpc/pokeatlas_tracker_get", {
+    method: "POST",
+    headers: { ...headers, "Content-Type": "application/json" },
+    body: JSON.stringify({ p_token: "", p_tracker: "pokedex" }),
+    signal: AbortSignal.timeout(15000),
+  });
+  const trackerPayload = await tracker.json();
+  const trackerInstalled = tracker.ok || trackerPayload.code === "42501";
+  console.log(
+    "Dex Tracker: " +
+      (trackerInstalled ? "disponível" : "precisa da migração SQL"),
+  );
+  if (!trackerInstalled) {
+    console.log(
+      "Execute supabase/migrations/202610280003_dex_tracker.sql no SQL Editor do projeto.",
+    );
+    process.exitCode = 1;
+  }
 }
 main().catch((error) => {
   console.error(`Não foi possível verificar: ${error.message}`);

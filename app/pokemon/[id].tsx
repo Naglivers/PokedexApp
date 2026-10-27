@@ -13,7 +13,6 @@ import {
   ArrowLeft,
   ArrowRight,
   Dna,
-  Heart,
   Plus,
   Scale,
   Shuffle,
@@ -43,10 +42,10 @@ import {
 } from "../../src/services/api";
 import { indexOptions, pokemonOptions } from "../../src/services/queries";
 import { localText, pretty } from "../../src/utils/pokemon";
-import { useFavorites } from "../../src/store/favorites";
 import {
   LikeCounts,
   LikeButton,
+  FavoriteButton,
 } from "../../src/features/community/LikeButton";
 import { useCollection } from "../../src/store/collection";
 import { EvolutionTree } from "../../src/features/pokemon/EvolutionTree";
@@ -80,8 +79,6 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
   const [tab, setTab] = useState("overview");
   const [shiny, setShiny] = useState(false);
   const [version, setVersion] = useState("");
-  const favorite = useFavorites((state) => state.ids.includes(p.id));
-  const toggle = useFavorites((state) => state.toggle);
   const collection = useCollection();
   const species = useQuery({
     queryKey: ["species-url", p.species.url],
@@ -163,19 +160,7 @@ function PokemonContent({ pokemon: p }: { pokemon: PokemonDetail }) {
             {sp?.is_baby && <Text style={s.special}>BEBÊ</Text>}
           </View>
           <View style={[ui.row, { marginTop: 25, flexWrap: "wrap" }]}>
-            <Button
-              variant={favorite ? "primary" : "outline"}
-              icon={
-                <Heart
-                  size={15}
-                  color={favorite ? c.onAccent : c.accent}
-                  fill={favorite ? c.onAccent : "transparent"}
-                />
-              }
-              onPress={() => toggle(p.id)}
-            >
-              {favorite ? "Favoritado" : "Favoritar"}
-            </Button>
+            <FavoriteButton pokemonId={p.id} name={pretty(p.name)} />
             <Button
               disabled={compareFull}
               variant="outline"

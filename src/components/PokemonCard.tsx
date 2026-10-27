@@ -8,14 +8,17 @@ import {
 } from "react-native";
 import { useQueries } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { ArrowUpRight, Heart } from "lucide-react-native";
+import { ArrowUpRight } from "lucide-react-native";
 import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 import { Art, Badge, Skeleton } from "./ui";
 import { pokemonOptions } from "../services/queries";
 import { PokemonDetail, idFromUrl, spriteUrl } from "../services/api";
 import { pretty } from "../utils/pokemon";
-import { useFavorites } from "../store/favorites";
-import { LikeButton, LikeCounts } from "../features/community/LikeButton";
+import {
+  FavoriteButton,
+  LikeButton,
+  LikeCounts,
+} from "../features/community/LikeButton";
 
 export function PokemonCard({
   pokemon,
@@ -31,8 +34,6 @@ export function PokemonCard({
   const { colors: c, ui, types } = useTheme();
   const s = useThemedStyles(createStyles);
   const router = useRouter();
-  const favorite = useFavorites((state) => state.ids.includes(id));
-  const toggle = useFavorites((state) => state.toggle);
   const type = types[pokemon?.types[0]?.type.name ?? ""];
   return (
     <View style={s.card}>
@@ -99,22 +100,12 @@ export function PokemonCard({
       >
         <LikeButton pokemonId={id} />
       </View>
-      <Pressable
-        accessibilityRole="button"
-        accessibilityLabel={`${favorite ? "Remover" : "Adicionar"} ${pretty(pokemon?.name ?? name ?? "")} ${favorite ? "dos" : "aos"} favoritos`}
-        accessibilityState={{ selected: favorite }}
-        accessibilityHint="Salva um favorito neste dispositivo. Para votar no ranking da comunidade, use o botão Curtir."
-        onPress={() => toggle(id)}
-        hitSlop={7}
+      <FavoriteButton
+        pokemonId={id}
+        name={pretty(pokemon?.name ?? name ?? "")}
+        compact
         style={s.favorite}
-      >
-        <Heart
-          size={15}
-          strokeWidth={1.6}
-          color={favorite ? c.accent : c.muted}
-          fill={favorite ? c.accent : "transparent"}
-        />
-      </Pressable>
+      />
     </View>
   );
 }

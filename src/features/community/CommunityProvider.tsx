@@ -10,6 +10,7 @@ import {
 } from "../../services/community";
 import { supabase, supabaseConfigured } from "../../services/supabase";
 import { useAuth } from "../auth/AuthProvider";
+import { useFavorites } from "../../store/favorites";
 
 type State = {
   ready: boolean;
@@ -54,13 +55,18 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
     retryOnMount: false,
   });
   const likes = useQuery({
-    queryKey: ["community", "my-likes"],
-    queryFn: getMyLikes,
-    enabled: !!auth.session && session.isSuccess,
+    queryKey: ["community", "my-likes", auth.session?.user.id],
+    queryFn: () => getMyLikes(auth.session!.token),
+    enabled: !!auth.session,
     staleTime: 60000,
     retry: false,
     retryOnMount: false,
   });
+  useEffect(() => {
+    if (auth.session && likes.isSuccess) {
+      useFavorites.setState({ ids: likes.data });
+    }
+  }, [auth.session?.user.id, likes.isSuccess, likes.data]);
   useEffect(() => {
     if (!auth.session || !session.data || !overview.isSuccess) return;
     const key = `${session.data.user.id}:${new Date().toISOString().slice(0, 10)}:${path}`;
@@ -105,7 +111,7 @@ export function CommunityProvider({ children }: { children: React.ReactNode }) {
     <Context.Provider
       value={{
         ready: overview.isSuccess,
-        authenticated: !!auth.session && session.isSuccess && likes.isSuccess,
+        authenticated: !!auth.session && likes.isSuccess,
         connecting:
           overview.isLoading ||
           (!!auth.session && (session.isLoading || likes.isLoading)),

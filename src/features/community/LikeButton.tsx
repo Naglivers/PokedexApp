@@ -1,10 +1,18 @@
 import React, { createContext, useContext } from "react";
-import { Pressable, Text, View } from "react-native";
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { ThumbsUp } from "lucide-react-native";
+import {
+  Pressable,
+  Text,
+  View,
+  type StyleProp,
+  type ViewStyle,
+} from "react-native";
+import { useQuery } from "@tanstack/react-query";
+import { Heart, ThumbsUp } from "lucide-react-native";
 import { useTheme } from "../../theme";
-import { getLikeCounts, setPokemonLike } from "../../services/community";
+import { getLikeCounts } from "../../services/community";
 import { useCommunity } from "./CommunityProvider";
+import { usePokemonReaction } from "./usePokemonReaction";
+import { Button } from "../../components/ui";
 
 const CountContext = createContext<Record<number, number> | null>(null);
 export function LikeCounts({
@@ -31,28 +39,10 @@ export function LikeCounts({
 }
 export function LikeButton({ pokemonId }: { pokemonId: number }) {
   const { colors: c } = useTheme();
-  const { authenticated, connecting, likedIds, error, retry } = useCommunity();
+  const { authenticated, connecting, error, retry } = useCommunity();
+  const reaction = usePokemonReaction(pokemonId);
   const counts = useContext(CountContext);
-  const client = useQueryClient();
-  const liked = likedIds.includes(pokemonId);
-  const mutation = useMutation({
-    mutationFn: () => setPokemonLike(pokemonId, !liked),
-    onSuccess: (data) => {
-      client.setQueryData<number[]>(["community", "my-likes"], (old = []) =>
-        data.liked
-          ? Array.from(new Set([...old, pokemonId]))
-          : old.filter((id) => id !== pokemonId),
-      );
-      client.setQueriesData<Record<number, number>>(
-        { queryKey: ["community", "counts"] },
-        (old: Record<number, number> | undefined) => ({
-          ...old,
-          [pokemonId]: Number(data.total),
-        }),
-      );
-      void client.invalidateQueries({ queryKey: ["community", "overview"] });
-    },
-  });
+  const liked = reaction.liked;
   return (
     <View style={{ gap: 5 }}>
       <Pressable
@@ -64,10 +54,10 @@ export function LikeButton({ pokemonId }: { pokemonId: number }) {
         }
         accessibilityState={{
           selected: liked,
-          disabled: !authenticated || mutation.isPending,
+          disabled: reaction.disabled,
         }}
-        disabled={!authenticated || mutation.isPending}
-        onPress={() => mutation.mutate()}
+        disabled={reaction.disabled}
+        onPress={reaction.toggle}
         style={{
           flexDirection: "row",
           alignItems: "center",
@@ -82,12 +72,12 @@ export function LikeButton({ pokemonId }: { pokemonId: number }) {
           fill={liked ? c.accentSoft : "transparent"}
         />
         <Text style={{ fontSize: 10, color: liked ? c.accent : c.muted }}>
-          {mutation.isPending
+          {reaction.pending
             ? "Salvando…"
             : connecting
               ? "Conectando…"
               : !authenticated
-                ? "Curtir indisponível"
+                ? "Entre para curtir"
                 : liked
                   ? "Curtido"
                   : "Curtir"}
@@ -113,13 +103,91 @@ export function LikeButton({ pokemonId }: { pokemonId: number }) {
           </Pressable>
         </View>
       )}
-      {mutation.isError && (
+      {!!reaction.error && (
         <Text
           accessibilityRole="alert"
           style={{ color: c.accent, fontSize: 10, maxWidth: 200 }}
         >
           Não foi possível salvar. Tente novamente.
         </Text>
+      )}
+    </View>
+  );
+}
+
+export function FavoriteButton({
+  pokemonId,
+  name,
+  compact = false,
+  style,
+}: {
+  pokemonId: number;
+  name: string;
+  compact?: boolean;
+  style?: StyleProp<ViewStyle>;
+}) {
+  const { colors: c } = useTheme();
+  const reaction = usePokemonReaction(pokemonId);
+  const { authenticated, connecting, error, retry } = useCommunity();
+  const icon = (
+    <Heart
+      size={15}
+      color={reaction.liked ? (compact ? c.accent : c.onAccent) : c.accent}
+      fill={reaction.liked ? (compact ? c.accent : c.onAccent) : "transparent"}
+    />
+  );
+  return (
+    <View style={style}>
+      {compact ? (
+        <Pressable
+          accessibilityRole="button"
+          accessibilityLabel={`${reaction.liked ? "Remover" : "Adicionar"} ${name} ${reaction.liked ? "dos" : "aos"} favoritos`}
+          accessibilityHint="Favoritar também curte. Remover dos favoritos também remove sua curtida."
+          accessibilityState={{
+            selected: reaction.liked,
+            disabled: reaction.disabled,
+            busy: reaction.pending,
+          }}
+          disabled={reaction.disabled}
+          onPress={reaction.toggle}
+          hitSlop={7}
+          style={{
+            flex: 1,
+            alignItems: "center",
+            justifyContent: "center",
+            opacity: reaction.disabled ? 0.5 : 1,
+          }}
+        >
+          {icon}
+        </Pressable>
+      ) : (
+        <Button
+          disabled={reaction.disabled}
+          variant={reaction.liked ? "primary" : "outline"}
+          icon={icon}
+          onPress={reaction.toggle}
+        >
+          {reaction.pending
+            ? "Salvando…"
+            : reaction.liked
+              ? "Favoritado"
+              : "Favoritar"}
+        </Button>
+      )}
+      {!!reaction.error && (
+        <Text
+          accessibilityRole="alert"
+          style={{ color: c.accent, fontSize: 10 }}
+        >
+          Não foi possível salvar. Tente novamente.
+        </Text>
+      )}
+      {!compact && !authenticated && !!error && !connecting && (
+        <Pressable accessibilityRole="button" onPress={retry}>
+          <Text style={{ color: c.accent, fontSize: 10 }}>
+            Reconectar para favoritar
+          </Text>
+        </Pressable>
       )}
     </View>
   );

@@ -59,47 +59,73 @@ export function ensureCommunitySession(): Promise<Session> {
     if (existing.data.session) return existing.data.session;
     const result = await service.auth.signInAnonymously();
     if (result.error) fail(result.error, true);
-    if (!result.data.session) throw new CommunityError("auth", "Sua sessão não pôde ser iniciada.");
+    if (!result.data.session)
+      throw new CommunityError("auth", "Sua sessão não pôde ser iniciada.");
     return result.data.session;
   })().finally(() => {
     sessionRequest = null;
   });
   return sessionRequest;
 }
-export async function getMyLikes(): Promise<number[]> {
-  const session = await ensureCommunitySession();
-  const { data, error } = await client()
-    .from("pokeatlas_likes")
-    .select("pokemon_id")
-    .eq("user_id", session.user.id);
-  if (error) fail(error);
-  return (data ?? []).map((row) => Number(row.pokemon_id));
+export async function getMyLikes(accountToken?: string): Promise<number[]> {
+  if (!accountToken) {
+    const session = await ensureCommunitySession();
+    const { data, error } = await client()
+      .from("pokeatlas_likes")
+      .select("pokemon_id")
+      .eq("user_id", session.user.id);
+    if (error) fail(error);
+    return (data ?? []).map((row) => Number(row.pokemon_id));
+  }
+  await ensureCommunitySession();
+  const { data, error } = await client().rpc("pokeatlas_account_my_likes", {
+    p_token: accountToken,
+  });
+  if (error) fail(error, true);
+  if (!data?.ok) throw new CommunityError("auth", "Sua sessão expirou.");
+  return (data.likes ?? []).map(Number);
 }
 export async function getLikeCounts(
   ids: number[],
 ): Promise<Record<number, number>> {
   if (!ids.length) return {};
-  const { data, error } = await client().rpc("pokeatlas_like_counts", {
-    p_pokemon_ids: ids,
-  });
-  if (error) fail(error);
-  return Object.fromEntries(
-    (data ?? []).map((row: { pokemon_id: number; total: number }) => [
-      row.pokemon_id,
-      Number(row.total),
-    ]),
+  const results = await Promise.all(
+    ["pokeatlas_like_counts", "pokeatlas_account_like_counts"].map((name) =>
+      client().rpc(name, { p_pokemon_ids: ids }),
+    ),
   );
+  const counts: Record<number, number> = {};
+  for (const { data, error } of results) {
+    if (error) fail(error);
+    for (const row of data ?? []) {
+      const id = Number(row.pokemon_id);
+      counts[id] = (counts[id] ?? 0) + Number(row.total);
+    }
+  }
+  return counts;
 }
 export async function setPokemonLike(
   id: number,
   liked: boolean,
+  accountToken?: string,
 ): Promise<LikeResult> {
+  if (!accountToken) {
+    await ensureCommunitySession();
+    const { data, error } = await client().rpc("pokeatlas_set_like", {
+      p_pokemon_id: id,
+      p_liked: liked,
+    });
+    if (error) fail(error);
+    return data as LikeResult;
+  }
   await ensureCommunitySession();
-  const { data, error } = await client().rpc("pokeatlas_set_like", {
+  const { data, error } = await client().rpc("pokeatlas_account_set_like", {
+    p_token: accountToken,
     p_pokemon_id: id,
     p_liked: liked,
   });
-  if (error) fail(error);
+  if (error) fail(error, true);
+  if (!data?.ok) throw new CommunityError("auth", "Sua sessão expirou.");
   return data as LikeResult;
 }
 export async function trackPage(path: string): Promise<void> {

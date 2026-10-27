@@ -23,7 +23,8 @@ A migração pode ser executada novamente. Ela não apaga contas, nem usa a tabe
 - Com a sessão em cache, a interface abre mesmo offline. A sincronização e as alterações precisam de conexão. Sessões revogadas/expiradas são recusadas pelo servidor.
 - Uma conta pode entrar em outro aparelho com o mesmo nickname e senha. O e-mail não é verificado e não há recuperação de senha por e-mail nesta versão.
 - Contas da versão antiga eram só locais. Cadastre o nickname uma vez para criar a conta no servidor; o formulário reaproveita o nickname salvo. O hash local antigo só é removido depois de um login/cadastro online bem-sucedido.
-- Favoritos/equipes continuam locais; curtidas e visitas da comunidade ainda pertencem à identidade técnica do dispositivo.
+- Favoritar e curtir usam a mesma reação da conta: tocar no coração ou no joinha grava em `pokeatlas_private.account_likes`; remover apaga a própria curtida. A lista de favoritos é restaurada das curtidas da conta e mantida em cache no aparelho. Sem login, os botões abrem a tela de entrada. Equipes continuam locais; visitas usam a identidade técnica do dispositivo.
+- Para as curtidas, execute também `migrations/202610280002_account_likes.sql` depois da migração de contas. A tabela antiga `public.pokeatlas_likes` mantém apenas os likes anteriores, que continuam sendo somados aos novos contadores.
 
 ## Proteção
 
