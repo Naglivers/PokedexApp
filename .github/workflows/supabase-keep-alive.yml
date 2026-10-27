@@ -1,0 +1,82 @@
+name: Supabase keep-alive
+
+on:
+  schedule:
+    # Quatro consultas por dia, fora do início de cada hora (UTC).
+    - cron: "17 */6 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+concurrency:
+  group: supabase-keep-alive
+  cancel-in-progress: false
+
+jobs:
+  database-check:
+    name: Consultar banco do Supabase
+    runs-on: ubuntu-24.04
+    timeout-minutes: 3
+    env:
+      SUPABASE_URL: ${{ secrets.SUPABASE_URL || secrets.EXPO_PUBLIC_SUPABASE_URL }}
+      SUPABASE_PUBLISHABLE_KEY: ${{ secrets.SUPABASE_PUBLISHABLE_KEY || secrets.EXPO_PUBLIC_SUPABASE_PUBLISHABLE_KEY }}
+    steps:
+      # O runner já inclui Node. Não faz checkout, npm install nem altera dados.
+      - name: Fazer consulta leve no banco
+        shell: bash
+        run: |
+          node --input-type=module <<'NODE'
+          import { setTimeout as delay } from 'node:timers/promises';
+
+          async function main() {
+            const rawUrl = process.env.SUPABASE_URL?.trim();
+            const key = process.env.SUPABASE_PUBLISHABLE_KEY?.trim();
+            if (!rawUrl || !key) {
+              throw new Error('Cadastre SUPABASE_URL e SUPABASE_PUBLISHABLE_KEY nos Secrets do GitHub Actions.');
+            }
+            const url = new URL(rawUrl);
+            if (url.protocol !== 'https:' || url.username || url.password) {
+              throw new Error('SUPABASE_URL deve ser a URL HTTPS do projeto.');
+            }
+            let publicKey = key.startsWith('sb_publishable_');
+            if (!publicKey && key.startsWith('eyJ')) {
+              try {
+                publicKey = JSON.parse(Buffer.from(key.split('.')[1], 'base64url').toString()).role === 'anon';
+              } catch {}
+            }
+            if (!publicKey) throw new Error('Use apenas a chave publishable ou anon. Chaves secret/service_role não são necessárias.');
+
+            for (let attempt = 1; attempt <= 3; attempt++) {
+              try {
+                // RPC existente: lê curtidas de um único Pokémon e acessa o Postgres.
+                const response = await fetch(new URL('/rest/v1/rpc/pokeatlas_like_counts', url), {
+                  method: 'POST',
+                  headers: { apikey: key, 'Content-Type': 'application/json' },
+                  body: JSON.stringify({ p_pokemon_ids: [1] }),
+                  signal: AbortSignal.timeout(15000),
+                  redirect: 'error',
+                });
+                if (!response.ok) {
+                  const message = response.status === 404
+                    ? 'HTTP 404: confira a migração 001 e a função pokeatlas_like_counts no Supabase.'
+                    : 'Consulta ao Supabase falhou: HTTP ' + response.status + '.';
+                  throw Object.assign(new Error(message), {
+                    retryable: response.status === 429 || response.status >= 500,
+                  });
+                }
+                const data = await response.json();
+                if (!Array.isArray(data)) throw Object.assign(new Error('Resposta inesperada da consulta ao banco.'), { retryable: false });
+                console.log('Consulta ao banco concluída em ' + new Date().toISOString() + '. Nenhum registro alterado.');
+                return;
+              } catch (error) {
+                if (attempt === 3 || error.retryable === false) throw error;
+                console.log('Tentativa ' + attempt + ' falhou. Repetindo em instantes.');
+                await delay(attempt * 5000);
+              }
+            }
+          }
+          main().catch((error) => {
+            console.error(error.message);
+            process.exitCode = 1;
+          });
+          NODE
