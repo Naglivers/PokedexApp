@@ -38,9 +38,9 @@ import { useDebounce } from "../../hooks/useDebounce";
 import { Art } from "../../components/ui";
 import { resourcePath } from "../../components/ResourceData";
 import { MoveTMIcon } from "./MoveTMIcon";
+import { TypeSymbol } from "./TypeSymbol";
 import { ResourceFavoriteButton } from "../../components/ResourceFavoriteButton";
 import { isFavoriteResource } from "../../store/resourceFavorites";
-
 const regionImages: Record<string, number> = {
   kanto: require("../../../assets/regions/kanto.png"),
   johto: require("../../../assets/regions/johto.png"),
@@ -53,6 +53,7 @@ const regionImages: Record<string, number> = {
   alola: require("../../../assets/regions/alola.png"),
   galar: require("../../../assets/regions/galar.png"),
 };
+
 const generationConsoles: Record<string, { short: string; label: string }> = {
   "1": { short: "GB", label: "Game Boy" },
   "2": { short: "GBC", label: "Game Boy Color" },
@@ -279,31 +280,42 @@ export function ResourceCard({
         </View>
       )}
       <View style={ui.between}>
-        <View style={[s.icon, { backgroundColor: typeMeta?.bg ?? c.lavender }]}>
-          {resource === "move" && type ? (
-            <MoveTMIcon key={type.name} type={type.name} />
-          ) : resource === "ability" ? (
-            <Art
-              name="Ability Patch"
-              uri="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ability-patch.png"
-              style={{ width: 40, height: 40 }}
-            />
-          ) : consoleInfo ? (
-            <PixelConsole generation={id} />
-          ) : regionImage || sprites?.default ? (
-            <Art
-              name={name}
-              uri={regionImage ?? sprites?.default}
-              style={{ width: 55, height: 55 }}
-            />
-          ) : (
-            <Layers
-              size={20}
-              color={typeMeta?.color ?? "#8B83A8"}
-              strokeWidth={1.5}
-            />
-          )}
-        </View>
+        {
+          <View
+            style={[s.icon, { backgroundColor: typeMeta?.bg ?? c.lavender }]}
+          >
+            {resource === "type" ? (
+              <TypeSymbol
+                name={name}
+                id={Number(id)}
+                sprites={data?.sprites}
+                size={48}
+              />
+            ) : resource === "move" && type ? (
+              <MoveTMIcon key={type.name} type={type.name} />
+            ) : resource === "ability" ? (
+              <Art
+                name="Ability Patch"
+                uri="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/ability-patch.png"
+                style={{ width: 40, height: 40 }}
+              />
+            ) : consoleInfo ? (
+              <PixelConsole generation={id} />
+            ) : regionImage || sprites?.default ? (
+              <Art
+                name={name}
+                uri={regionImage ?? sprites?.default}
+                style={{ width: 55, height: 55 }}
+              />
+            ) : (
+              <Layers
+                size={20}
+                color={typeMeta?.color ?? "#8B83A8"}
+                strokeWidth={1.5}
+              />
+            )}
+          </View>
+        }
         <Text style={s.id}>#{id.padStart(3, "0")}</Text>
       </View>
       <View style={ui.between}>

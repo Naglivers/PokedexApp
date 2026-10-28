@@ -1,8 +1,14 @@
-import React, { useMemo } from "react";
+import React, { useMemo, useState } from "react";
 import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { useRouter } from "expo-router";
 import { useQueries } from "@tanstack/react-query";
-import { Art, Badge, Button } from "../../components/ui";
+import {
+  Art,
+  Badge,
+  Button,
+  Pagination,
+  SearchInput,
+} from "../../components/ui";
 import {
   getResource,
   idFromUrl,
@@ -16,13 +22,17 @@ import { useTheme } from "../../theme";
 export function TypePokemon({
   name,
   pokemon,
+  showHeading = true,
 }: {
   name: string;
   pokemon: { slot: number; pokemon: NamedResource }[];
+  showHeading?: boolean;
 }) {
   const { colors: c, ui, types } = useTheme();
   const router = useRouter();
   const { width } = useWindowDimensions();
+  const [search, setSearch] = useState("");
+  const [page, setPage] = useState(0);
   const typeQueries = useQueries({
     queries: Object.keys(typeCatalog).map((typeName) => ({
       queryKey: ["resource", "type", typeName],
@@ -47,21 +57,43 @@ export function TypePokemon({
     return result;
   }, [typeQueries]);
   const columns = width >= 1400 ? 5 : width >= 1080 ? 4 : width >= 700 ? 3 : 2;
-  const records = [...pokemon].sort(
-    (a, b) =>
-      Number(idFromUrl(a.pokemon.url)) - Number(idFromUrl(b.pokemon.url)),
+  const records = [...pokemon]
+    .filter(
+      ({ pokemon: entry }) =>
+        entry.name.includes(search.trim().toLowerCase().replace(/ /g, "-")) ||
+        idFromUrl(entry.url) === search.trim().replace("#", ""),
+    )
+    .sort(
+      (a, b) =>
+        Number(idFromUrl(a.pokemon.url)) - Number(idFromUrl(b.pokemon.url)),
+    );
+  const currentPage = Math.min(
+    page,
+    Math.max(0, Math.ceil(records.length / 24) - 1),
   );
+  const visible = records.slice(currentPage * 24, (currentPage + 1) * 24);
   return (
     <View style={{ gap: 16 }}>
-      <View>
-        <Text style={ui.title}>
-          Pokémon do tipo {types[name]?.name ?? pretty(name)}
-        </Text>
-        <Text style={[ui.subtitle, { marginTop: 6 }]}>
-          {records.length.toLocaleString("pt-BR")} Pokémon e formas. Toque em um
-          Pokémon para abrir seus detalhes.
-        </Text>
-      </View>
+      {showHeading && (
+        <View>
+          <Text style={ui.title}>
+            Pokémon do tipo {types[name]?.name ?? pretty(name)}
+          </Text>
+          <Text style={[ui.subtitle, { marginTop: 6 }]}>
+            {records.length.toLocaleString("pt-BR")} Pokémon e formas. Toque em
+            um Pokémon para abrir seus detalhes.
+          </Text>
+        </View>
+      )}
+      <SearchInput
+        value={search}
+        onChange={(value) => {
+          setSearch(value);
+          setPage(0);
+        }}
+        placeholder="Buscar Pokémon por nome ou número…"
+      />
+      <Text style={ui.subtitle}>{records.length} Pokémon e formas</Text>
       {typeQueries.some((query) => query.isError) && (
         <Button
           small
@@ -75,7 +107,7 @@ export function TypePokemon({
         </Button>
       )}
       <View style={{ flexDirection: "row", flexWrap: "wrap" }}>
-        {records.map(({ pokemon: entry }) => {
+        {visible.map(({ pokemon: entry, slot }) => {
           const id = idFromUrl(entry.url);
           const knownTypes = pokemonTypes.get(id) ?? [];
           const badges = knownTypes.some((type) => type.name === name)
@@ -84,8 +116,7 @@ export function TypePokemon({
                 ...knownTypes,
                 {
                   name,
-                  slot:
-                    pokemon.find((p) => p.pokemon.url === entry.url)?.slot ?? 1,
+                  slot,
                 },
               ].sort((a, b) => a.slot - b.slot);
           return (
@@ -98,7 +129,7 @@ export function TypePokemon({
                 width: `${100 / columns}%`,
                 flexDirection: "row",
                 alignItems: "center",
-                gap: 8,
+                gap: 10,
                 paddingVertical: 12,
                 paddingRight: 12,
                 minHeight: 88,
@@ -111,7 +142,7 @@ export function TypePokemon({
                 style={{ width: 56, height: 56 }}
               />
               <View style={{ flex: 1, gap: 5 }}>
-                <Text style={{ color: c.ink, fontSize: 12, fontWeight: "700" }}>
+                <Text style={{ color: c.ink, fontSize: 14, fontWeight: "700" }}>
                   {pretty(entry.name)}
                 </Text>
                 <Text style={[ui.subtitle, { fontSize: 10 }]}>
@@ -129,6 +160,17 @@ export function TypePokemon({
           );
         })}
       </View>
+      {!records.length && (
+        <Text style={ui.subtitle}>Nenhum Pokémon encontrado.</Text>
+      )}
+      {records.length > 24 && (
+        <Pagination
+          page={currentPage}
+          total={records.length}
+          pageSize={24}
+          setPage={setPage}
+        />
+      )}
     </View>
   );
 }

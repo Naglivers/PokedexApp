@@ -78,8 +78,10 @@ const navigation = [
   {
     group: "UNIVERSO POKÉMON",
     items: [
-      ["/catalog/generation", "Jogos e gerações", Gamepad2],
+      ["/games", "Jogos", Gamepad2],
+      ["/catalog/generation", "Gerações", BookOpen],
       ["/catalog/region", "Regiões", Map],
+      ["/maps", "Mapas interativos", Map],
       ["/catalog/berry", "Frutas", Leaf],
       ["/api-explorer", "Todas as categorias", Compass],
     ],

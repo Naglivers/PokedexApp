@@ -14,6 +14,8 @@ import { Button, Empty, ErrorState, Loading } from "../src/components/ui";
 import { ProfileAvatar } from "../src/features/auth/ProfileAvatar";
 import { ProfileBadges } from "../src/features/auth/ProfileBadges";
 import { ProfilePokedexes } from "../src/features/auth/ProfilePokedexes";
+import { ProfileFriendCodes } from "../src/features/auth/ProfileFriendCodes";
+import { useRetroProfile } from "../src/features/auth/RetroAchievementsLink";
 import { useAuth } from "../src/features/auth/AuthProvider";
 import { dexTrackers } from "../src/features/tracker/trackers";
 import { createTrackerBoxes } from "../src/features/tracker/boxes";
@@ -39,9 +41,9 @@ export default function PublicProfileRoute() {
   const s = useThemedStyles(createStyles);
   const { width } = useWindowDimensions();
   const router = useRouter();
-  const [tab, setTab] = useState<"overview" | "pokedexes" | "badges">(
-    "overview",
-  );
+  const [tab, setTab] = useState<
+    "overview" | "pokedexes" | "badges" | "friends"
+  >("overview");
   const profile = useQuery({
     queryKey: ["public-profile", nickname.toLowerCase()],
     queryFn: ({ signal }) => getPublicProfile(nickname, signal),
@@ -65,6 +67,10 @@ export default function PublicProfileRoute() {
     !!profile.data &&
     session?.user.nickname.toLowerCase() ===
       profile.data.nickname.toLowerCase();
+  const retro = useRetroProfile(profile.data?.nickname ?? "");
+  const retroCompletedGames = new Set(
+    (retro.data?.badges ?? []).map((game) => game.game),
+  );
 
   if (profile.isPending) return <Loading text="Carregando perfil…" />;
   if (profile.isError)
@@ -87,7 +93,9 @@ export default function PublicProfileRoute() {
     );
   const user = profile.data;
   const completedGames = trackerGames.filter(
-    (game) => (user.games?.[game.key] ?? 0) >= game.total,
+    (game) =>
+      retroCompletedGames.has(game.key) ||
+      (user.games?.[game.key] ?? 0) >= game.total,
   ).length;
 
   return (
@@ -103,6 +111,12 @@ export default function PublicProfileRoute() {
           </View>
           <View style={s.identity}>
             <Text style={s.nickname}>{user.nickname}</Text>
+            <ProfileBadges
+              profile={user}
+              nationalTotal={total}
+              compact
+              onOpenGallery={() => setTab("badges")}
+            />
             <Text style={s.path}>{publicProfilePath(user.nickname)}</Text>
             <Text style={s.description}>
               Uma jornada, muitas descobertas. Acompanhe a coleção deste
@@ -126,6 +140,7 @@ export default function PublicProfileRoute() {
             [
               ["overview", "Visão geral"],
               ["pokedexes", "Pokédexes"],
+              ["friends", "Códigos de amizade"],
               ["badges", "Badges"],
             ] as const
           ).map(([key, label]) => (
@@ -142,6 +157,13 @@ export default function PublicProfileRoute() {
             </Pressable>
           ))}
         </View>
+        {tab === "friends" && (
+          <ProfileFriendCodes
+            key={user.nickname}
+            nickname={user.nickname}
+            ownProfile={ownProfile}
+          />
+        )}
         {tab === "overview" && (
           <>
             <View style={s.sectionHeader}>
@@ -346,7 +368,9 @@ const createStyles = (c: ThemeColors) =>
     },
     tabs: {
       flexDirection: "row",
-      gap: 22,
+      flexWrap: "wrap",
+      columnGap: 18,
+      rowGap: 0,
       borderBottomWidth: 1,
       borderBottomColor: c.line,
       marginBottom: 20,

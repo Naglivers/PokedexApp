@@ -1,4 +1,5 @@
 import React from "react";
+import { useRouter } from "expo-router";
 import { Text, View, useWindowDimensions } from "react-native";
 import { Gamepad2, MapPin, ScanLine } from "lucide-react-native";
 import { useTheme } from "../../theme";
@@ -10,7 +11,7 @@ import {
   GenerationGames,
   GenerationSection,
 } from "./GenerationDetail";
-import { GamePokedex, GameRegionMap } from "./GameDetail";
+import { GamePokedex } from "./GameDetail";
 
 export type RegionData = {
   id: number;
@@ -22,6 +23,7 @@ export type RegionData = {
   version_groups: NamedResource[];
 };
 export function RegionDetail({ data }: { data: RegionData }) {
+  const router = useRouter();
   const { ui, colors: c } = useTheme();
   const { width } = useWindowDimensions();
   const compact = width < 700;
@@ -39,10 +41,6 @@ export function RegionDetail({ data }: { data: RegionData }) {
       Icon: Gamepad2,
     },
   ];
-  const region = {
-    name: data.name,
-    url: "https://pokeapi.co/api/v2/region/" + data.id + "/",
-  };
   return (
     <View style={{ gap: 26 }}>
       <View style={[ui.panel, { gap: 22, padding: compact ? 22 : 30 }]}>
@@ -101,16 +99,6 @@ export function RegionDetail({ data }: { data: RegionData }) {
         </View>
       </View>
       <GenerationSection
-        title="Mapa da região"
-        subtitle={
-          "Conheça a geografia de " + name + " · Toque no mapa para ampliar"
-        }
-        Icon={MapPin}
-        initialOpen
-      >
-        <GameRegionMap region={region} showHeading={false} />
-      </GenerationSection>
-      <GenerationSection
         title="Locais da região"
         subtitle={
           data.locations.length + " cidades, rotas e pontos de interesse"
@@ -120,6 +108,12 @@ export function RegionDetail({ data }: { data: RegionData }) {
         <GenerationEntries
           key={data.id + ":locations"}
           entries={data.locations}
+          onSelect={(location) =>
+            router.push({
+              pathname: "/maps",
+              params: { region: data.name, location: location.name },
+            })
+          }
         />
       </GenerationSection>
       <GenerationSection

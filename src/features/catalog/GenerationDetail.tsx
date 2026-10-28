@@ -1,11 +1,5 @@
 import React, { useMemo, useState } from "react";
-import {
-  Image,
-  Pressable,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Pressable, Text, View, useWindowDimensions } from "react-native";
 import { useQueries } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
 import {
@@ -122,27 +116,6 @@ export function GenerationDetail({ data }: { data: GenerationData }) {
               <ChevronRight size={14} color={c.accent} />
             </Pressable>
           </View>
-          {regionMaps[data.main_region.name] && (
-            <View
-              style={{
-                width: compact ? "100%" : 250,
-                height: 150,
-                backgroundColor: c.surfaceAlt,
-                borderRadius: 16,
-                overflow: "hidden",
-                padding: 8,
-              }}
-            >
-              <Image
-                accessibilityLabel={
-                  "Região de " + pretty(data.main_region.name)
-                }
-                source={regionMaps[data.main_region.name]}
-                resizeMode="contain"
-                style={{ width: "100%", height: "100%" }}
-              />
-            </View>
-          )}
         </View>
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
           {stats.map(({ label, count, Icon }) => (
@@ -300,9 +273,11 @@ export function GenerationSection({
 export function GenerationEntries({
   entries,
   pokemon = false,
+  onSelect,
 }: {
   entries: NamedResource[];
   pokemon?: boolean;
+  onSelect?: (entry: NamedResource) => void;
 }) {
   const { ui, colors: c } = useTheme();
   const [search, setSearch] = useState("");
@@ -351,8 +326,13 @@ export function GenerationEntries({
       ) : (
         <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 10 }}>
           {visible.map((entry) => (
-            <View
+            <Pressable
               key={entry.url}
+              accessibilityRole={onSelect ? "link" : undefined}
+              accessibilityLabel={
+                onSelect ? "Ver " + pretty(entry.name) + " no mapa" : undefined
+              }
+              onPress={onSelect ? () => onSelect(entry) : undefined}
               style={{
                 flexGrow: 1,
                 flexBasis: "42%",
@@ -363,8 +343,17 @@ export function GenerationEntries({
                 backgroundColor: c.surfaceAlt,
               }}
             >
-              <ResourceLink url={entry.url} name={entry.name} />
-            </View>
+              {onSelect ? (
+                <View style={ui.between}>
+                  <Text style={{ color: c.accent, fontSize: 14, flex: 1 }}>
+                    {pretty(entry.name)}
+                  </Text>
+                  <ChevronRight size={15} color={c.accent} />
+                </View>
+              ) : (
+                <ResourceLink url={entry.url} name={entry.name} />
+              )}
+            </Pressable>
           ))}
         </View>
       )}

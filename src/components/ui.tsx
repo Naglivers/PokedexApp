@@ -167,7 +167,7 @@ export function Art({
   return uri && !failed ? (
     <Image
       accessibilityLabel={name}
-      source={typeof uri === "number" ? uri : { uri }}
+      source={typeof uri === "string" ? { uri } : uri}
       resizeMode="contain"
       style={style}
       onError={() => setFailed(true)}

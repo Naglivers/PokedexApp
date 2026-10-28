@@ -21,6 +21,8 @@ import {
   Select,
 } from "../../components/ui";
 import { currentLanguage } from "../../i18n/locale";
+import { CardBackground } from "./CardBackground";
+import { BackgroundCards } from "./BackgroundCards";
 import {
   cardImage,
   getPokemonCards,
@@ -385,6 +387,15 @@ export function PokemonTcg({ speciesId }: { speciesId: number }) {
       >
         Dados e imagens: TCGdex ↗
       </Button>
+      <BackgroundCards
+        pokemonId={speciesId}
+        languages={
+          language === "all"
+            ? availableLanguages.map((entry) => entry.value)
+            : [language]
+        }
+        onOpen={setSelected}
+      />
       <Modal
         visible={!!selected}
         transparent
@@ -529,6 +540,11 @@ export function CardDetail({
       {!!detail.data?.hp && (
         <Text style={ui.subtitle}>HP: {detail.data.hp}</Text>
       )}
+      <CardBackground
+        key={language + card.id}
+        cardId={card.id}
+        language={language}
+      />
     </ScrollView>
   );
 }

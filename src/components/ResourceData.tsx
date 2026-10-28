@@ -5,7 +5,7 @@ import { ArrowUpRight, ChevronDown, ChevronRight } from "lucide-react-native";
 import { font, useTheme, useThemedStyles, type ThemeColors } from "../theme";
 import { idFromUrl, resourceFromUrl } from "../services/api";
 import { pretty } from "../utils/pokemon";
-import { Button } from "./ui";
+import { Art, Button } from "./ui";
 import { AudioUrlPlayer, isAudioUrl } from "./AudioUrlPlayer";
 
 export function resourcePath(resource: string, id: string) {
@@ -30,6 +30,8 @@ export function ResourceLink({ url, name }: { url: string; name?: string }) {
   );
 }
 const fieldLabels: Record<string, string> = {
+  name_icon: "Nome do tipo",
+  symbol_icon: "Símbolo do tipo",
   cries: "Gritos do Pokémon",
   latest: "Versão atual",
   legacy: "Versão clássica",
@@ -173,6 +175,20 @@ function Field({
   const s = useThemedStyles(createStyles);
   const expandable = !!value && typeof value === "object";
   const [open, setOpen] = useState(name === "Gritos do Pokémon");
+  if (
+    typeof value === "string" &&
+    /^https?:\/\/.+\.(png|gif|jpe?g|webp)([?#].*)?$/i.test(value)
+  )
+    return (
+      <View style={[s.field, { padding: 16, gap: 12 }]}>
+        <Text style={s.fieldName}>{name}</Text>
+        <Art
+          uri={value}
+          name={name}
+          style={{ width: "100%", maxWidth: 320, height: 120 }}
+        />
+      </View>
+    );
   if (isAudioUrl(value))
     return (
       <View style={[s.field, { padding: 16, gap: 12 }]}>

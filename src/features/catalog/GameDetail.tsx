@@ -1,15 +1,14 @@
 import React, { useState } from "react";
-import {
-  Image,
-  Modal,
-  Pressable,
-  Text,
-  View,
-  useWindowDimensions,
-} from "react-native";
+import { Text, View, useWindowDimensions } from "react-native";
 import { useQuery } from "@tanstack/react-query";
 import { useRouter } from "expo-router";
-import { Gamepad2, MapPin, ScanLine, Swords } from "lucide-react-native";
+import {
+  Gamepad2,
+  MapPin,
+  ScanLine,
+  Swords,
+  ListChecks,
+} from "lucide-react-native";
 import {
   Button,
   ErrorState,
@@ -23,12 +22,10 @@ import { getByUrl, idFromUrl, type NamedResource } from "../../services/api";
 import { useTheme } from "../../theme";
 import { localText, pretty } from "../../utils/pokemon";
 import { GameIcons } from "../tracker/GameIcons";
-import {
-  GenerationEntries,
-  GenerationSection,
-  regionMaps,
-} from "./GenerationDetail";
-import { resolveTrackerGame } from "../../services/gameDex";
+import { GenerationEntries, GenerationSection } from "./GenerationDetail";
+import { resolveTrackerGame, trackerGames } from "../../services/gameDex";
+import { Questline } from "../games/Questline";
+import { RetroGameStatus } from "../auth/RetroAchievementsLink";
 
 type Version = {
   id: number;
@@ -184,6 +181,27 @@ function GameContent({
         </View>
       </View>
       <GenerationSection
+        title="Questline"
+        subtitle="História principal, pós-jogo e missões secundárias"
+        Icon={ListChecks}
+        initialOpen
+      >
+        <Questline game={group.name} />
+        <RetroGameStatus game={group.name} />
+      </GenerationSection>
+      {trackerGames
+        .filter((game) => game.parentGame === group.name)
+        .map((game) => (
+          <GenerationSection
+            key={game.key}
+            title={"Questline · " + game.title.split("—").pop()?.trim()}
+            subtitle="Acompanhe a expansão separadamente do jogo principal"
+            Icon={ListChecks}
+          >
+            <Questline game={game.key} />
+          </GenerationSection>
+        ))}
+      <GenerationSection
         title="Pokédexes do jogo"
         subtitle="Abra uma Pokédex para explorar seus Pokémon"
         Icon={ScanLine}
@@ -241,11 +259,7 @@ function GameContent({
           Icon={MapPin}
           initialOpen
         >
-          <View style={{ gap: 20 }}>
-            {group.regions.map((region) => (
-              <GameRegionMap key={region.url} region={region} />
-            ))}
-          </View>
+          <GenerationEntries entries={group.regions} />
         </GenerationSection>
       )}
       {!!group.move_learn_methods.length && (
@@ -260,102 +274,6 @@ function GameContent({
     </View>
   );
 }
-export function GameRegionMap({
-  region,
-  showHeading = true,
-}: {
-  region: NamedResource;
-  showHeading?: boolean;
-}) {
-  const { ui, colors: c } = useTheme();
-  const [expanded, setExpanded] = useState(false);
-  const source = regionMaps[region.name];
-  const name = pretty(region.name);
-  return (
-    <View style={{ gap: 12 }}>
-      {showHeading && (
-        <View style={ui.between}>
-          <Text style={ui.sectionTitle}>{name}</Text>
-          <ResourceLink url={region.url} name="Explorar região" />
-        </View>
-      )}
-      {source ? (
-        <>
-          <Pressable
-            accessibilityRole="button"
-            accessibilityLabel={"Ampliar mapa de " + name}
-            onPress={() => setExpanded(true)}
-            style={{
-              padding: 12,
-              borderRadius: 14,
-              backgroundColor: c.surfaceAlt,
-              borderWidth: 1,
-              borderColor: c.line,
-            }}
-          >
-            <Image
-              source={source}
-              resizeMode="contain"
-              accessibilityLabel={"Mapa de " + name}
-              style={{ width: "100%", height: 360 }}
-            />
-            <Text style={[ui.subtitle, { textAlign: "center", marginTop: 8 }]}>
-              Toque para ampliar o mapa
-            </Text>
-          </Pressable>
-          <Modal
-            visible={expanded}
-            transparent
-            animationType="fade"
-            onRequestClose={() => setExpanded(false)}
-          >
-            <View
-              style={{
-                flex: 1,
-                backgroundColor: "rgba(0,0,0,0.85)",
-                padding: 18,
-                justifyContent: "center",
-              }}
-            >
-              <View
-                style={{
-                  backgroundColor: c.surface,
-                  padding: 16,
-                  borderRadius: 18,
-                  flex: 1,
-                  maxHeight: "95%",
-                  gap: 16,
-                }}
-              >
-                <View style={ui.between}>
-                  <Text style={ui.sectionTitle}>Mapa de {name}</Text>
-                  <Button
-                    small
-                    variant="ghost"
-                    onPress={() => setExpanded(false)}
-                  >
-                    Fechar
-                  </Button>
-                </View>
-                <Image
-                  source={source}
-                  resizeMode="contain"
-                  accessibilityLabel={"Mapa ampliado de " + name}
-                  style={{ width: "100%", flex: 1 }}
-                />
-              </View>
-            </View>
-          </Modal>
-        </>
-      ) : (
-        <Text style={ui.subtitle}>
-          Mapa ainda não disponível para esta região.
-        </Text>
-      )}
-    </View>
-  );
-}
-
 export function GamePokedex({ dex }: { dex: NamedResource }) {
   const { ui } = useTheme();
   const [page, setPage] = useState(0);

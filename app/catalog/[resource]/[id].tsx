@@ -14,8 +14,8 @@ import {
 import { Button, ErrorState, Loading } from "../../../src/components/ui";
 import { ResourceData } from "../../../src/components/ResourceData";
 import { EvolutionTree } from "../../../src/features/pokemon/EvolutionTree";
-import type { EvolutionChain, TypeDetail } from "../../../src/services/api";
-import { TypePokemon } from "../../../src/features/catalog/TypePokemon";
+import type { EvolutionChain } from "../../../src/services/api";
+import { TypeDetailPage } from "../../../src/features/catalog/TypeDetailPage";
 import { ResourceFavoriteButton } from "../../../src/components/ResourceFavoriteButton";
 import { isFavoriteResource } from "../../../src/store/resourceFavorites";
 import { GameDetail } from "../../../src/features/catalog/GameDetail";
@@ -47,15 +47,32 @@ export default function ResourceDetail() {
           small
           variant="ghost"
           icon={<ArrowLeft size={14} color={c.muted} />}
-          onPress={() => router.push(`/catalog/${resource}`)}
+          onPress={() =>
+            router.push(
+              resource === "version" || resource === "version-group"
+                ? "/games"
+                : `/catalog/${resource}`,
+            )
+          }
         >
-          {resourceLabels[resource] ?? pretty(resource)}
+          {resource === "version" || resource === "version-group"
+            ? "Jogos"
+            : (resourceLabels[resource] ?? pretty(resource))}
         </Button>
       </View>
       {query.isPending ? (
         <Loading />
       ) : query.isError ? (
         <ErrorState retry={() => query.refetch()} />
+      ) : resource === "type" ? (
+        <TypeDetailPage
+          key={id}
+          data={
+            query.data as unknown as React.ComponentProps<
+              typeof TypeDetailPage
+            >["data"]
+          }
+        />
       ) : resource === "region" ? (
         <RegionDetail key={id} data={query.data as unknown as RegionData} />
       ) : resource === "version" || resource === "version-group" ? (
@@ -101,12 +118,6 @@ export default function ResourceDetail() {
             relacionados.
           </Text>
           <ResourceData data={query.data} />
-          {resource === "type" && Array.isArray(query.data.pokemon) && (
-            <TypePokemon
-              name={String(query.data.name ?? id)}
-              pokemon={(query.data as unknown as TypeDetail).pokemon}
-            />
-          )}
         </>
       )}
     </View>

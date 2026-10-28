@@ -54,7 +54,7 @@ function AdminEditor({
   return (
     <View style={{ gap: 16 }}>
       <ForumError error={save.error} />
-      {message && (
+      {!!message && (
         <Text accessibilityLiveRegion="polite" style={{ color: c.green }}>
           {message}
         </Text>

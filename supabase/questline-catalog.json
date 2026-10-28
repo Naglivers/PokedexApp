@@ -1,0 +1,5575 @@
+[
+  {
+    "key": "red-blue",
+    "title": "Pokémon Red / Blue",
+    "versions": ["red", "blue"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 150
+      },
+      {
+        "key": "kanto",
+        "title": "Kanto",
+        "total": 150
+      }
+    ],
+    "total": 150,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Entregar a encomenda de Oak e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Brock em Pewter"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer Misty em Cerulean"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Ajudar Bill e receber o S.S. Ticket"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Lt. Surge em Vermilion"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Obter a Poké Flute na Pokémon Tower"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Erika em Celadon"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do esconderijo de Celadon"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Koga em Fuchsia"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Libertar a Silph Co. e receber a Master Ball"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Vencer Sabrina em Saffron"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Blaine em Cinnabar"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Vencer Giovanni em Viridian"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Lorelei, Bruno, Agatha e Lance"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Derrotar o rival e entrar no Hall da Fama"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Explorar a Cerulean Cave e capturar Mewtwo"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Obter a bicicleta em Cerulean"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Resgatar os dentes de ouro e obter Strength"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar Surf na Safari Zone"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Obter a Old Amber e restaurar os fósseis escolhidos"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Ajudar o guarda de Saffron a liberar a passagem"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Escolher Hitmonlee ou Hitmonchan no Fighting Dojo"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Receber Eevee em Celadon"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Receber Lapras na Silph Co."
+      },
+      {
+        "id": "side-9",
+        "category": "side",
+        "title": "Capturar Articuno nas Seafoam Islands"
+      },
+      {
+        "id": "side-10",
+        "category": "side",
+        "title": "Capturar Zapdos na Power Plant"
+      },
+      {
+        "id": "side-11",
+        "category": "side",
+        "title": "Capturar Moltres na Victory Road"
+      },
+      {
+        "id": "side-12",
+        "category": "side",
+        "title": "Acordar os Snorlax que bloqueiam as rotas"
+      }
+    ]
+  },
+  {
+    "key": "yellow",
+    "title": "Pokémon Yellow",
+    "versions": ["yellow"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 137
+      },
+      {
+        "key": "kanto",
+        "title": "Kanto",
+        "total": 137
+      }
+    ],
+    "total": 137,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Entregar a encomenda de Oak e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Brock em Pewter"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer Misty em Cerulean"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Ajudar Bill e receber o S.S. Ticket"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Lt. Surge em Vermilion"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Obter a Poké Flute na Pokémon Tower"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Erika em Celadon"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do esconderijo de Celadon"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Koga em Fuchsia"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Libertar a Silph Co. e receber a Master Ball"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Vencer Sabrina em Saffron"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Blaine em Cinnabar"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Vencer Giovanni em Viridian"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Lorelei, Bruno, Agatha e Lance"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Derrotar o rival e entrar no Hall da Fama"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Explorar a Cerulean Cave e capturar Mewtwo"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Obter a bicicleta em Cerulean"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Resgatar os dentes de ouro e obter Strength"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar Surf na Safari Zone"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Obter a Old Amber e restaurar os fósseis escolhidos"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Ajudar o guarda de Saffron a liberar a passagem"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Escolher Hitmonlee ou Hitmonchan no Fighting Dojo"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Receber Eevee em Celadon"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Receber Lapras na Silph Co."
+      },
+      {
+        "id": "side-9",
+        "category": "side",
+        "title": "Capturar Articuno nas Seafoam Islands"
+      },
+      {
+        "id": "side-10",
+        "category": "side",
+        "title": "Capturar Zapdos na Power Plant"
+      },
+      {
+        "id": "side-11",
+        "category": "side",
+        "title": "Capturar Moltres na Victory Road"
+      },
+      {
+        "id": "side-12",
+        "category": "side",
+        "title": "Acordar os Snorlax que bloqueiam as rotas"
+      },
+      {
+        "id": "yellow-gift-1",
+        "category": "side",
+        "title": "Receber Bulbasaur em Cerulean"
+      },
+      {
+        "id": "yellow-gift-2",
+        "category": "side",
+        "title": "Receber Charmander na Route 24"
+      },
+      {
+        "id": "yellow-gift-3",
+        "category": "side",
+        "title": "Receber Squirtle em Vermilion"
+      }
+    ]
+  },
+  {
+    "key": "gold-silver",
+    "title": "Pokémon Gold / Silver",
+    "versions": ["gold", "silver"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 232
+      },
+      {
+        "key": "original-johto",
+        "title": "Original Johto",
+        "total": 232
+      }
+    ],
+    "total": 232,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber a Pokédex e entregar o ovo a Elm"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Falkner"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do Slowpoke Well"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Bugsy"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Whitney"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Ajudar a dançarina no Dance Theater"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Morty"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Obter o remédio e curar Amphy"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Chuck"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Jasmine"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar o Lake of Rage e o esconderijo Rocket"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Pryce"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Libertar a Radio Tower"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer Clair e passar no desafio do Dragon's Den"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer a Elite Four e Lance"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Restaurar a energia da Power Plant"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Recuperar o item de Copycat e liberar o Magnet Train"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Acordar Snorlax em Kanto"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Conquistar as oito insígnias de Kanto"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Encontrar Blue em Cinnabar e vencê-lo no ginásio"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Vencer Red no Mt. Silver"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber o ovo de Togepi"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Concluir o encontro com Farfetch'd no Ilex Forest"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Resolver os quebra-cabeças das Ruins of Alph"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Conseguir a SquirtBottle e liberar Sudowoodo"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Receber Eevee de Bill"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Participar do Bug-Catching Contest"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Concluir a missão do Shuckle de Cianwood"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Encontrar os três cães lendários"
+      },
+      {
+        "id": "side-9",
+        "category": "side",
+        "title": "Encontrar Lugia e Ho-Oh conforme as condições da edição"
+      }
+    ]
+  },
+  {
+    "key": "crystal",
+    "title": "Pokémon Crystal",
+    "versions": ["crystal"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 223
+      },
+      {
+        "key": "original-johto",
+        "title": "Original Johto",
+        "total": 223
+      }
+    ],
+    "total": 223,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber a Pokédex e entregar o ovo a Elm"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Falkner"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do Slowpoke Well"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Bugsy"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Whitney"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Ajudar a dançarina no Dance Theater"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Morty"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Obter o remédio e curar Amphy"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Chuck"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Jasmine"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar o Lake of Rage e o esconderijo Rocket"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Pryce"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Libertar a Radio Tower"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer Clair e passar no desafio do Dragon's Den"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer a Elite Four e Lance"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Restaurar a energia da Power Plant"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Recuperar o item de Copycat e liberar o Magnet Train"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Acordar Snorlax em Kanto"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Conquistar as oito insígnias de Kanto"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Encontrar Blue em Cinnabar e vencê-lo no ginásio"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Vencer Red no Mt. Silver"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber o ovo de Togepi"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Concluir o encontro com Farfetch'd no Ilex Forest"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Resolver os quebra-cabeças das Ruins of Alph"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Conseguir a SquirtBottle e liberar Sudowoodo"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Receber Eevee de Bill"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Participar do Bug-Catching Contest"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Concluir a missão do Shuckle de Cianwood"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Encontrar os três cães lendários"
+      },
+      {
+        "id": "side-9",
+        "category": "side",
+        "title": "Encontrar Lugia e Ho-Oh conforme as condições da edição"
+      }
+    ]
+  },
+  {
+    "key": "ruby-sapphire",
+    "title": "Pokémon Ruby / Sapphire",
+    "versions": ["ruby", "sapphire"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 200
+      },
+      {
+        "key": "hoenn",
+        "title": "Original Hoenn",
+        "total": 200
+      }
+    ],
+    "total": 200,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Ajudar o Professor Birch e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Roxanne"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Entregar a carta a Steven e vencer Brawly"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Entregar os Devon Goods em Slateport"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Wattson"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Impedir a equipe adversária no Mt. Chimney"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Flannery"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer Norman e obter Surf"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Winona"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Investigar o Mt. Pyre"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar o esconderijo da equipe adversária"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Tate e Liza"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Resolver a crise de Sootopolis"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer Wallace ou Juan, conforme a edição"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Vencer a Elite Four e o Campeão"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Explorar o conteúdo de batalha liberado após o Hall da Fama"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Investigar a Sealed Chamber e encontrar Regirock, Regice e Registeel"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Encontrar o Pokémon errante Latias ou Latios da edição"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Recuperar Peeko no Rusturf Tunnel"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Entregar o meteorito ao Professor Cozmo"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Desbloquear o acesso a New Mauville e ajudar Wattson"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Receber a vara de pescar de Dewford"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar o Abandoned Ship ou Sea Mauville, conforme a edição"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Receber Castform no Weather Institute"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Explorar a Shoal Cave"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Encontrar os lendários disponíveis sem eventos nesta edição"
+      }
+    ]
+  },
+  {
+    "key": "emerald",
+    "title": "Pokémon Emerald",
+    "versions": ["emerald"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 237
+      },
+      {
+        "key": "hoenn",
+        "title": "Original Hoenn",
+        "total": 195
+      }
+    ],
+    "total": 237,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Ajudar o Professor Birch e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Roxanne"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Entregar a carta a Steven e vencer Brawly"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Entregar os Devon Goods em Slateport"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Wattson"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Impedir a equipe adversária no Mt. Chimney"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Flannery"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer Norman e obter Surf"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Winona"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Investigar o Mt. Pyre"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar o esconderijo da equipe adversária"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Tate e Liza"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Resolver a crise de Sootopolis"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer Wallace ou Juan, conforme a edição"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Vencer a Elite Four e o Campeão"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Explorar o conteúdo de batalha liberado após o Hall da Fama"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Investigar a Sealed Chamber e encontrar Regirock, Regice e Registeel"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Encontrar o Pokémon errante Latias ou Latios da edição"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Recuperar Peeko no Rusturf Tunnel"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Entregar o meteorito ao Professor Cozmo"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Desbloquear o acesso a New Mauville e ajudar Wattson"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Receber a vara de pescar de Dewford"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar o Abandoned Ship ou Sea Mauville, conforme a edição"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Receber Castform no Weather Institute"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Explorar a Shoal Cave"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Encontrar os lendários disponíveis sem eventos nesta edição"
+      },
+      {
+        "id": "emerald-steven",
+        "category": "postgame",
+        "title": "Desafiar Steven na Meteor Falls"
+      },
+      {
+        "id": "emerald-rayquaza",
+        "category": "postgame",
+        "title": "Capturar Rayquaza no Sky Pillar"
+      }
+    ]
+  },
+  {
+    "key": "firered-leafgreen",
+    "title": "Pokémon FireRed / LeafGreen",
+    "versions": ["firered", "leafgreen"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 215
+      },
+      {
+        "key": "kanto",
+        "title": "Kanto",
+        "total": 150
+      }
+    ],
+    "total": 215,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Entregar a encomenda de Oak e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Brock em Pewter"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer Misty em Cerulean"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Ajudar Bill e receber o S.S. Ticket"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Lt. Surge em Vermilion"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Obter a Poké Flute na Pokémon Tower"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Erika em Celadon"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do esconderijo de Celadon"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Koga em Fuchsia"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Libertar a Silph Co. e receber a Master Ball"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Vencer Sabrina em Saffron"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Blaine em Cinnabar"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Vencer Giovanni em Viridian"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Lorelei, Bruno, Agatha e Lance"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Derrotar o rival e entrar no Hall da Fama"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Ajudar Celio e resgatar Lostelle nas Sevii Islands"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Obter a National Dex"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Recuperar o Ruby e o Sapphire para Celio"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Explorar a Rocket Warehouse"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Desbloquear a Cerulean Cave e encontrar Mewtwo"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Vencer a revanche da Elite Four"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Obter a bicicleta"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Concluir o Fighting Dojo"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Receber Eevee e Lapras"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Obter Surf e Strength na Safari Zone"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar as ilhas opcionais de Sevii"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Encontrar Articuno, Zapdos e Moltres"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Encontrar o cão lendário determinado pelo inicial"
+      }
+    ]
+  },
+  {
+    "key": "diamond-pearl",
+    "title": "Pokémon Diamond / Pearl",
+    "versions": ["diamond", "pearl"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 437
+      },
+      {
+        "key": "original-sinnoh",
+        "title": "Original Sinnoh",
+        "total": 150
+      }
+    ],
+    "total": 437,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Roark"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Investigar a Valley Windworks"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Gardenia"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Recuperar a bicicleta em Eterna"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Vencer Maylene e recuperar a Pokédex de Dawn ou Lucas"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Crasher Wake"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Ajudar os Psyduck e investigar Celestic Town"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Fantina"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Byron"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar os três lagos de Sinnoh"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Candice"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Libertar os Pokémon no Galactic HQ"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Impedir Cyrus no clímax da história"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Volkner"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Vencer a Elite Four e Cynthia"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Obter a National Dex"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Explorar a Battle Zone"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Concluir a história de Buck na Stark Mountain"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Encontrar Heatran"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Ajudar o filho do marinheiro e encontrar Cresselia"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Encontrar os três guardiões dos lagos"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber o ovo de Riolu em Iron Island"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Receber o Eevee de Bebe quando disponível"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar os Unown nas Solaceon Ruins"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Investigar a Old Chateau e encontrar Rotom"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar a Wayward Cave"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Encontrar Spiritomb na Hallowed Tower"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Encontrar Regigigas com os requisitos da edição"
+      }
+    ]
+  },
+  {
+    "key": "platinum",
+    "title": "Pokémon Platinum",
+    "versions": ["platinum"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 429
+      },
+      {
+        "key": "extended-sinnoh",
+        "title": "Extended Sinnoh",
+        "total": 201
+      }
+    ],
+    "total": 429,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Roark"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Investigar a Valley Windworks"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Gardenia"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Recuperar a bicicleta em Eterna"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Vencer Maylene e recuperar a Pokédex de Dawn ou Lucas"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Crasher Wake"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Ajudar os Psyduck e investigar Celestic Town"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Fantina"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Byron"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar os três lagos de Sinnoh"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Candice"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Libertar os Pokémon no Galactic HQ"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Impedir Cyrus no clímax da história"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Volkner"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Vencer a Elite Four e Cynthia"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Obter a National Dex"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Explorar a Battle Zone"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Concluir a história de Buck na Stark Mountain"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Encontrar Heatran"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Ajudar o filho do marinheiro e encontrar Cresselia"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Encontrar os três guardiões dos lagos"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber o ovo de Riolu em Iron Island"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Receber o Eevee de Bebe quando disponível"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar os Unown nas Solaceon Ruins"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Investigar a Old Chateau e encontrar Rotom"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar a Wayward Cave"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Encontrar Spiritomb na Hallowed Tower"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Encontrar Regigigas com os requisitos da edição"
+      },
+      {
+        "id": "platinum-looker",
+        "category": "postgame",
+        "title": "Concluir a investigação de Looker na Stark Mountain"
+      },
+      {
+        "id": "platinum-villa",
+        "category": "side",
+        "title": "Obter a villa na Resort Area"
+      }
+    ]
+  },
+  {
+    "key": "heartgold-soulsilver",
+    "title": "Pokémon HeartGold / SoulSilver",
+    "versions": ["heartgold", "soulsilver"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 427
+      },
+      {
+        "key": "updated-johto",
+        "title": "Updated Johto",
+        "total": 254
+      }
+    ],
+    "total": 427,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber a Pokédex e entregar o ovo a Elm"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Falkner"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do Slowpoke Well"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Bugsy"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Whitney"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Ajudar a dançarina no Dance Theater"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Morty"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Obter o remédio e curar Amphy"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Chuck"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Jasmine"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar o Lake of Rage e o esconderijo Rocket"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Pryce"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Libertar a Radio Tower"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer Clair e passar no desafio do Dragon's Den"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer a Elite Four e Lance"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Restaurar a energia da Power Plant"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Recuperar o item de Copycat e liberar o Magnet Train"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Conquistar as oito insígnias de Kanto"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Vencer Red no Mt. Silver"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Encontrar Steven e receber um inicial de Hoenn"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Receber um inicial de Kanto de Oak"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber Togepi e entregar o Spearow de Kenya"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Completar a perseguição de Farfetch'd no Ilex Forest"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Resolver os quebra-cabeças das Ruins of Alph"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Ajudar Baoba a abrir a Safari Zone"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Obter Eevee de Bill"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Seguir Eusine e encontrar Suicune"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Encontrar Lugia e Ho-Oh"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Investigar o Embedded Tower conforme a edição"
+      }
+    ]
+  },
+  {
+    "key": "black-white",
+    "title": "Pokémon Black / White",
+    "versions": ["black", "white"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 465
+      },
+      {
+        "key": "original-unova",
+        "title": "Original Unova",
+        "total": 150
+      }
+    ],
+    "total": 465,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Conquistar a primeira insígnia"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Investigar os primeiros encontros da Team Plasma"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Conquistar as oito insígnias de Unova"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Impedir os planos da Team Plasma"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer a Elite Four"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Concluir o confronto final da história"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Explorar o leste de Unova"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Investigar os Sete Sábios com Looker"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Vencer Alder"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Desafiar Cynthia em Undella Town"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Encontrar Kyurem no Giant Chasm"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber o macaco elemental no Dreamyard"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Encontrar Cobalion, Terrakion e Virizion"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar o lendário errante da edição"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Explorar as Abyssal Ruins"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Obter os fósseis disponíveis na edição"
+      }
+    ]
+  },
+  {
+    "key": "black-2-white-2",
+    "title": "Pokémon Black 2 / White 2",
+    "versions": ["black-2", "white-2"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 482
+      },
+      {
+        "key": "updated-unova",
+        "title": "Updated Unova",
+        "total": 294
+      }
+    ],
+    "total": 482,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Conquistar a primeira insígnia"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Investigar os primeiros encontros da Team Plasma"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Conquistar as oito insígnias de Unova"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Impedir os planos da Team Plasma"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer a Elite Four"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Concluir o confronto final da história"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Reencontrar N e explorar seu castelo"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Encontrar Zekrom ou Reshiram na Dragonspiral Tower"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Encontrar Kyurem no Giant Chasm"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Vencer o desafio da Black Tower ou White Treehollow"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Desafiar Alder em Floccesy Town"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Participar do Pokémon World Tournament"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Gravar os filmes disponíveis em Pokéstar Studios"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar Cobalion, Terrakion e Virizion"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Encontrar os lendários disponíveis sem eventos"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar a Nature Preserve após cumprir o requisito"
+      }
+    ]
+  },
+  {
+    "key": "x-y",
+    "title": "Pokémon X / Y",
+    "versions": ["x", "y"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 593
+      },
+      {
+        "key": "kalos-central",
+        "title": "Central Kalos",
+        "total": 150
+      },
+      {
+        "key": "kalos-coastal",
+        "title": "Coastal Kalos",
+        "total": 153
+      },
+      {
+        "key": "kalos-mountain",
+        "title": "Mountain Kalos",
+        "total": 151
+      }
+    ],
+    "total": 593,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Viola"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Receber um inicial de Kanto de Sycamore"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Grant"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Investigar a história da Mega Evolução em Shalour"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Vencer Korrina e receber a Mega Ring"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Ramos"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Restaurar a energia de Lumiose e vencer Clemont"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Valerie"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Olympia"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Impedir Lysandre e a Team Flare"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Encontrar Xerneas ou Yveltal"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Vencer Wulfric"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer a Elite Four e Diantha"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Encontrar AZ após o desfile"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Concluir os capítulos de Looker em Lumiose"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Receber o upgrade da Mega Ring"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Encontrar Mewtwo na Unknown Dungeon"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Encontrar Zygarde na Terminus Cave"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Encontrar a ave lendária determinada pelo inicial"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber Lapras na Route 12"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Explorar a Lost Hotel"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Ajudar a resolver os casos de Lumiose"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Explorar o Pokémon Village"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Participar dos desafios do Battle Chateau"
+      }
+    ]
+  },
+  {
+    "key": "omega-ruby-alpha-sapphire",
+    "title": "Pokémon Omega Ruby / Alpha Sapphire",
+    "versions": ["omega-ruby", "alpha-sapphire"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 477
+      },
+      {
+        "key": "updated-hoenn",
+        "title": "New Hoenn",
+        "total": 210
+      }
+    ],
+    "total": 477,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Ajudar o Professor Birch e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Roxanne"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Entregar a carta a Steven e vencer Brawly"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Entregar os Devon Goods em Slateport"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Wattson"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Impedir a equipe adversária no Mt. Chimney"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Flannery"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer Norman e obter Surf"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Winona"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Investigar o Mt. Pyre"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar o esconderijo da equipe adversária"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Tate e Liza"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Resolver a crise de Sootopolis"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Vencer Wallace ou Juan, conforme a edição"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Vencer a Elite Four e o Campeão"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Explorar o conteúdo de batalha liberado após o Hall da Fama"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Investigar a Sealed Chamber e encontrar Regirock, Regice e Registeel"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Encontrar o Pokémon errante Latias ou Latios da edição"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Recuperar Peeko no Rusturf Tunnel"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Entregar o meteorito ao Professor Cozmo"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Desbloquear o acesso a New Mauville e ajudar Wattson"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Receber a vara de pescar de Dewford"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar o Abandoned Ship ou Sea Mauville, conforme a edição"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Receber Castform no Weather Institute"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Explorar a Shoal Cave"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Encontrar os lendários disponíveis sem eventos nesta edição"
+      },
+      {
+        "id": "delta",
+        "category": "postgame",
+        "title": "Concluir o Delta Episode e encontrar Deoxys"
+      }
+    ]
+  },
+  {
+    "key": "sun-moon",
+    "title": "Pokémon Sun / Moon",
+    "versions": ["sun", "moon"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 384
+      },
+      {
+        "key": "original-alola",
+        "title": "Original Alola",
+        "total": 300
+      },
+      {
+        "key": "original-melemele",
+        "title": "Original Melemele",
+        "total": 120
+      },
+      {
+        "key": "original-akala",
+        "title": "Original Akala",
+        "total": 130
+      },
+      {
+        "key": "original-ulaula",
+        "title": "Original Ula’ula",
+        "total": 130
+      },
+      {
+        "key": "original-poni",
+        "title": "Original Poni",
+        "total": 100
+      }
+    ],
+    "total": 384,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Concluir as provas de Melemele"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer a grande prova de Hala"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Concluir as provas de Akala"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer a grande prova de Olivia"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Concluir as provas de Ula'ula"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Investigar a crise da Aether Foundation"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer a grande prova de Nanu"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Concluir a jornada em Poni"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Concluir o confronto no Ultra Space"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Vencer a grande prova de Hapu"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer a primeira Liga de Alola"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Encontrar os quatro guardiões de Alola"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Explorar o Battle Tree"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Concluir os eventos pós-jogo específicos da edição"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Concluir as tarefas opcionais dos capitães"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Explorar as Ruins of Abundance"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar o Cosmog do mundo alternativo"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Concluir os encontros de treinadores opcionais nas rotas"
+      },
+      {
+        "id": "ub",
+        "category": "postgame",
+        "title": "Concluir a investigação de Looker e Anabel sobre as Ultra Beasts"
+      },
+      {
+        "id": "zygarde",
+        "category": "side",
+        "title": "Encontrar todas as células e núcleos de Zygarde"
+      }
+    ]
+  },
+  {
+    "key": "ultra-sun-ultra-moon",
+    "title": "Pokémon Ultra Sun / Ultra Moon",
+    "versions": ["ultra-sun", "ultra-moon"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 560
+      },
+      {
+        "key": "updated-alola",
+        "title": "Updated Alola",
+        "total": 400
+      },
+      {
+        "key": "updated-melemele",
+        "title": "Updated Melemele",
+        "total": 150
+      },
+      {
+        "key": "updated-akala",
+        "title": "Updated Akala",
+        "total": 160
+      },
+      {
+        "key": "updated-ulaula",
+        "title": "Updated Ula’ula",
+        "total": 160
+      },
+      {
+        "key": "updated-poni",
+        "title": "Updated Poni",
+        "total": 130
+      }
+    ],
+    "total": 560,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Concluir as provas de Melemele"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer a grande prova de Hala"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Concluir as provas de Akala"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer a grande prova de Olivia"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Concluir as provas de Ula'ula"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Investigar a crise da Aether Foundation"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer a grande prova de Nanu"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Concluir a jornada em Poni"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Concluir o confronto no Ultra Space"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Vencer a grande prova de Hapu"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer a primeira Liga de Alola"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Encontrar os quatro guardiões de Alola"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Explorar o Battle Tree"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Concluir os eventos pós-jogo específicos da edição"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Concluir as tarefas opcionais dos capitães"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Explorar as Ruins of Abundance"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar o Cosmog do mundo alternativo"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Concluir os encontros de treinadores opcionais nas rotas"
+      },
+      {
+        "id": "rainbow-rocket",
+        "category": "postgame",
+        "title": "Concluir o Episode RR"
+      },
+      {
+        "id": "sticker",
+        "category": "side",
+        "title": "Coletar as 100 Totem Stickers"
+      },
+      {
+        "id": "necrozma",
+        "category": "postgame",
+        "title": "Encontrar Necrozma no Mount Lanakila"
+      }
+    ]
+  },
+  {
+    "key": "lets-go-pikachu-lets-go-eevee",
+    "title": "Pokémon Let's Go Pikachu / Eevee",
+    "versions": ["lets-go-pikachu", "lets-go-eevee"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 150
+      },
+      {
+        "key": "letsgo-kanto",
+        "title": "Let’s Go Kanto",
+        "total": 150
+      }
+    ],
+    "total": 150,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Entregar a encomenda de Oak e receber a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Brock em Pewter"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer Misty em Cerulean"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Ajudar Bill e receber o S.S. Ticket"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Lt. Surge em Vermilion"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Obter a Poké Flute na Pokémon Tower"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Erika em Celadon"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Expulsar a Equipe Rocket do esconderijo de Celadon"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Koga em Fuchsia"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Libertar a Silph Co. e receber a Master Ball"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Vencer Sabrina em Saffron"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Blaine em Cinnabar"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Vencer Giovanni em Viridian"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Atravessar a Victory Road"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Lorelei, Bruno, Agatha e Lance"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Derrotar o rival e entrar no Hall da Fama"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Encontrar Mewtwo na Cerulean Cave"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Desafiar Green na Cerulean Cave"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Desafiar Blue no ginásio de Viridian"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Desbloquear e desafiar Red em Indigo Plateau"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber Bulbasaur, Charmander e Squirtle"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Aprender todas as Secret Techniques"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar Articuno, Zapdos e Moltres"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Desafiar os Master Trainers"
+      }
+    ]
+  },
+  {
+    "key": "sword-shield",
+    "title": "Pokémon Sword / Shield",
+    "versions": ["sword", "shield"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 401
+      },
+      {
+        "key": "galar",
+        "title": "Galar",
+        "total": 400
+      }
+    ],
+    "total": 401,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Milo"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer Nessa"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Kabu"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer Bea ou Allister"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Vencer Opal"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Gordie ou Melony"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer Piers"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Raihan"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer a Champion Cup"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Impedir o Darkest Day e encontrar Eternatus"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Leon"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Concluir a história de Sordward e Shielbert"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Encontrar Zacian ou Zamazenta"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Enfrentar Hop no encerramento do pós-jogo"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Receber Type: Null na Battle Tower"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Entregar a carta de Paula a Frank"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Ajudar o artista com sua aparência em Hammerlocke"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Investigar o mistério do hotel de Circhester"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Encontrar os Minccino perdidos em Motostoke"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Participar dos desafios da Battle Tower"
+      }
+    ]
+  },
+  {
+    "key": "sword-shield-isle-of-armor",
+    "title": "Pokémon Sword / Shield — The Isle of Armor",
+    "versions": ["sword", "shield"],
+    "parentGame": "sword-shield",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 219
+      },
+      {
+        "key": "isle-of-armor",
+        "title": "Isle of Armor",
+        "total": 210
+      }
+    ],
+    "total": 219,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Entrar no Master Dojo"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Concluir as três provas de Mustard"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Receber Kubfu"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Fortalecer a amizade com Kubfu"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer a Tower of Darkness ou a Tower of Waters"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Obter Max Honey e concluir a batalha final contra Mustard"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Concluir a história de Hop na Isle of Armor"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Encontrar os 151 Diglett"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Concluir as melhorias do Master Dojo"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Obter a forma Gigantamax do inicial de Kanto escolhido"
+      }
+    ]
+  },
+  {
+    "key": "sword-shield-crown-tundra",
+    "title": "Pokémon Sword / Shield — The Crown Tundra",
+    "versions": ["sword", "shield"],
+    "parentGame": "sword-shield",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 499
+      },
+      {
+        "key": "crown-tundra",
+        "title": "Crown Tundra",
+        "total": 210
+      }
+    ],
+    "total": 499,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Conhecer Peony e receber as pistas lendárias"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Concluir a história de Calyrex e sua montaria"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Investigar Regirock, Regice e Registeel"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Investigar Regieleki ou Regidrago"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Encontrar Articuno, Zapdos e Moltres de Galar"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Entregar a pista misteriosa a Peony"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Desbloquear as Ultra Beasts nas Dynamax Adventures"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Participar do Galarian Star Tournament"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Encontrar as pegadas e os três espadachins lendários"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Encontrar Keldeo"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Concluir a tarefa de Spiritomb na lápide"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Explorar as Dynamax Adventures"
+      }
+    ]
+  },
+  {
+    "key": "brilliant-diamond-shining-pearl",
+    "title": "Pokémon Brilliant Diamond / Shining Pearl",
+    "versions": ["brilliant-diamond", "shining-pearl"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 487
+      },
+      {
+        "key": "original-sinnoh",
+        "title": "Original Sinnoh",
+        "total": 150
+      }
+    ],
+    "total": 487,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Receber o inicial e a Pokédex"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer Roark"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Investigar a Valley Windworks"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Gardenia"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Recuperar a bicicleta em Eterna"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Vencer Maylene e recuperar a Pokédex de Dawn ou Lucas"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer Crasher Wake"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Ajudar os Psyduck e investigar Celestic Town"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer Fantina"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Vencer Byron"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Investigar os três lagos de Sinnoh"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Vencer Candice"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Libertar os Pokémon no Galactic HQ"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Impedir Cyrus no clímax da história"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Vencer Volkner"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Vencer a Elite Four e Cynthia"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Obter a National Dex"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Explorar a Battle Zone"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Concluir a história de Buck na Stark Mountain"
+      },
+      {
+        "id": "postgame-4",
+        "category": "postgame",
+        "title": "Encontrar Heatran"
+      },
+      {
+        "id": "postgame-5",
+        "category": "postgame",
+        "title": "Ajudar o filho do marinheiro e encontrar Cresselia"
+      },
+      {
+        "id": "postgame-6",
+        "category": "postgame",
+        "title": "Encontrar os três guardiões dos lagos"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Receber o ovo de Riolu em Iron Island"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Receber o Eevee de Bebe quando disponível"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar os Unown nas Solaceon Ruins"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Investigar a Old Chateau e encontrar Rotom"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Explorar a Wayward Cave"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Encontrar Spiritomb na Hallowed Tower"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Encontrar Regigigas com os requisitos da edição"
+      }
+    ]
+  },
+  {
+    "key": "legends-arceus",
+    "title": "Pokémon Legends: Arceus",
+    "versions": ["legends-arceus"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 242
+      },
+      {
+        "key": "hisui",
+        "title": "Hisui",
+        "total": 242
+      }
+    ],
+    "total": 242,
+    "reviewed": true,
+    "source": "https://www.serebii.net/legendsarceus/missions.shtml",
+    "sideSource": "https://www.serebii.net/legendsarceus/requests.shtml",
+    "quests": [
+      {
+        "id": "mission-1",
+        "category": "story",
+        "title": "Concluir a missão 01 da jornada"
+      },
+      {
+        "id": "mission-2",
+        "category": "story",
+        "title": "Concluir a missão 02 da jornada"
+      },
+      {
+        "id": "mission-3",
+        "category": "story",
+        "title": "Concluir a missão 03 da jornada"
+      },
+      {
+        "id": "mission-4",
+        "category": "story",
+        "title": "Concluir a missão 04 da jornada"
+      },
+      {
+        "id": "mission-5",
+        "category": "story",
+        "title": "Concluir a missão 05 da jornada"
+      },
+      {
+        "id": "mission-6",
+        "category": "story",
+        "title": "Concluir a missão 06 da jornada"
+      },
+      {
+        "id": "mission-7",
+        "category": "story",
+        "title": "Concluir a missão 07 da jornada"
+      },
+      {
+        "id": "mission-8",
+        "category": "story",
+        "title": "Concluir a missão 08 da jornada"
+      },
+      {
+        "id": "mission-9",
+        "category": "story",
+        "title": "Concluir a missão 09 da jornada"
+      },
+      {
+        "id": "mission-10",
+        "category": "story",
+        "title": "Concluir a missão 10 da jornada"
+      },
+      {
+        "id": "mission-11",
+        "category": "story",
+        "title": "Concluir a missão 11 da jornada"
+      },
+      {
+        "id": "mission-12",
+        "category": "story",
+        "title": "Concluir a missão 12 da jornada"
+      },
+      {
+        "id": "mission-13",
+        "category": "story",
+        "title": "Concluir a missão 13 da jornada"
+      },
+      {
+        "id": "mission-14",
+        "category": "story",
+        "title": "Concluir a missão 14 da jornada"
+      },
+      {
+        "id": "mission-15",
+        "category": "story",
+        "title": "Concluir a missão 15 da jornada"
+      },
+      {
+        "id": "mission-16",
+        "category": "story",
+        "title": "Concluir a missão 16 da jornada"
+      },
+      {
+        "id": "mission-17",
+        "category": "story",
+        "title": "Concluir a missão 17 da jornada"
+      },
+      {
+        "id": "mission-18",
+        "category": "story",
+        "title": "Concluir a missão 18 da jornada"
+      },
+      {
+        "id": "mission-19",
+        "category": "postgame",
+        "title": "Concluir a missão 19 da jornada"
+      },
+      {
+        "id": "mission-20",
+        "category": "postgame",
+        "title": "Concluir a missão 20 da jornada"
+      },
+      {
+        "id": "mission-21",
+        "category": "postgame",
+        "title": "Concluir a missão 21 da jornada"
+      },
+      {
+        "id": "mission-22",
+        "category": "postgame",
+        "title": "Concluir a missão 22 da jornada"
+      },
+      {
+        "id": "mission-23",
+        "category": "postgame",
+        "title": "Concluir a missão 23 da jornada"
+      },
+      {
+        "id": "mission-24",
+        "category": "postgame",
+        "title": "Concluir a missão 24 da jornada"
+      },
+      {
+        "id": "mission-25",
+        "category": "postgame",
+        "title": "Concluir a missão 25 da jornada"
+      },
+      {
+        "id": "mission-26",
+        "category": "postgame",
+        "title": "Concluir a missão 26 da jornada"
+      },
+      {
+        "id": "mission-27",
+        "category": "postgame",
+        "title": "Concluir a missão 27 da jornada"
+      },
+      {
+        "id": "request-1",
+        "category": "side",
+        "title": "Concluir a petição 001"
+      },
+      {
+        "id": "request-2",
+        "category": "side",
+        "title": "Concluir a petição 002"
+      },
+      {
+        "id": "request-3",
+        "category": "side",
+        "title": "Concluir a petição 003"
+      },
+      {
+        "id": "request-4",
+        "category": "side",
+        "title": "Concluir a petição 004"
+      },
+      {
+        "id": "request-5",
+        "category": "side",
+        "title": "Concluir a petição 005"
+      },
+      {
+        "id": "request-6",
+        "category": "side",
+        "title": "Concluir a petição 006"
+      },
+      {
+        "id": "request-7",
+        "category": "side",
+        "title": "Concluir a petição 007"
+      },
+      {
+        "id": "request-8",
+        "category": "side",
+        "title": "Concluir a petição 008"
+      },
+      {
+        "id": "request-9",
+        "category": "side",
+        "title": "Concluir a petição 009"
+      },
+      {
+        "id": "request-10",
+        "category": "side",
+        "title": "Concluir a petição 010"
+      },
+      {
+        "id": "request-11",
+        "category": "side",
+        "title": "Concluir a petição 011"
+      },
+      {
+        "id": "request-12",
+        "category": "side",
+        "title": "Concluir a petição 012"
+      },
+      {
+        "id": "request-13",
+        "category": "side",
+        "title": "Concluir a petição 013"
+      },
+      {
+        "id": "request-14",
+        "category": "side",
+        "title": "Concluir a petição 014"
+      },
+      {
+        "id": "request-15",
+        "category": "side",
+        "title": "Concluir a petição 015"
+      },
+      {
+        "id": "request-16",
+        "category": "side",
+        "title": "Concluir a petição 016"
+      },
+      {
+        "id": "request-17",
+        "category": "side",
+        "title": "Concluir a petição 017"
+      },
+      {
+        "id": "request-18",
+        "category": "side",
+        "title": "Concluir a petição 018"
+      },
+      {
+        "id": "request-19",
+        "category": "side",
+        "title": "Concluir a petição 019"
+      },
+      {
+        "id": "request-20",
+        "category": "side",
+        "title": "Concluir a petição 020"
+      },
+      {
+        "id": "request-21",
+        "category": "side",
+        "title": "Concluir a petição 021"
+      },
+      {
+        "id": "request-22",
+        "category": "side",
+        "title": "Concluir a petição 022"
+      },
+      {
+        "id": "request-23",
+        "category": "side",
+        "title": "Concluir a petição 023"
+      },
+      {
+        "id": "request-24",
+        "category": "side",
+        "title": "Concluir a petição 024"
+      },
+      {
+        "id": "request-25",
+        "category": "side",
+        "title": "Concluir a petição 025"
+      },
+      {
+        "id": "request-26",
+        "category": "side",
+        "title": "Concluir a petição 026"
+      },
+      {
+        "id": "request-27",
+        "category": "side",
+        "title": "Concluir a petição 027"
+      },
+      {
+        "id": "request-28",
+        "category": "side",
+        "title": "Concluir a petição 028"
+      },
+      {
+        "id": "request-29",
+        "category": "side",
+        "title": "Concluir a petição 029"
+      },
+      {
+        "id": "request-30",
+        "category": "side",
+        "title": "Concluir a petição 030"
+      },
+      {
+        "id": "request-31",
+        "category": "side",
+        "title": "Concluir a petição 031"
+      },
+      {
+        "id": "request-32",
+        "category": "side",
+        "title": "Concluir a petição 032"
+      },
+      {
+        "id": "request-33",
+        "category": "side",
+        "title": "Concluir a petição 033"
+      },
+      {
+        "id": "request-34",
+        "category": "side",
+        "title": "Concluir a petição 034"
+      },
+      {
+        "id": "request-35",
+        "category": "side",
+        "title": "Concluir a petição 035"
+      },
+      {
+        "id": "request-36",
+        "category": "side",
+        "title": "Concluir a petição 036"
+      },
+      {
+        "id": "request-37",
+        "category": "side",
+        "title": "Concluir a petição 037"
+      },
+      {
+        "id": "request-38",
+        "category": "side",
+        "title": "Concluir a petição 038"
+      },
+      {
+        "id": "request-39",
+        "category": "side",
+        "title": "Concluir a petição 039"
+      },
+      {
+        "id": "request-40",
+        "category": "side",
+        "title": "Concluir a petição 040"
+      },
+      {
+        "id": "request-41",
+        "category": "side",
+        "title": "Concluir a petição 041"
+      },
+      {
+        "id": "request-42",
+        "category": "side",
+        "title": "Concluir a petição 042"
+      },
+      {
+        "id": "request-43",
+        "category": "side",
+        "title": "Concluir a petição 043"
+      },
+      {
+        "id": "request-44",
+        "category": "side",
+        "title": "Concluir a petição 044"
+      },
+      {
+        "id": "request-45",
+        "category": "side",
+        "title": "Concluir a petição 045"
+      },
+      {
+        "id": "request-46",
+        "category": "side",
+        "title": "Concluir a petição 046"
+      },
+      {
+        "id": "request-47",
+        "category": "side",
+        "title": "Concluir a petição 047"
+      },
+      {
+        "id": "request-48",
+        "category": "side",
+        "title": "Concluir a petição 048"
+      },
+      {
+        "id": "request-49",
+        "category": "side",
+        "title": "Concluir a petição 049"
+      },
+      {
+        "id": "request-50",
+        "category": "side",
+        "title": "Concluir a petição 050"
+      },
+      {
+        "id": "request-51",
+        "category": "side",
+        "title": "Concluir a petição 051"
+      },
+      {
+        "id": "request-52",
+        "category": "side",
+        "title": "Concluir a petição 052"
+      },
+      {
+        "id": "request-53",
+        "category": "side",
+        "title": "Concluir a petição 053"
+      },
+      {
+        "id": "request-54",
+        "category": "side",
+        "title": "Concluir a petição 054"
+      },
+      {
+        "id": "request-55",
+        "category": "side",
+        "title": "Concluir a petição 055"
+      },
+      {
+        "id": "request-56",
+        "category": "side",
+        "title": "Concluir a petição 056"
+      },
+      {
+        "id": "request-57",
+        "category": "side",
+        "title": "Concluir a petição 057"
+      },
+      {
+        "id": "request-58",
+        "category": "side",
+        "title": "Concluir a petição 058"
+      },
+      {
+        "id": "request-59",
+        "category": "side",
+        "title": "Concluir a petição 059"
+      },
+      {
+        "id": "request-60",
+        "category": "side",
+        "title": "Concluir a petição 060"
+      },
+      {
+        "id": "request-61",
+        "category": "side",
+        "title": "Concluir a petição 061"
+      },
+      {
+        "id": "request-62",
+        "category": "side",
+        "title": "Concluir a petição 062"
+      },
+      {
+        "id": "request-63",
+        "category": "side",
+        "title": "Concluir a petição 063"
+      },
+      {
+        "id": "request-64",
+        "category": "side",
+        "title": "Concluir a petição 064"
+      },
+      {
+        "id": "request-65",
+        "category": "side",
+        "title": "Concluir a petição 065"
+      },
+      {
+        "id": "request-66",
+        "category": "side",
+        "title": "Concluir a petição 066"
+      },
+      {
+        "id": "request-67",
+        "category": "side",
+        "title": "Concluir a petição 067"
+      },
+      {
+        "id": "request-68",
+        "category": "side",
+        "title": "Concluir a petição 068"
+      },
+      {
+        "id": "request-69",
+        "category": "side",
+        "title": "Concluir a petição 069"
+      },
+      {
+        "id": "request-70",
+        "category": "side",
+        "title": "Concluir a petição 070"
+      },
+      {
+        "id": "request-71",
+        "category": "side",
+        "title": "Concluir a petição 071"
+      },
+      {
+        "id": "request-72",
+        "category": "side",
+        "title": "Concluir a petição 072"
+      },
+      {
+        "id": "request-73",
+        "category": "side",
+        "title": "Concluir a petição 073"
+      },
+      {
+        "id": "request-74",
+        "category": "side",
+        "title": "Concluir a petição 074"
+      },
+      {
+        "id": "request-75",
+        "category": "side",
+        "title": "Concluir a petição 075"
+      },
+      {
+        "id": "request-76",
+        "category": "side",
+        "title": "Concluir a petição 076"
+      },
+      {
+        "id": "request-77",
+        "category": "side",
+        "title": "Concluir a petição 077"
+      },
+      {
+        "id": "request-78",
+        "category": "side",
+        "title": "Concluir a petição 078"
+      },
+      {
+        "id": "request-79",
+        "category": "side",
+        "title": "Concluir a petição 079"
+      },
+      {
+        "id": "request-80",
+        "category": "side",
+        "title": "Concluir a petição 080"
+      },
+      {
+        "id": "request-81",
+        "category": "side",
+        "title": "Concluir a petição 081"
+      },
+      {
+        "id": "request-82",
+        "category": "side",
+        "title": "Concluir a petição 082"
+      },
+      {
+        "id": "request-83",
+        "category": "side",
+        "title": "Concluir a petição 083"
+      },
+      {
+        "id": "request-84",
+        "category": "side",
+        "title": "Concluir a petição 084"
+      },
+      {
+        "id": "request-85",
+        "category": "side",
+        "title": "Concluir a petição 085"
+      },
+      {
+        "id": "request-86",
+        "category": "side",
+        "title": "Concluir a petição 086"
+      },
+      {
+        "id": "request-87",
+        "category": "side",
+        "title": "Concluir a petição 087"
+      },
+      {
+        "id": "request-88",
+        "category": "side",
+        "title": "Concluir a petição 088"
+      },
+      {
+        "id": "request-89",
+        "category": "side",
+        "title": "Concluir a petição 089"
+      },
+      {
+        "id": "request-90",
+        "category": "side",
+        "title": "Concluir a petição 090"
+      },
+      {
+        "id": "request-91",
+        "category": "side",
+        "title": "Concluir a petição 091"
+      },
+      {
+        "id": "request-92",
+        "category": "side",
+        "title": "Concluir a petição 092",
+        "note": "Requer dados salvos de Sword ou Shield neste console."
+      },
+      {
+        "id": "request-93",
+        "category": "side",
+        "title": "Concluir a petição 093",
+        "note": "Requer dados salvos de Brilliant Diamond ou Shining Pearl neste console."
+      },
+      {
+        "id": "request-94",
+        "category": "side",
+        "title": "Concluir a petição 094"
+      },
+      {
+        "id": "request-95",
+        "category": "side",
+        "title": "Concluir a petição 095"
+      },
+      {
+        "id": "request-96",
+        "category": "side",
+        "title": "Concluir a petição 096"
+      },
+      {
+        "id": "request-97",
+        "category": "side",
+        "title": "Concluir a petição 097"
+      },
+      {
+        "id": "request-98",
+        "category": "side",
+        "title": "Concluir a petição 098"
+      },
+      {
+        "id": "request-99",
+        "category": "side",
+        "title": "Concluir a petição 099"
+      },
+      {
+        "id": "request-100",
+        "category": "side",
+        "title": "Concluir a petição 100"
+      },
+      {
+        "id": "request-101",
+        "category": "side",
+        "title": "Concluir a petição 101"
+      },
+      {
+        "id": "request-102",
+        "category": "side",
+        "title": "Concluir a petição 102"
+      },
+      {
+        "id": "request-103",
+        "category": "side",
+        "title": "Concluir a petição 103"
+      },
+      {
+        "id": "request-104",
+        "category": "side",
+        "title": "Concluir a petição 104"
+      },
+      {
+        "id": "request-105",
+        "category": "side",
+        "title": "Concluir a petição 105"
+      },
+      {
+        "id": "request-106",
+        "category": "side",
+        "title": "Concluir a petição 106"
+      },
+      {
+        "id": "request-107",
+        "category": "side",
+        "title": "Concluir a petição 107"
+      },
+      {
+        "id": "request-108",
+        "category": "side",
+        "title": "Concluir a petição 108"
+      },
+      {
+        "id": "request-109",
+        "category": "side",
+        "title": "Concluir a petição 109"
+      },
+      {
+        "id": "request-110",
+        "category": "side",
+        "title": "Concluir a petição 110"
+      },
+      {
+        "id": "request-111",
+        "category": "side",
+        "title": "Concluir a petição 111"
+      },
+      {
+        "id": "request-112",
+        "category": "side",
+        "title": "Concluir a petição 112"
+      },
+      {
+        "id": "request-113",
+        "category": "side",
+        "title": "Concluir a petição 113"
+      },
+      {
+        "id": "request-114",
+        "category": "side",
+        "title": "Concluir a petição 114"
+      },
+      {
+        "id": "request-115",
+        "category": "side",
+        "title": "Concluir a petição 115"
+      },
+      {
+        "id": "request-116",
+        "category": "side",
+        "title": "Concluir a petição 116"
+      },
+      {
+        "id": "request-117",
+        "category": "side",
+        "title": "Concluir a petição 117"
+      },
+      {
+        "id": "request-118",
+        "category": "side",
+        "title": "Concluir a petição 118"
+      },
+      {
+        "id": "request-119",
+        "category": "side",
+        "title": "Concluir a petição 119"
+      },
+      {
+        "id": "request-120",
+        "category": "side",
+        "title": "Concluir a petição 120"
+      },
+      {
+        "id": "request-121",
+        "category": "side",
+        "title": "Concluir a petição 121"
+      },
+      {
+        "id": "request-122",
+        "category": "side",
+        "title": "Concluir a petição 122"
+      }
+    ]
+  },
+  {
+    "key": "scarlet-violet",
+    "title": "Pokémon Scarlet / Violet",
+    "versions": ["scarlet", "violet"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 402
+      },
+      {
+        "key": "paldea",
+        "title": "Paldea",
+        "total": 400
+      }
+    ],
+    "total": 402,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Concluir o início da jornada na academia"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Vencer o ginásio de Katy"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer o ginásio de Brassius"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer o ginásio de Iono"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Vencer o ginásio de Kofu"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Vencer o ginásio de Larry"
+      },
+      {
+        "id": "story-7",
+        "category": "story",
+        "title": "Vencer o ginásio de Ryme"
+      },
+      {
+        "id": "story-8",
+        "category": "story",
+        "title": "Vencer o ginásio de Tulip"
+      },
+      {
+        "id": "story-9",
+        "category": "story",
+        "title": "Vencer o ginásio de Grusha"
+      },
+      {
+        "id": "story-10",
+        "category": "story",
+        "title": "Concluir o encontro do Titã Klawf"
+      },
+      {
+        "id": "story-11",
+        "category": "story",
+        "title": "Concluir o encontro do Titã Bombirdier"
+      },
+      {
+        "id": "story-12",
+        "category": "story",
+        "title": "Concluir o encontro do Titã Orthworm"
+      },
+      {
+        "id": "story-13",
+        "category": "story",
+        "title": "Concluir o encontro do Titã Great Tusk ou Iron Treads"
+      },
+      {
+        "id": "story-14",
+        "category": "story",
+        "title": "Concluir o encontro do Titã Dondozo e Tatsugiri"
+      },
+      {
+        "id": "story-15",
+        "category": "story",
+        "title": "Derrotar a base de Giacomo"
+      },
+      {
+        "id": "story-16",
+        "category": "story",
+        "title": "Derrotar a base de Mela"
+      },
+      {
+        "id": "story-17",
+        "category": "story",
+        "title": "Derrotar a base de Atticus"
+      },
+      {
+        "id": "story-18",
+        "category": "story",
+        "title": "Derrotar a base de Ortega"
+      },
+      {
+        "id": "story-19",
+        "category": "story",
+        "title": "Derrotar a base de Eri"
+      },
+      {
+        "id": "story-20",
+        "category": "story",
+        "title": "Vencer Arven e concluir Path of Legends"
+      },
+      {
+        "id": "story-21",
+        "category": "story",
+        "title": "Vencer Clavell e Penny em Starfall Street"
+      },
+      {
+        "id": "story-22",
+        "category": "story",
+        "title": "Passar na avaliação da Liga e vencer Nemona"
+      },
+      {
+        "id": "story-23",
+        "category": "story",
+        "title": "Concluir The Way Home na Area Zero"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Vencer as revanches dos oito ginásios"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Vencer o Academy Ace Tournament"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Encontrar o segundo Koraidon ou Miraidon"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Concluir todas as aulas e exames da academia"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Concluir os vínculos com os professores"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Encontrar as estacas e libertar Wo-Chien"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Encontrar as estacas e libertar Chien-Pao"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Encontrar as estacas e libertar Ting-Lu"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Encontrar as estacas e libertar Chi-Yu"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Receber o Galarian Meowth de Salvatore"
+      }
+    ]
+  },
+  {
+    "key": "scarlet-violet-teal-mask",
+    "title": "Pokémon Scarlet / Violet — The Teal Mask",
+    "versions": ["scarlet", "violet"],
+    "parentGame": "scarlet-violet",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 200
+      },
+      {
+        "key": "kitakami",
+        "title": "Kitakami",
+        "total": 200
+      }
+    ],
+    "total": 200,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Conhecer Carmine e Kieran"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Visitar os três painéis de Kitakami"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Participar do Festival of Masks"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Descobrir a história de Ogerpon"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Enfrentar os Loyal Three"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Concluir o vínculo com Ogerpon"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Concluir a investigação de Perrin e encontrar Bloodmoon Ursaluna"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Encontrar os membros do Kitakami Ogre Clan"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Acompanhar Billy e O'Nare em todas as viagens"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Ajudar a reconstruir o monumento no Loyalty Plaza"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Concluir o Ogre Oustin' no nível difícil"
+      }
+    ]
+  },
+  {
+    "key": "scarlet-violet-indigo-disk",
+    "title": "Pokémon Scarlet / Violet — The Indigo Disk",
+    "versions": ["scarlet", "violet"],
+    "parentGame": "scarlet-violet",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 267
+      },
+      {
+        "key": "blueberry",
+        "title": "Blueberry",
+        "total": 240
+      }
+    ],
+    "total": 267,
+    "reviewed": false,
+    "quests": [
+      {
+        "id": "story-1",
+        "category": "story",
+        "title": "Ingressar na Blueberry Academy"
+      },
+      {
+        "id": "story-2",
+        "category": "story",
+        "title": "Concluir as quatro provas da BB Elite Four"
+      },
+      {
+        "id": "story-3",
+        "category": "story",
+        "title": "Vencer Amarys, Crispin, Drayton e Lacey"
+      },
+      {
+        "id": "story-4",
+        "category": "story",
+        "title": "Vencer Kieran"
+      },
+      {
+        "id": "story-5",
+        "category": "story",
+        "title": "Explorar a Area Zero Underdepths"
+      },
+      {
+        "id": "story-6",
+        "category": "story",
+        "title": "Encontrar Terapagos"
+      },
+      {
+        "id": "postgame-1",
+        "category": "postgame",
+        "title": "Concluir o encontro de Briar e receber seu livro"
+      },
+      {
+        "id": "postgame-2",
+        "category": "postgame",
+        "title": "Visitar o Crystal Pool com Terapagos"
+      },
+      {
+        "id": "postgame-3",
+        "category": "postgame",
+        "title": "Concluir a investigação de Perrin no Terarium"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Concluir as melhorias dos quatro biomas"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Convidar os treinadores especiais disponíveis"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Concluir a tarefa de Atticus e Penny"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Concluir a história de Giacomo e Eri na academia"
+      }
+    ]
+  },
+  {
+    "key": "legends-za",
+    "title": "Pokémon Legends: Z-A",
+    "versions": ["legends-za"],
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 230
+      },
+      {
+        "key": "lumiose-city",
+        "title": "Lumiose",
+        "total": 230
+      }
+    ],
+    "total": 230,
+    "reviewed": true,
+    "source": "https://www.serebii.net/legendsz-a/mainmissions.shtml",
+    "sideSource": "https://www.serebii.net/legendsz-a/sidemissions.shtml",
+    "quests": [
+      {
+        "id": "mission-1",
+        "category": "story",
+        "title": "Concluir a missão principal 01"
+      },
+      {
+        "id": "mission-2",
+        "category": "story",
+        "title": "Concluir a missão principal 02"
+      },
+      {
+        "id": "mission-3",
+        "category": "story",
+        "title": "Concluir a missão principal 03"
+      },
+      {
+        "id": "mission-4",
+        "category": "story",
+        "title": "Concluir a missão principal 04"
+      },
+      {
+        "id": "mission-5",
+        "category": "story",
+        "title": "Concluir a missão principal 05"
+      },
+      {
+        "id": "mission-6",
+        "category": "story",
+        "title": "Concluir a missão principal 06"
+      },
+      {
+        "id": "mission-7",
+        "category": "story",
+        "title": "Concluir a missão principal 07"
+      },
+      {
+        "id": "mission-8",
+        "category": "story",
+        "title": "Concluir a missão principal 08"
+      },
+      {
+        "id": "mission-9",
+        "category": "story",
+        "title": "Concluir a missão principal 09"
+      },
+      {
+        "id": "mission-10",
+        "category": "story",
+        "title": "Concluir a missão principal 10"
+      },
+      {
+        "id": "mission-11",
+        "category": "story",
+        "title": "Concluir a missão principal 11"
+      },
+      {
+        "id": "mission-12",
+        "category": "story",
+        "title": "Concluir a missão principal 12"
+      },
+      {
+        "id": "mission-13",
+        "category": "story",
+        "title": "Concluir a missão principal 13"
+      },
+      {
+        "id": "mission-14",
+        "category": "story",
+        "title": "Concluir a missão principal 14"
+      },
+      {
+        "id": "mission-15",
+        "category": "story",
+        "title": "Concluir a missão principal 15"
+      },
+      {
+        "id": "mission-16",
+        "category": "story",
+        "title": "Concluir a missão principal 16"
+      },
+      {
+        "id": "mission-17",
+        "category": "story",
+        "title": "Concluir a missão principal 17"
+      },
+      {
+        "id": "mission-18",
+        "category": "story",
+        "title": "Concluir a missão principal 18"
+      },
+      {
+        "id": "mission-19",
+        "category": "story",
+        "title": "Concluir a missão principal 19"
+      },
+      {
+        "id": "mission-20",
+        "category": "story",
+        "title": "Concluir a missão principal 20"
+      },
+      {
+        "id": "mission-21",
+        "category": "story",
+        "title": "Concluir a missão principal 21"
+      },
+      {
+        "id": "mission-22",
+        "category": "story",
+        "title": "Concluir a missão principal 22"
+      },
+      {
+        "id": "mission-23",
+        "category": "story",
+        "title": "Concluir a missão principal 23"
+      },
+      {
+        "id": "mission-24",
+        "category": "story",
+        "title": "Concluir a missão principal 24"
+      },
+      {
+        "id": "mission-25",
+        "category": "story",
+        "title": "Concluir a missão principal 25"
+      },
+      {
+        "id": "mission-26",
+        "category": "story",
+        "title": "Concluir a missão principal 26"
+      },
+      {
+        "id": "mission-27",
+        "category": "story",
+        "title": "Concluir a missão principal 27"
+      },
+      {
+        "id": "mission-28",
+        "category": "story",
+        "title": "Concluir a missão principal 28"
+      },
+      {
+        "id": "mission-29",
+        "category": "story",
+        "title": "Concluir a missão principal 29"
+      },
+      {
+        "id": "mission-30",
+        "category": "story",
+        "title": "Concluir a missão principal 30"
+      },
+      {
+        "id": "mission-31",
+        "category": "story",
+        "title": "Concluir a missão principal 31"
+      },
+      {
+        "id": "mission-32",
+        "category": "story",
+        "title": "Concluir a missão principal 32"
+      },
+      {
+        "id": "mission-33",
+        "category": "story",
+        "title": "Concluir a missão principal 33"
+      },
+      {
+        "id": "mission-34",
+        "category": "story",
+        "title": "Concluir a missão principal 34"
+      },
+      {
+        "id": "mission-35",
+        "category": "story",
+        "title": "Concluir a missão principal 35"
+      },
+      {
+        "id": "mission-36",
+        "category": "story",
+        "title": "Concluir a missão principal 36"
+      },
+      {
+        "id": "mission-37",
+        "category": "story",
+        "title": "Concluir a missão principal 37"
+      },
+      {
+        "id": "mission-38",
+        "category": "postgame",
+        "title": "Concluir a missão principal 38"
+      },
+      {
+        "id": "mission-39",
+        "category": "postgame",
+        "title": "Concluir a missão principal 39"
+      },
+      {
+        "id": "mission-40",
+        "category": "postgame",
+        "title": "Concluir a missão principal 40"
+      },
+      {
+        "id": "mission-41",
+        "category": "postgame",
+        "title": "Concluir a missão principal 41"
+      },
+      {
+        "id": "mission-42",
+        "category": "postgame",
+        "title": "Concluir a missão principal 42"
+      },
+      {
+        "id": "side-1",
+        "category": "side",
+        "title": "Concluir a missão secundária 001"
+      },
+      {
+        "id": "side-2",
+        "category": "side",
+        "title": "Concluir a missão secundária 002"
+      },
+      {
+        "id": "side-3",
+        "category": "side",
+        "title": "Concluir a missão secundária 003"
+      },
+      {
+        "id": "side-4",
+        "category": "side",
+        "title": "Concluir a missão secundária 004"
+      },
+      {
+        "id": "side-5",
+        "category": "side",
+        "title": "Concluir a missão secundária 005"
+      },
+      {
+        "id": "side-6",
+        "category": "side",
+        "title": "Concluir a missão secundária 006"
+      },
+      {
+        "id": "side-7",
+        "category": "side",
+        "title": "Concluir a missão secundária 007"
+      },
+      {
+        "id": "side-8",
+        "category": "side",
+        "title": "Concluir a missão secundária 008"
+      },
+      {
+        "id": "side-9",
+        "category": "side",
+        "title": "Concluir a missão secundária 009"
+      },
+      {
+        "id": "side-10",
+        "category": "side",
+        "title": "Concluir a missão secundária 010"
+      },
+      {
+        "id": "side-11",
+        "category": "side",
+        "title": "Concluir a missão secundária 011"
+      },
+      {
+        "id": "side-12",
+        "category": "side",
+        "title": "Concluir a missão secundária 012"
+      },
+      {
+        "id": "side-13",
+        "category": "side",
+        "title": "Concluir a missão secundária 013"
+      },
+      {
+        "id": "side-14",
+        "category": "side",
+        "title": "Concluir a missão secundária 014"
+      },
+      {
+        "id": "side-15",
+        "category": "side",
+        "title": "Concluir a missão secundária 015"
+      },
+      {
+        "id": "side-16",
+        "category": "side",
+        "title": "Concluir a missão secundária 016"
+      },
+      {
+        "id": "side-17",
+        "category": "side",
+        "title": "Concluir a missão secundária 017"
+      },
+      {
+        "id": "side-18",
+        "category": "side",
+        "title": "Concluir a missão secundária 018"
+      },
+      {
+        "id": "side-19",
+        "category": "side",
+        "title": "Concluir a missão secundária 019"
+      },
+      {
+        "id": "side-20",
+        "category": "side",
+        "title": "Concluir a missão secundária 020"
+      },
+      {
+        "id": "side-21",
+        "category": "side",
+        "title": "Concluir a missão secundária 021"
+      },
+      {
+        "id": "side-22",
+        "category": "side",
+        "title": "Concluir a missão secundária 022"
+      },
+      {
+        "id": "side-23",
+        "category": "side",
+        "title": "Concluir a missão secundária 023"
+      },
+      {
+        "id": "side-24",
+        "category": "side",
+        "title": "Concluir a missão secundária 024"
+      },
+      {
+        "id": "side-25",
+        "category": "side",
+        "title": "Concluir a missão secundária 025"
+      },
+      {
+        "id": "side-26",
+        "category": "side",
+        "title": "Concluir a missão secundária 026"
+      },
+      {
+        "id": "side-27",
+        "category": "side",
+        "title": "Concluir a missão secundária 027"
+      },
+      {
+        "id": "side-28",
+        "category": "side",
+        "title": "Concluir a missão secundária 028"
+      },
+      {
+        "id": "side-29",
+        "category": "side",
+        "title": "Concluir a missão secundária 029"
+      },
+      {
+        "id": "side-30",
+        "category": "side",
+        "title": "Concluir a missão secundária 030"
+      },
+      {
+        "id": "side-31",
+        "category": "side",
+        "title": "Concluir a missão secundária 031"
+      },
+      {
+        "id": "side-32",
+        "category": "side",
+        "title": "Concluir a missão secundária 032"
+      },
+      {
+        "id": "side-33",
+        "category": "side",
+        "title": "Concluir a missão secundária 033"
+      },
+      {
+        "id": "side-34",
+        "category": "side",
+        "title": "Concluir a missão secundária 034"
+      },
+      {
+        "id": "side-35",
+        "category": "side",
+        "title": "Concluir a missão secundária 035"
+      },
+      {
+        "id": "side-36",
+        "category": "side",
+        "title": "Concluir a missão secundária 036"
+      },
+      {
+        "id": "side-37",
+        "category": "side",
+        "title": "Concluir a missão secundária 037"
+      },
+      {
+        "id": "side-38",
+        "category": "side",
+        "title": "Concluir a missão secundária 038"
+      },
+      {
+        "id": "side-39",
+        "category": "side",
+        "title": "Concluir a missão secundária 039"
+      },
+      {
+        "id": "side-40",
+        "category": "side",
+        "title": "Concluir a missão secundária 040"
+      },
+      {
+        "id": "side-41",
+        "category": "side",
+        "title": "Concluir a missão secundária 041"
+      },
+      {
+        "id": "side-42",
+        "category": "side",
+        "title": "Concluir a missão secundária 042"
+      },
+      {
+        "id": "side-43",
+        "category": "side",
+        "title": "Concluir a missão secundária 043"
+      },
+      {
+        "id": "side-44",
+        "category": "side",
+        "title": "Concluir a missão secundária 044"
+      },
+      {
+        "id": "side-45",
+        "category": "side",
+        "title": "Concluir a missão secundária 045"
+      },
+      {
+        "id": "side-46",
+        "category": "side",
+        "title": "Concluir a missão secundária 046"
+      },
+      {
+        "id": "side-47",
+        "category": "side",
+        "title": "Concluir a missão secundária 047"
+      },
+      {
+        "id": "side-48",
+        "category": "side",
+        "title": "Concluir a missão secundária 048"
+      },
+      {
+        "id": "side-49",
+        "category": "side",
+        "title": "Concluir a missão secundária 049"
+      },
+      {
+        "id": "side-50",
+        "category": "side",
+        "title": "Concluir a missão secundária 050"
+      },
+      {
+        "id": "side-51",
+        "category": "side",
+        "title": "Concluir a missão secundária 051"
+      },
+      {
+        "id": "side-52",
+        "category": "side",
+        "title": "Concluir a missão secundária 052"
+      },
+      {
+        "id": "side-53",
+        "category": "side",
+        "title": "Concluir a missão secundária 053"
+      },
+      {
+        "id": "side-54",
+        "category": "side",
+        "title": "Concluir a missão secundária 054"
+      },
+      {
+        "id": "side-55",
+        "category": "side",
+        "title": "Concluir a missão secundária 055"
+      },
+      {
+        "id": "side-56",
+        "category": "side",
+        "title": "Concluir a missão secundária 056"
+      },
+      {
+        "id": "side-57",
+        "category": "side",
+        "title": "Concluir a missão secundária 057"
+      },
+      {
+        "id": "side-58",
+        "category": "side",
+        "title": "Concluir a missão secundária 058"
+      },
+      {
+        "id": "side-59",
+        "category": "side",
+        "title": "Concluir a missão secundária 059"
+      },
+      {
+        "id": "side-60",
+        "category": "side",
+        "title": "Concluir a missão secundária 060"
+      },
+      {
+        "id": "side-61",
+        "category": "side",
+        "title": "Concluir a missão secundária 061"
+      },
+      {
+        "id": "side-62",
+        "category": "side",
+        "title": "Concluir a missão secundária 062"
+      },
+      {
+        "id": "side-63",
+        "category": "side",
+        "title": "Concluir a missão secundária 063"
+      },
+      {
+        "id": "side-64",
+        "category": "side",
+        "title": "Concluir a missão secundária 064"
+      },
+      {
+        "id": "side-65",
+        "category": "side",
+        "title": "Concluir a missão secundária 065"
+      },
+      {
+        "id": "side-66",
+        "category": "side",
+        "title": "Concluir a missão secundária 066"
+      },
+      {
+        "id": "side-67",
+        "category": "side",
+        "title": "Concluir a missão secundária 067"
+      },
+      {
+        "id": "side-68",
+        "category": "side",
+        "title": "Concluir a missão secundária 068"
+      },
+      {
+        "id": "side-69",
+        "category": "side",
+        "title": "Concluir a missão secundária 069"
+      },
+      {
+        "id": "side-70",
+        "category": "side",
+        "title": "Concluir a missão secundária 070"
+      },
+      {
+        "id": "side-71",
+        "category": "side",
+        "title": "Concluir a missão secundária 071"
+      },
+      {
+        "id": "side-72",
+        "category": "side",
+        "title": "Concluir a missão secundária 072"
+      },
+      {
+        "id": "side-73",
+        "category": "side",
+        "title": "Concluir a missão secundária 073"
+      },
+      {
+        "id": "side-74",
+        "category": "side",
+        "title": "Concluir a missão secundária 074"
+      },
+      {
+        "id": "side-75",
+        "category": "side",
+        "title": "Concluir a missão secundária 075"
+      },
+      {
+        "id": "side-76",
+        "category": "side",
+        "title": "Concluir a missão secundária 076"
+      },
+      {
+        "id": "side-77",
+        "category": "side",
+        "title": "Concluir a missão secundária 077"
+      },
+      {
+        "id": "side-78",
+        "category": "side",
+        "title": "Concluir a missão secundária 078"
+      },
+      {
+        "id": "side-79",
+        "category": "side",
+        "title": "Concluir a missão secundária 079"
+      },
+      {
+        "id": "side-80",
+        "category": "side",
+        "title": "Concluir a missão secundária 080"
+      },
+      {
+        "id": "side-81",
+        "category": "side",
+        "title": "Concluir a missão secundária 081"
+      },
+      {
+        "id": "side-82",
+        "category": "side",
+        "title": "Concluir a missão secundária 082"
+      },
+      {
+        "id": "side-83",
+        "category": "side",
+        "title": "Concluir a missão secundária 083"
+      },
+      {
+        "id": "side-84",
+        "category": "side",
+        "title": "Concluir a missão secundária 084"
+      },
+      {
+        "id": "side-85",
+        "category": "side",
+        "title": "Concluir a missão secundária 085"
+      },
+      {
+        "id": "side-86",
+        "category": "side",
+        "title": "Concluir a missão secundária 086"
+      },
+      {
+        "id": "side-87",
+        "category": "side",
+        "title": "Concluir a missão secundária 087"
+      },
+      {
+        "id": "side-88",
+        "category": "side",
+        "title": "Concluir a missão secundária 088"
+      },
+      {
+        "id": "side-89",
+        "category": "side",
+        "title": "Concluir a missão secundária 089"
+      },
+      {
+        "id": "side-90",
+        "category": "side",
+        "title": "Concluir a missão secundária 090"
+      },
+      {
+        "id": "side-91",
+        "category": "side",
+        "title": "Concluir a missão secundária 091"
+      },
+      {
+        "id": "side-92",
+        "category": "side",
+        "title": "Concluir a missão secundária 092"
+      },
+      {
+        "id": "side-93",
+        "category": "side",
+        "title": "Concluir a missão secundária 093"
+      },
+      {
+        "id": "side-94",
+        "category": "side",
+        "title": "Concluir a missão secundária 094"
+      },
+      {
+        "id": "side-95",
+        "category": "side",
+        "title": "Concluir a missão secundária 095"
+      },
+      {
+        "id": "side-96",
+        "category": "side",
+        "title": "Concluir a missão secundária 096"
+      },
+      {
+        "id": "side-97",
+        "category": "side",
+        "title": "Concluir a missão secundária 097"
+      },
+      {
+        "id": "side-98",
+        "category": "side",
+        "title": "Concluir a missão secundária 098"
+      },
+      {
+        "id": "side-99",
+        "category": "side",
+        "title": "Concluir a missão secundária 099"
+      },
+      {
+        "id": "side-100",
+        "category": "side",
+        "title": "Concluir a missão secundária 100"
+      },
+      {
+        "id": "side-101",
+        "category": "side",
+        "title": "Concluir a missão secundária 101"
+      },
+      {
+        "id": "side-102",
+        "category": "side",
+        "title": "Concluir a missão secundária 102"
+      },
+      {
+        "id": "side-103",
+        "category": "side",
+        "title": "Concluir a missão secundária 103"
+      },
+      {
+        "id": "side-104",
+        "category": "side",
+        "title": "Concluir a missão secundária 104"
+      },
+      {
+        "id": "side-105",
+        "category": "side",
+        "title": "Concluir a missão secundária 105"
+      },
+      {
+        "id": "side-106",
+        "category": "side",
+        "title": "Concluir a missão secundária 106"
+      },
+      {
+        "id": "side-107",
+        "category": "side",
+        "title": "Concluir a missão secundária 107"
+      },
+      {
+        "id": "side-108",
+        "category": "side",
+        "title": "Concluir a missão secundária 108"
+      },
+      {
+        "id": "side-109",
+        "category": "side",
+        "title": "Concluir a missão secundária 109"
+      },
+      {
+        "id": "side-110",
+        "category": "side",
+        "title": "Concluir a missão secundária 110"
+      },
+      {
+        "id": "side-111",
+        "category": "side",
+        "title": "Concluir a missão secundária 111"
+      },
+      {
+        "id": "side-112",
+        "category": "side",
+        "title": "Concluir a missão secundária 112"
+      },
+      {
+        "id": "side-113",
+        "category": "side",
+        "title": "Concluir a missão secundária 113"
+      },
+      {
+        "id": "side-114",
+        "category": "side",
+        "title": "Concluir a missão secundária 114"
+      },
+      {
+        "id": "side-115",
+        "category": "side",
+        "title": "Concluir a missão secundária 115"
+      },
+      {
+        "id": "side-116",
+        "category": "side",
+        "title": "Concluir a missão secundária 116"
+      },
+      {
+        "id": "side-117",
+        "category": "side",
+        "title": "Concluir a missão secundária 117"
+      },
+      {
+        "id": "side-118",
+        "category": "side",
+        "title": "Concluir a missão secundária 118"
+      },
+      {
+        "id": "side-119",
+        "category": "side",
+        "title": "Concluir a missão secundária 119"
+      },
+      {
+        "id": "ex1",
+        "category": "side",
+        "title": "Concluir a missão extra EX1",
+        "note": "Missão extra: confira os requisitos de desbloqueio no guia."
+      },
+      {
+        "id": "ex2",
+        "category": "side",
+        "title": "Concluir a missão extra EX2",
+        "note": "Missão extra: confira os requisitos de desbloqueio no guia."
+      }
+    ]
+  },
+  {
+    "key": "legends-za-mega-dimension",
+    "title": "Pokémon Legends: Z-A — Mega Dimension",
+    "versions": ["legends-za"],
+    "parentGame": "legends-za",
+    "dexes": [
+      {
+        "key": "obtainable",
+        "title": "Todos os obteníveis",
+        "total": 131
+      },
+      {
+        "key": "hyperspace",
+        "title": "Hyperspace",
+        "total": 131
+      }
+    ],
+    "total": 131,
+    "reviewed": true,
+    "source": "https://www.serebii.net/legendsz-a/hyperspacemissions.shtml",
+    "sideSource": "https://www.serebii.net/legendsz-a/sidemissions.shtml",
+    "quests": [
+      {
+        "id": "hyperspace-1",
+        "category": "story",
+        "title": "Concluir a missão dimensional 01"
+      },
+      {
+        "id": "hyperspace-2",
+        "category": "story",
+        "title": "Concluir a missão dimensional 02"
+      },
+      {
+        "id": "hyperspace-3",
+        "category": "story",
+        "title": "Concluir a missão dimensional 03"
+      },
+      {
+        "id": "hyperspace-4",
+        "category": "story",
+        "title": "Concluir a missão dimensional 04"
+      },
+      {
+        "id": "hyperspace-5",
+        "category": "story",
+        "title": "Concluir a missão dimensional 05"
+      },
+      {
+        "id": "hyperspace-6",
+        "category": "story",
+        "title": "Concluir a missão dimensional 06"
+      },
+      {
+        "id": "hyperspace-7",
+        "category": "story",
+        "title": "Concluir a missão dimensional 07"
+      },
+      {
+        "id": "hyperspace-8",
+        "category": "story",
+        "title": "Concluir a missão dimensional 08"
+      },
+      {
+        "id": "hyperspace-9",
+        "category": "story",
+        "title": "Concluir a missão dimensional 09"
+      },
+      {
+        "id": "hyperspace-10",
+        "category": "story",
+        "title": "Concluir a missão dimensional 10"
+      },
+      {
+        "id": "hyperspace-11",
+        "category": "story",
+        "title": "Concluir a missão dimensional 11"
+      },
+      {
+        "id": "hyperspace-12",
+        "category": "story",
+        "title": "Concluir a missão dimensional 12"
+      },
+      {
+        "id": "hyperspace-13",
+        "category": "postgame",
+        "title": "Concluir a missão dimensional 13"
+      },
+      {
+        "id": "hyperspace-14",
+        "category": "postgame",
+        "title": "Concluir a missão dimensional 14"
+      },
+      {
+        "id": "side-120",
+        "category": "side",
+        "title": "Concluir a missão secundária 120"
+      },
+      {
+        "id": "side-121",
+        "category": "side",
+        "title": "Concluir a missão secundária 121"
+      },
+      {
+        "id": "side-122",
+        "category": "side",
+        "title": "Concluir a missão secundária 122"
+      },
+      {
+        "id": "side-123",
+        "category": "side",
+        "title": "Concluir a missão secundária 123"
+      },
+      {
+        "id": "side-124",
+        "category": "side",
+        "title": "Concluir a missão secundária 124"
+      },
+      {
+        "id": "side-125",
+        "category": "side",
+        "title": "Concluir a missão secundária 125"
+      },
+      {
+        "id": "side-126",
+        "category": "side",
+        "title": "Concluir a missão secundária 126"
+      },
+      {
+        "id": "side-127",
+        "category": "side",
+        "title": "Concluir a missão secundária 127"
+      },
+      {
+        "id": "side-128",
+        "category": "side",
+        "title": "Concluir a missão secundária 128"
+      },
+      {
+        "id": "side-129",
+        "category": "side",
+        "title": "Concluir a missão secundária 129"
+      },
+      {
+        "id": "side-130",
+        "category": "side",
+        "title": "Concluir a missão secundária 130"
+      },
+      {
+        "id": "side-131",
+        "category": "side",
+        "title": "Concluir a missão secundária 131"
+      },
+      {
+        "id": "side-132",
+        "category": "side",
+        "title": "Concluir a missão secundária 132"
+      },
+      {
+        "id": "side-133",
+        "category": "side",
+        "title": "Concluir a missão secundária 133"
+      },
+      {
+        "id": "side-134",
+        "category": "side",
+        "title": "Concluir a missão secundária 134"
+      },
+      {
+        "id": "side-135",
+        "category": "side",
+        "title": "Concluir a missão secundária 135"
+      },
+      {
+        "id": "side-136",
+        "category": "side",
+        "title": "Concluir a missão secundária 136"
+      },
+      {
+        "id": "side-137",
+        "category": "side",
+        "title": "Concluir a missão secundária 137"
+      },
+      {
+        "id": "side-138",
+        "category": "side",
+        "title": "Concluir a missão secundária 138"
+      },
+      {
+        "id": "side-139",
+        "category": "side",
+        "title": "Concluir a missão secundária 139"
+      },
+      {
+        "id": "side-140",
+        "category": "side",
+        "title": "Concluir a missão secundária 140"
+      },
+      {
+        "id": "side-141",
+        "category": "side",
+        "title": "Concluir a missão secundária 141"
+      },
+      {
+        "id": "side-142",
+        "category": "side",
+        "title": "Concluir a missão secundária 142"
+      },
+      {
+        "id": "side-143",
+        "category": "side",
+        "title": "Concluir a missão secundária 143"
+      },
+      {
+        "id": "side-144",
+        "category": "side",
+        "title": "Concluir a missão secundária 144"
+      },
+      {
+        "id": "side-145",
+        "category": "side",
+        "title": "Concluir a missão secundária 145"
+      },
+      {
+        "id": "side-146",
+        "category": "side",
+        "title": "Concluir a missão secundária 146"
+      },
+      {
+        "id": "side-147",
+        "category": "side",
+        "title": "Concluir a missão secundária 147"
+      },
+      {
+        "id": "side-148",
+        "category": "side",
+        "title": "Concluir a missão secundária 148"
+      },
+      {
+        "id": "side-149",
+        "category": "side",
+        "title": "Concluir a missão secundária 149"
+      },
+      {
+        "id": "side-150",
+        "category": "side",
+        "title": "Concluir a missão secundária 150"
+      },
+      {
+        "id": "side-151",
+        "category": "side",
+        "title": "Concluir a missão secundária 151"
+      },
+      {
+        "id": "side-152",
+        "category": "side",
+        "title": "Concluir a missão secundária 152"
+      },
+      {
+        "id": "side-153",
+        "category": "side",
+        "title": "Concluir a missão secundária 153"
+      },
+      {
+        "id": "side-154",
+        "category": "side",
+        "title": "Concluir a missão secundária 154"
+      },
+      {
+        "id": "side-155",
+        "category": "side",
+        "title": "Concluir a missão secundária 155"
+      },
+      {
+        "id": "side-156",
+        "category": "side",
+        "title": "Concluir a missão secundária 156"
+      },
+      {
+        "id": "side-157",
+        "category": "side",
+        "title": "Concluir a missão secundária 157"
+      },
+      {
+        "id": "side-158",
+        "category": "side",
+        "title": "Concluir a missão secundária 158"
+      },
+      {
+        "id": "side-159",
+        "category": "side",
+        "title": "Concluir a missão secundária 159"
+      },
+      {
+        "id": "side-160",
+        "category": "side",
+        "title": "Concluir a missão secundária 160"
+      },
+      {
+        "id": "side-161",
+        "category": "side",
+        "title": "Concluir a missão secundária 161"
+      },
+      {
+        "id": "side-162",
+        "category": "side",
+        "title": "Concluir a missão secundária 162"
+      },
+      {
+        "id": "side-163",
+        "category": "side",
+        "title": "Concluir a missão secundária 163"
+      },
+      {
+        "id": "side-164",
+        "category": "side",
+        "title": "Concluir a missão secundária 164"
+      },
+      {
+        "id": "side-165",
+        "category": "side",
+        "title": "Concluir a missão secundária 165"
+      },
+      {
+        "id": "side-166",
+        "category": "side",
+        "title": "Concluir a missão secundária 166"
+      },
+      {
+        "id": "side-167",
+        "category": "side",
+        "title": "Concluir a missão secundária 167"
+      },
+      {
+        "id": "side-168",
+        "category": "side",
+        "title": "Concluir a missão secundária 168"
+      },
+      {
+        "id": "side-169",
+        "category": "side",
+        "title": "Concluir a missão secundária 169"
+      },
+      {
+        "id": "side-170",
+        "category": "side",
+        "title": "Concluir a missão secundária 170"
+      },
+      {
+        "id": "side-171",
+        "category": "side",
+        "title": "Concluir a missão secundária 171"
+      },
+      {
+        "id": "side-172",
+        "category": "side",
+        "title": "Concluir a missão secundária 172"
+      },
+      {
+        "id": "side-173",
+        "category": "side",
+        "title": "Concluir a missão secundária 173"
+      },
+      {
+        "id": "side-174",
+        "category": "side",
+        "title": "Concluir a missão secundária 174"
+      },
+      {
+        "id": "side-175",
+        "category": "side",
+        "title": "Concluir a missão secundária 175"
+      },
+      {
+        "id": "side-176",
+        "category": "side",
+        "title": "Concluir a missão secundária 176"
+      },
+      {
+        "id": "side-177",
+        "category": "side",
+        "title": "Concluir a missão secundária 177"
+      },
+      {
+        "id": "side-178",
+        "category": "side",
+        "title": "Concluir a missão secundária 178"
+      },
+      {
+        "id": "side-179",
+        "category": "side",
+        "title": "Concluir a missão secundária 179"
+      },
+      {
+        "id": "side-180",
+        "category": "side",
+        "title": "Concluir a missão secundária 180"
+      },
+      {
+        "id": "side-181",
+        "category": "side",
+        "title": "Concluir a missão secundária 181"
+      },
+      {
+        "id": "side-182",
+        "category": "side",
+        "title": "Concluir a missão secundária 182"
+      },
+      {
+        "id": "side-183",
+        "category": "side",
+        "title": "Concluir a missão secundária 183"
+      },
+      {
+        "id": "side-184",
+        "category": "side",
+        "title": "Concluir a missão secundária 184"
+      },
+      {
+        "id": "side-185",
+        "category": "side",
+        "title": "Concluir a missão secundária 185"
+      },
+      {
+        "id": "side-186",
+        "category": "side",
+        "title": "Concluir a missão secundária 186"
+      },
+      {
+        "id": "side-187",
+        "category": "side",
+        "title": "Concluir a missão secundária 187"
+      },
+      {
+        "id": "side-188",
+        "category": "side",
+        "title": "Concluir a missão secundária 188"
+      },
+      {
+        "id": "side-189",
+        "category": "side",
+        "title": "Concluir a missão secundária 189"
+      },
+      {
+        "id": "side-190",
+        "category": "side",
+        "title": "Concluir a missão secundária 190"
+      },
+      {
+        "id": "side-191",
+        "category": "side",
+        "title": "Concluir a missão secundária 191"
+      },
+      {
+        "id": "side-192",
+        "category": "side",
+        "title": "Concluir a missão secundária 192"
+      },
+      {
+        "id": "side-193",
+        "category": "side",
+        "title": "Concluir a missão secundária 193"
+      },
+      {
+        "id": "side-194",
+        "category": "side",
+        "title": "Concluir a missão secundária 194"
+      },
+      {
+        "id": "side-195",
+        "category": "side",
+        "title": "Concluir a missão secundária 195"
+      },
+      {
+        "id": "side-196",
+        "category": "side",
+        "title": "Concluir a missão secundária 196"
+      },
+      {
+        "id": "side-197",
+        "category": "side",
+        "title": "Concluir a missão secundária 197"
+      },
+      {
+        "id": "side-198",
+        "category": "side",
+        "title": "Concluir a missão secundária 198"
+      },
+      {
+        "id": "side-199",
+        "category": "side",
+        "title": "Concluir a missão secundária 199"
+      },
+      {
+        "id": "side-200",
+        "category": "side",
+        "title": "Concluir a missão secundária 200"
+      },
+      {
+        "id": "ex3",
+        "category": "side",
+        "title": "Concluir a missão extra EX3",
+        "note": "Confira os requisitos de desbloqueio no guia de missões."
+      }
+    ]
+  }
+]

@@ -177,6 +177,13 @@ function ProfileForm() {
           {publicProfilePath(user.nickname)} · Foto e progresso das dex visíveis
           para todos.
         </Text>
+        <Button
+          variant="outline"
+          small
+          onPress={() => router.push("/friend-codes")}
+        >
+          Códigos de amizade
+        </Button>
         <Text style={s.label}>E-mail (opcional)</Text>
         <TextInput
           accessibilityLabel="E-mail (opcional)"

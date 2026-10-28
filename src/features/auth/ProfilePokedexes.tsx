@@ -13,6 +13,7 @@ import type { PublicProfile } from "../../services/publicProfile";
 import { useTheme } from "../../theme";
 import { GameIcons } from "../tracker/GameIcons";
 import { megaTotal } from "../tracker/megaDex";
+import { useRetroProfile } from "./RetroAchievementsLink";
 
 export function ProfilePokedexes({
   profile,
@@ -24,6 +25,10 @@ export function ProfilePokedexes({
   const { colors: c, ui } = useTheme();
   const { width } = useWindowDimensions();
   const router = useRouter();
+  const retro = useRetroProfile(profile.nickname);
+  const retroCompletedGames = new Set(
+    (retro.data?.badges ?? []).map((game) => game.game),
+  );
   const collections = [
     {
       key: "megadex",
@@ -70,7 +75,9 @@ export function ProfilePokedexes({
       </Text>
       <View style={{ flexDirection: "row", flexWrap: "wrap", gap: 12 }}>
         {collections.map((item) => {
-          const complete = item.total > 0 && item.count >= item.total;
+          const imported = !!item.game && retroCompletedGames.has(item.game);
+          const complete =
+            imported || (item.total > 0 && item.count >= item.total);
           return (
             <Pressable
               key={item.key}
@@ -109,6 +116,11 @@ export function ProfilePokedexes({
               <Text style={ui.subtitle}>
                 {Math.min(item.count, item.total)} / {item.total} capturados
               </Text>
+              {imported && (
+                <Text style={{ color: c.gold, fontSize: 12 }}>
+                  Badge de Pokédex conquistada via RetroAchievements
+                </Text>
+              )}
             </Pressable>
           );
         })}
