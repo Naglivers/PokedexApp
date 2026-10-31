@@ -62,15 +62,33 @@ export async function syncRetroProfile(token: string) {
   );
   if (error) {
     let code = "";
+    let debugStage = "";
+    let debugPayload: unknown = null;
     try {
-      code = (await error.context?.json())?.code ?? "";
+      const payload = await error.context?.json();
+      debugPayload = payload;
+      code = payload?.code ?? "";
+      debugStage =
+        typeof payload?.debug_stage === "string"
+          ? ` Etapa: ${payload.debug_stage}.`
+          : "";
     } catch {}
+    const debugText = JSON.stringify({ code, debugStage, payload: debugPayload });
     throw new Error(
-      messages[code] ??
-        "Não foi possível sincronizar. Verifique a publicação da função retroachievements-sync.",
+      `${messages[code] ?? "Não foi possível sincronizar."} ${debugText}`,
     );
   }
-  if (!data?.ok)
-    throw new Error(messages[data?.code] ?? "Não foi possível sincronizar.");
+  if (!data?.ok) {
+    const stage =
+      typeof data?.debug_stage === "string" ? ` Etapa: ${data.debug_stage}.` : "";
+    const debugText = JSON.stringify({
+      code: data?.code,
+      debug_stage: data?.debug_stage,
+      debug_detail: data?.debug_detail,
+    });
+    throw new Error(
+      `${messages[data?.code] ?? "Não foi possível sincronizar."}${stage} ${debugText}`,
+    );
+  }
   return data as { ok: true; cached?: boolean; count?: number };
 }

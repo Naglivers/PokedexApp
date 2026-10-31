@@ -17,6 +17,21 @@ O código e a migração foram preparados localmente. A query ainda não foi apl
 
 Se já aplicou a query 020 anterior, execute também migrations/202610280021_retroachievements_hourly.sql para atualizar o cache para uma hora.
 
+## Correção do erro ao salvar (database_save / 42702)
+
+Execute **migrations/202610290022_retroachievements_save_fix.sql** inteiro no SQL Editor.
+A função antiga usava `b` como variável PL/pgSQL e alias SQL, causando
+`column reference "b" is ambiguous` ao importar badges. A correção preserva os
+dados e pode ser reaplicada. Após uma tentativa com erro, aguarde dois minutos
+antes de sincronizar novamente.
+
+Para atualizar a Edge Function pelo Dashboard, substitua **todo** o conteúdo de
+`index.ts` pelo arquivo **functions/retroachievements-sync/index.ts** e publique
+as alterações. Não acrescente trechos ao código antigo. O arquivo inclui suporte
+às chaves atuais e legadas e retorna `debug_stage`/`debug_detail` em caso de falha,
+sem retornar as chaves ou o token da conta. O arquivo TypeScript vai no editor da
+Edge Function; o arquivo `.sql` vai no SQL Editor.
+
 ## Quando atualiza
 
 - Ao abrir o próprio perfil, seus códigos ou uma página de jogo compatível estando conectado.
@@ -53,6 +68,10 @@ Documentação oficial:
 - https://api-docs.retroachievements.org/v1/get-user-completed-games.html
 - https://api-docs.retroachievements.org/
 
-Não foram executados testes, builds, consultas autenticadas ao RA ou gravações no banco real.
+Verificação local: `node --test tests/retroachievements.test.cjs` testa o
+salvamento e a leitura das badges com PostgreSQL embarcado (PGlite), a
+reaplicação da correção, preservação dos dados em falhas, permissões e o fluxo
+da Edge Function com respostas simuladas. Não foram feitas consultas
+autenticadas ao RA nem alterações no banco real.
 
 

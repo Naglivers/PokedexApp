@@ -1,4 +1,6 @@
 import { createClient } from "npm:@supabase/supabase-js@2";
+// Arquivo completo para Edge Functions > retroachievements-sync > Code.
+// Substitua o conteúdo de index.ts inteiro. SQL fica no SQL Editor.
 const cors = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers":
@@ -166,13 +168,32 @@ async function raRead(username: string, key: string) {
   }
   return completedBadges(JSON.parse(new TextDecoder().decode(bytes)));
 }
+function projectKey(dictionary: string, legacy: string): string | undefined {
+  try {
+    const keys: unknown = JSON.parse(Deno.env.get(dictionary) ?? "{}");
+    if (keys && typeof keys === "object" && "default" in keys) {
+      if (typeof keys.default === "string" && keys.default.trim())
+        return keys.default;
+    }
+  } catch {
+    // Legacy projects may not expose the JSON dictionary yet.
+  }
+  return Deno.env.get(legacy) || undefined;
+}
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response(null, { headers: cors });
   if (req.method !== "POST") return reply({ ok: false, code: "method" }, 405);
   const key = Deno.env.get("RETROACHIEVEMENTS_WEB_API_KEY");
   const supabaseUrl = Deno.env.get("SUPABASE_URL");
-  const serviceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
-  if (!key || !supabaseUrl || !serviceKey)
+  const serviceKey = projectKey(
+    "SUPABASE_SECRET_KEYS",
+    "SUPABASE_SERVICE_ROLE_KEY",
+  );
+  const publicKey = projectKey(
+    "SUPABASE_PUBLISHABLE_KEYS",
+    "SUPABASE_ANON_KEY",
+  );
+  if (!key || !supabaseUrl || !serviceKey || !publicKey)
     return reply({ ok: false, code: "configuration" }, 503);
   const admin = createClient(supabaseUrl, serviceKey, {
     auth: { persistSession: false },
@@ -184,19 +205,27 @@ Deno.serve(async (req) => {
       /^https:\/\/(?:www\.)?retroachievements\.org\/user\/([a-zA-Z0-9_.%-]{1,80})\/?$/.exec(
         source,
       );
+    let debugStage = "validation";
+    let debugDetail = "";
     try {
       if (!match) throw new Error("invalid_link");
       const username = decodeURIComponent(match[1]);
       if (!/^[a-zA-Z0-9_.-]{1,80}$/.test(username))
         throw new Error("invalid_link");
+      debugStage = "retroachievements_api";
       const badges = await raRead(username, key!);
+      debugStage = "database_save";
       const { data, error } = await admin.rpc("pokeatlas_ra_finish", {
         p_account_id: claim.account_id,
         p_claim: claim.claim,
         p_source_url: source,
         p_badges: badges,
+        p_error: false,
       });
-      if (error || !data?.ok) throw new Error("save");
+      if (error || !data?.ok) {
+        debugDetail = error?.code ?? data?.code ?? "unknown";
+        throw new Error("database_save");
+      }
       return { ok: true, cached: false, count: badges.length };
     } catch {
       await admin.rpc("pokeatlas_ra_finish", {
@@ -207,7 +236,12 @@ Deno.serve(async (req) => {
         p_error: true,
       });
       // Do not log fetch errors: their message can contain the secret query parameter.
-      return { ok: false, code: "sync_failed" };
+      return {
+        ok: false,
+        code: "sync_failed",
+        debug_stage: debugStage,
+        ...(debugDetail ? { debug_detail: debugDetail } : {}),
+      };
     }
   }
   try {
@@ -257,16 +291,12 @@ Deno.serve(async (req) => {
     }
     if (typeof body.token !== "string" || body.token.length > 500)
       return reply({ ok: false, code: "invalid_input" }, 400);
-    const client = createClient(
-      supabaseUrl,
-      Deno.env.get("SUPABASE_ANON_KEY")!,
-      {
-        global: {
-          headers: { Authorization: req.headers.get("Authorization") ?? "" },
-        },
-        auth: { persistSession: false },
+    const client = createClient(supabaseUrl, publicKey, {
+      global: {
+        headers: { Authorization: req.headers.get("Authorization") ?? "" },
       },
-    );
+      auth: { persistSession: false },
+    });
     const { data, error } = await client.rpc("pokeatlas_ra_claim", {
       p_token: body.token,
     });

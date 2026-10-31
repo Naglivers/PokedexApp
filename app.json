@@ -6,7 +6,10 @@
     "icon": "./assets/brand/icon.png",
     "orientation": "portrait",
     "userInterfaceStyle": "automatic",
-    "web": { "bundler": "metro", "favicon": "./assets/brand/favicon.png" },
+    "web": {
+      "bundler": "metro",
+      "favicon": "./assets/brand/favicon.png"
+    },
     "scheme": "pokedexatlas",
     "plugins": [
       "expo-router",
@@ -25,6 +28,16 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/brand/adaptive-icon.png",
         "backgroundColor": "#E95B54"
+      }
+    },
+    "extra": {
+      "router": {
+        "asyncRoutes": {
+          "web": true
+        }
+      },
+      "eas": {
+        "projectId": "57c73744-a385-47d8-aee6-6afc7474ae2a"
       }
     }
   }

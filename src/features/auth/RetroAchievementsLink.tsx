@@ -148,7 +148,9 @@ export function RetroAchievementsLink({ nickname }: { nickname: string }) {
         </View>
       )}
       {mutation.isError && (
-        <Text style={{ color: c.warningText }}>{mutation.error.message}</Text>
+        <Text selectable style={{ color: c.warningText }}>
+          {mutation.error.message}
+        </Text>
       )}
       {mutation.isSuccess && (
         <Text style={{ color: c.green }}>
