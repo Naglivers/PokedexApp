@@ -12,6 +12,7 @@ import { useQuery } from "@tanstack/react-query";
 import { Award, RefreshCw, Settings } from "lucide-react-native";
 import { Button, Empty, ErrorState, Loading } from "../src/components/ui";
 import { ProfileAvatar } from "../src/features/auth/ProfileAvatar";
+import { ProfileActivity } from "../src/features/auth/ProfileActivity";
 import { ProfileBadges } from "../src/features/auth/ProfileBadges";
 import { ProfilePokedexes } from "../src/features/auth/ProfilePokedexes";
 import { ProfileFriendCodes } from "../src/features/auth/ProfileFriendCodes";
@@ -42,7 +43,7 @@ export default function PublicProfileRoute() {
   const { width } = useWindowDimensions();
   const router = useRouter();
   const [tab, setTab] = useState<
-    "overview" | "pokedexes" | "badges" | "friends"
+    "overview" | "pokedexes" | "badges" | "friends" | "posts"
   >("overview");
   const profile = useQuery({
     queryKey: ["public-profile", nickname.toLowerCase()],
@@ -139,6 +140,7 @@ export default function PublicProfileRoute() {
           {(
             [
               ["overview", "Visão geral"],
+              ["posts", "Postagens"],
               ["pokedexes", "Pokédexes"],
               ["friends", "Códigos de amizade"],
               ["badges", "Badges"],
@@ -166,6 +168,11 @@ export default function PublicProfileRoute() {
         )}
         {tab === "overview" && (
           <>
+            <ProfileActivity
+              key={user.nickname}
+              profile={user}
+              completedGames={completedGames}
+            />
             <View style={s.sectionHeader}>
               <Text style={ui.sectionTitle}>Resumo das coleções</Text>
               <Button
@@ -307,6 +314,14 @@ export default function PublicProfileRoute() {
         )}
         {tab === "pokedexes" && (
           <ProfilePokedexes profile={user} total={total} />
+        )}
+        {tab === "posts" && (
+          <ProfileActivity
+            key={user.nickname}
+            profile={user}
+            completedGames={completedGames}
+            postsOnly
+          />
         )}
         {tab === "badges" && (
           <ProfileBadges

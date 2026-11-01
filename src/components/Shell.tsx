@@ -12,6 +12,8 @@ import {
 import { usePathname, useRouter } from "expo-router";
 import {
   ArrowUpRight,
+  Calculator,
+  // Archive, // Minha box desativada temporariamente.
   BarChart3,
   BookOpen,
   ChevronRight,
@@ -54,6 +56,7 @@ const navigation = [
     group: "SEU ESPAÇO",
     items: [
       ["/dex-tracker", "Dex Tracker", BookOpen],
+      // ["/my-box", "Minha box", Archive], // Reativar junto com app/my-box.tsx.
       ["/shiny-counter", "Contador Shiny", Sparkles],
       ["/favorites", "Favoritos", Heart],
       ["/community", "Comunidade", BarChart3],
@@ -70,6 +73,7 @@ const navigation = [
       ["/gmax-dex", "Gmax Dex", Sparkles],
       ["/catalog/type", "Tipos", Dna],
       ["/type-battle", "Briga de tipos", Swords],
+      ["/damage-calculator", "Calculadora de dano", Calculator],
       ["/catalog/move", "Golpes", Swords],
       ["/catalog/ability", "Habilidades", Sparkles],
       ["/catalog/item", "Itens", Shield],
@@ -195,63 +199,30 @@ export function Shell({ children }: { children: React.ReactNode }) {
       <View style={s.root}>
         {desktop && <View style={s.sidebar}>{nav}</View>}
         <View style={s.workspace}>
-          <View style={[s.header, mobile && s.mobileHeader]}>
-            <View
-              style={[ui.row, s.headerSearch, mobile && s.mobileHeaderSearch]}
-            >
-              {!desktop && (
-                <IconButton label="Abrir menu" onPress={() => setMenu(true)}>
-                  <Menu size={20} color={c.ink} />
-                </IconButton>
-              )}
-              {!mobile && (
-                <View style={s.breadcrumb}>
-                  <BookOpen size={15} color={c.muted} />
-                  <Text style={s.breadcrumbText}>Pokémon Database</Text>
-                  <ChevronRight size={13} color="#B4BCC7" />
-                </View>
-              )}
-              <View style={{ flex: 1, minWidth: 0 }}>
-                <SearchInput
-                  value={search}
-                  onChange={setSearch}
-                  placeholder={
-                    mobile
-                      ? "Buscar Pokémon, golpes…"
-                      : "Pesquise Pokémon, golpes, habilidades…"
-                  }
-                  onSubmit={() => {
-                    if (search.trim()) {
-                      router.push({
-                        pathname: "/search",
-                        params: { q: search.trim() },
-                      });
-                      setSearch("");
-                    }
-                  }}
-                />
-              </View>
-            </View>
-            <View
-              style={[
-                ui.row,
-                { gap: mobile ? 8 : 9 },
-                mobile && s.mobileHeaderActions,
-              ]}
-            >
-              {width >= 400 && (
-                <IconButton
-                  label="Meus favoritos"
-                  onPress={() => go("/favorites")}
+          {mobile ? (
+            <View style={[s.header, s.mobileHeader]}>
+              <View style={s.mobileTopRow}>
+                <Pressable
+                  accessibilityRole="button"
+                  accessibilityLabel="Abrir menu"
+                  onPress={() => setMenu(true)}
+                  style={s.mobileIconButton}
                 >
-                  <Heart size={18} color={c.muted} />
-                </IconButton>
-              )}
-              <ThemeSelector />
-              <LanguageSelector />
-              {
-                <>
-                  {!mobile && <View style={s.headerDivider} />}
+                  <Menu size={20} color={c.ink} />
+                </Pressable>
+                <Pressable
+                  accessibilityRole="link"
+                  accessibilityLabel="Pokéatlas · Início"
+                  onPress={() => go("/")}
+                  style={s.mobileBrand}
+                >
+                  <Text numberOfLines={1} style={s.mobileBrandName}>
+                    poké<Text style={{ color: c.accent }}>atlas</Text>
+                  </Text>
+                </Pressable>
+                <View style={s.mobileActions}>
+                  <ThemeSelector />
+                  <LanguageSelector />
                   <Pressable
                     accessibilityRole="button"
                     accessibilityLabel={
@@ -268,39 +239,142 @@ export function Shell({ children }: { children: React.ReactNode }) {
                       )
                     }
                     style={[
-                      ui.row,
-                      {
-                        minHeight: 44,
-                        maxWidth: 200,
-                        opacity: authLoading ? 0.5 : 1,
-                      },
+                      s.mobileProfile,
+                      { opacity: authLoading ? 0.5 : 1 },
                     ]}
                   >
-                    <ProfileAvatar
-                      uri={session?.user.avatar_url}
-                      size={mobile ? 28 : 34}
-                    />
-                    <View style={{ flexShrink: 1 }}>
-                      <Text numberOfLines={1} style={s.trainer}>
-                        {authLoading
-                          ? "..."
-                          : session
-                            ? session.user.nickname
-                            : "Login"}
-                      </Text>
-                      {!mobile && (
-                        <Text style={s.trainerSub}>
-                          {session
-                            ? "Ver perfil público"
-                            : "Sua aventura começa aqui"}
-                        </Text>
-                      )}
-                    </View>
+                    <ProfileAvatar uri={session?.user.avatar_url} size={30} />
                   </Pressable>
-                </>
-              }
+                </View>
+              </View>
+              {path !== "/search" && (
+                <View style={s.mobileSearchRow}>
+                  <SearchInput
+                    large
+                    value={search}
+                    onChange={setSearch}
+                    placeholder="Buscar Pokémon, golpes…"
+                    onSubmit={() => {
+                      if (search.trim()) {
+                        router.push({
+                          pathname: "/search",
+                          params: { q: search.trim() },
+                        });
+                        setSearch("");
+                      }
+                    }}
+                  />
+                </View>
+              )}
             </View>
-          </View>
+          ) : (
+            <View style={s.header}>
+              <View
+                style={[ui.row, s.headerSearch, mobile && s.mobileHeaderSearch]}
+              >
+                {!desktop && (
+                  <IconButton label="Abrir menu" onPress={() => setMenu(true)}>
+                    <Menu size={20} color={c.ink} />
+                  </IconButton>
+                )}
+                {!mobile && (
+                  <View style={s.breadcrumb}>
+                    <BookOpen size={15} color={c.muted} />
+                    <Text style={s.breadcrumbText}>Pokémon Database</Text>
+                    <ChevronRight size={13} color="#B4BCC7" />
+                  </View>
+                )}
+                <View style={{ flex: 1, minWidth: 0 }}>
+                  <SearchInput
+                    value={search}
+                    onChange={setSearch}
+                    placeholder={
+                      mobile
+                        ? "Buscar Pokémon, golpes…"
+                        : "Pesquise Pokémon, golpes, habilidades…"
+                    }
+                    onSubmit={() => {
+                      if (search.trim()) {
+                        router.push({
+                          pathname: "/search",
+                          params: { q: search.trim() },
+                        });
+                        setSearch("");
+                      }
+                    }}
+                  />
+                </View>
+              </View>
+              <View
+                style={[
+                  ui.row,
+                  { gap: mobile ? 8 : 9 },
+                  mobile && s.mobileHeaderActions,
+                ]}
+              >
+                {width >= 400 && (
+                  <IconButton
+                    label="Meus favoritos"
+                    onPress={() => go("/favorites")}
+                  >
+                    <Heart size={18} color={c.muted} />
+                  </IconButton>
+                )}
+                <ThemeSelector />
+                <LanguageSelector />
+                {
+                  <>
+                    {!mobile && <View style={s.headerDivider} />}
+                    <Pressable
+                      accessibilityRole="button"
+                      accessibilityLabel={
+                        session
+                          ? "Perfil público de " + session.user.nickname
+                          : "Login"
+                      }
+                      disabled={authLoading}
+                      onPress={() =>
+                        go(
+                          session
+                            ? publicProfilePath(session.user.nickname)
+                            : "/login",
+                        )
+                      }
+                      style={[
+                        ui.row,
+                        {
+                          minHeight: 44,
+                          maxWidth: 200,
+                          opacity: authLoading ? 0.5 : 1,
+                        },
+                      ]}
+                    >
+                      <ProfileAvatar
+                        uri={session?.user.avatar_url}
+                        size={mobile ? 28 : 34}
+                      />
+                      <View style={{ flexShrink: 1 }}>
+                        <Text numberOfLines={1} style={s.trainer}>
+                          {authLoading
+                            ? "..."
+                            : session
+                              ? session.user.nickname
+                              : "Login"}
+                        </Text>
+                        {!mobile && (
+                          <Text style={s.trainerSub}>
+                            {session
+                              ? "Ver perfil público"
+                              : "Sua aventura começa aqui"}
+                          </Text>
+                        )}
+                      </View>
+                    </Pressable>
+                  </>
+                }
+              </View>
+            </View>
+          )}
           {trackerOwnsScroll ? (
             <View key={path} style={{ flex: 1, minHeight: 0 }}>
               {children}
@@ -454,14 +528,59 @@ const createStyles = (c: ThemeColors) =>
       gap: 28,
     },
     mobileHeader: {
-      height: 116,
+      height: "auto",
+      minHeight: 64,
       paddingHorizontal: 12,
-      paddingVertical: 8,
+      paddingVertical: 10,
       flexDirection: "column",
       alignItems: "stretch",
-      justifyContent: "center",
-      gap: 7,
+      gap: 10,
+      flexShrink: 0,
     },
+    mobileTopRow: {
+      flexDirection: "row",
+      alignItems: "center",
+      gap: 6,
+      minHeight: 44,
+      minWidth: 0,
+    },
+    mobileIconButton: {
+      width: 40,
+      height: 44,
+      flexShrink: 0,
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 12,
+      backgroundColor: c.surfaceAlt,
+    },
+    mobileBrand: {
+      flex: 1,
+      minWidth: 0,
+      justifyContent: "center",
+      minHeight: 44,
+    },
+    mobileBrandName: {
+      ...font,
+      fontSize: 18,
+      fontWeight: "800",
+      letterSpacing: -0.8,
+      color: c.ink,
+    },
+    mobileActions: {
+      flexDirection: "row",
+      alignItems: "center",
+      flexShrink: 0,
+      gap: 6,
+    },
+    mobileProfile: {
+      width: 40,
+      height: 44,
+      flexShrink: 0,
+      alignItems: "center",
+      justifyContent: "center",
+      borderRadius: 12,
+    },
+    mobileSearchRow: { width: "100%", minWidth: 0 },
     headerSearch: { flex: 1, minWidth: 0, maxWidth: 640 },
     mobileHeaderSearch: {
       width: "100%",

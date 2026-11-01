@@ -187,22 +187,24 @@ export function SearchInput({
   onChange,
   placeholder,
   onSubmit,
+  large = false,
 }: {
   value: string;
   onChange: (text: string) => void;
   placeholder: string;
   onSubmit?: () => void;
+  large?: boolean;
 }) {
   const { colors: c } = useTheme();
   const s = useThemedStyles(createStyles);
   return (
-    <View style={s.search}>
+    <View style={[s.search, large && { minHeight: 50 }]}>
       <Search size={18} color={c.muted} />
       <TextInput
         accessibilityLabel={placeholder}
         placeholder={placeholder}
         placeholderTextColor={c.placeholder}
-        style={s.searchInput}
+        style={[s.searchInput, large && { fontSize: 16, lineHeight: 22 }]}
         value={value}
         onChangeText={onChange}
         onSubmitEditing={onSubmit}
@@ -489,6 +491,7 @@ const createStyles = (c: ThemeColors) =>
     badgeText: { ...font, fontSize: 10, fontWeight: "600" },
     badgeDot: { width: 4, height: 4, borderRadius: 4 },
     search: {
+      minWidth: 0,
       flexDirection: "row",
       alignItems: "center",
       gap: 10,
