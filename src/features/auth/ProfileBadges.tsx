@@ -327,7 +327,7 @@ function BadgeStrip({
   onOpenGallery?: () => void;
 }) {
   const { colors: c } = useTheme();
-  const scroll = useRef<ScrollView>(null);
+  const scroll = useRef<React.ElementRef<typeof ScrollView>>(null);
   const [offset, setOffset] = useState(0);
   const [viewport, setViewport] = useState(280);
   const [selected, setSelected] = useState<string | null>(null);

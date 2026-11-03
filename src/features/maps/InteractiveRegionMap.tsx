@@ -84,8 +84,8 @@ export function InteractiveRegionMap({
   });
   const source = regionMaps[region.name];
   const dimensions = mapDimensions[region.name] ?? { width: 800, height: 600 };
-  const horizontal = useRef<ScrollView>(null);
-  const vertical = useRef<ScrollView>(null);
+  const horizontal = useRef<React.ElementRef<typeof ScrollView>>(null);
+  const vertical = useRef<React.ElementRef<typeof ScrollView>>(null);
   const locations = regionQuery.data?.locations ?? [];
   const initialSelectionDone = useRef(false);
   useEffect(() => {

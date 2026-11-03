@@ -1,6 +1,6 @@
 {
   "name": "pokedex-atlas",
-  "version": "1.1.11",
+  "version": "1.1.12",
   "private": true,
   "main": "expo-router/entry",
   "scripts": {
@@ -12,7 +12,8 @@
     "test": "node --test tests",
     "build:web": "expo export --platform web",
     "icons": "node scripts/generate-icons.cjs",
-    "supabase:check": "node scripts/check-supabase.cjs"
+    "supabase:check": "node scripts/check-supabase.cjs",
+    "eas-build-post-install": "node scripts/validate-build-config.cjs"
   },
   "dependencies": {
     "@expo/metro-runtime": "~58.0.15",

@@ -22,7 +22,7 @@ export function boxRange(box: BoxPokemon[]) {
     ? `${dexNumber(box[0].dexNumber ?? box[0].id)} - ${dexNumber(box[box.length - 1].dexNumber ?? box[box.length - 1].id)}`
     : "";
 }
-export function trackerName(name: string) {
+export function trackerName(name: string): string {
   if (/-mega(?:-|$)/.test(name)) {
     const [species, variant] = name.split("-mega");
     return (
